@@ -8,6 +8,9 @@ namespace Core.Infrastructure
 
     public class GameSignalsInstaller : Installer<GameSignalsInstaller>
     {
+        [Inject]
+        private ILogger Logger;
+
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
@@ -17,8 +20,8 @@ namespace Core.Infrastructure
             Container.DeclareSignal<PlayerVictorySignal>();
 
             // Include these just to ensure BindSignal works
-            Container.BindSignal<GameStartedSignal>().ToMethod(() => Debug.Log("Fired GameStartedSignal"));
-            Container.BindSignal<PlayerVictorySignal>().ToMethod(() => Debug.Log("Fired PlayerVictorySignal"));
+            Container.BindSignal<GameStartedSignal>().ToMethod(() => Logger.Log("Fired GameStartedSignal", LogType.Game));
+            Container.BindSignal<PlayerVictorySignal>().ToMethod(() => Logger.Log("Fired PlayerVictorySignal", LogType.Game));
         }
     }
 }

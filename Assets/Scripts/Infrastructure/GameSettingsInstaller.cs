@@ -8,7 +8,7 @@ namespace Core.Infrastructure
     {
         public override void InstallBindings()
         {
-            
+            Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
         }
     }
 }

@@ -18,6 +18,10 @@ namespace Core.UI
         private MenuState _currentState;
         public IState<MenuController> CurrentState => States[_currentState];
 
+        private void Start()
+        {
+            SwitchState(MenuState.Main);
+        }
         public void GetBack()
         {
 
