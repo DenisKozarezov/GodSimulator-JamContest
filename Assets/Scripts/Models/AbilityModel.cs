@@ -13,7 +13,7 @@ namespace Core.Models
         private string _description;
         [SerializeField, Min(0f)]
         private float _cooldown;
-        [SerializeField]
+        [Space, SerializeField]
         private Sprite _icon;
 
         public uint ID => _id;

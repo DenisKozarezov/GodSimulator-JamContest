@@ -19,10 +19,10 @@ namespace Core.Infrastructure
 
 #if UNITY_EDITOR
             // Include these just to ensure BindSignal works
-            Container.BindSignal<GameStartedSignal>().ToMethod(() => Logger.Log("Fired GameStartedSignal.", LogType.Game));
-            Container.BindSignal<PlayerVictorySignal>().ToMethod(() => Logger.Log("Fired PlayerVictorySignal.", LogType.Game));
+            Container.BindSignal<GameStartedSignal>().ToMethod(() => Logger.Log("GameStartedSignal", LogType.Signal));
+            Container.BindSignal<PlayerVictorySignal>().ToMethod(() => Logger.Log("PlayerVictorySignal", LogType.Signal));
             Container.BindSignal<GodParametersChangedSignal>().ToMethod((x) => Logger.Log(x.ToString(), LogType.Game));
-            Container.BindSignal<PlayerClickedOnCitySignal>().ToMethod((x) => Logger.Log($"Player clicked on {x.View}.", LogType.Game));
+            Container.BindSignal<PlayerClickedOnCitySignal>().ToMethod((x) => Logger.Log($"Player clicked on <b><color=yellow>{x.View}</color></b>.", LogType.Game));
 #endif
         }
     }

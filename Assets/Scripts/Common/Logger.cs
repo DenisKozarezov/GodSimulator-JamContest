@@ -7,7 +7,8 @@ namespace Core
         Default = 0x00,
         Warning = 0x01,
         Critical = 0x02,
-        Game = 0x04
+        Game = 0x04,
+        Signal = 0x08
     }
 
     public interface ILogger
@@ -33,6 +34,9 @@ namespace Core
                     break;
                 case LogType.Game:
                     Debug.Log($"<b><color=green>[GAME]</color></b>: {message}");
+                    break;
+                case LogType.Signal:
+                    Debug.Log($"<b><color=green>[SIGNAL]</color></b>: Fired <b><color=yellow>{message}</color></b>.");
                     break;
             }
 #endif
