@@ -1,13 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
 using Core.Models;
 
 namespace Core.UI
 {
-    public class AbilityView : MonoBehaviour
+    public class AbilityView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField]
         private Button _button;
@@ -21,6 +22,8 @@ namespace Core.UI
         private AbilityModel _model;
 
         public event Action Execute;
+        public event Action MouseEnter;
+        public event Action MouseExit;
 
         public void SetAbility(AbilityModel model)
         {
@@ -65,6 +68,16 @@ namespace Core.UI
                 _ready = true;
                 _cooldownText.gameObject.SetActive(false);
             });
+        }
+
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+        {
+            MouseEnter?.Invoke();
+        }
+
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        {
+            MouseExit?.Invoke();
         }
     }
 }

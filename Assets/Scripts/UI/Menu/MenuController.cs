@@ -30,12 +30,16 @@ namespace Core.UI
         public void SwitchState(MenuState state)
         {
             _currentState = state;
-            SwitchState(States[_currentState]);
+
+            if (States.TryGetValue(state, out var menuState))
+            {
+                SwitchState(menuState);
+            }
         }
-        public void SwitchState<State>(State state) where State : IState<MenuController>
+        public void SwitchState<T>(T state) where T : IState<MenuController>
         {
             CurrentState?.Exit();
-            state.Enter();
+            state?.Enter();
         }
     }
 }

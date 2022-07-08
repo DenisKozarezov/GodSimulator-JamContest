@@ -15,4 +15,5 @@ MonoBehaviour:
   _id: 1
   _displayName: Healing
   _description: 
-  _cooldown: 5
+  _cooldown: 3
+  _icon: {fileID: 21300000, guid: f95f407de340b9a44af6146cfe1e4064, type: 3}
