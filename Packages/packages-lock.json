@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.noesis.noesisgui": {
-      "version": "file:F:/Noesis",
+      "version": "file:D:/Noesis",
       "depth": 0,
       "source": "local",
       "dependencies": {
