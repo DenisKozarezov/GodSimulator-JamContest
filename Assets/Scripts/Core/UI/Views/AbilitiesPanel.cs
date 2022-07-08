@@ -17,15 +17,13 @@ namespace Core.UI
 
         private IReadOnlyCollection<AbilityModel> _abilities;
         private SignalBus _signalBus;
-        private AbilityTooltip _abilityTooltip;
-        private Canvas _canvas;
+        private GameObject _abilityTooltip;
 
         [Inject]
-        public void Construct(PlayerSettings playerSettings, SignalBus signalBus, Canvas canvas)
+        public void Construct(PlayerSettings playerSettings, SignalBus signalBus)
         {
             _abilities = playerSettings.Abilities;
             _signalBus = signalBus;
-            _canvas = canvas;
         }
 
         private void Awake()
@@ -56,10 +54,11 @@ namespace Core.UI
         {
             if (_abilityTooltip == null)
             {
-                _abilityTooltip = Instantiate(_abilityTooltipPrefab, _canvas.transform).GetComponent<AbilityTooltip>();
-                _abilityTooltip.Name = ability.DisplayName;
-                _abilityTooltip.Cooldown = ability.Cooldown;
-                _abilityTooltip.Description = ability.Description;
+                _abilityTooltip = Instantiate(_abilityTooltipPrefab);
+                var tooltip = _abilityTooltip.GetComponentInChildren<AbilityTooltip>();
+                tooltip.Name = ability.DisplayName;
+                tooltip.Cooldown = ability.Cooldown;
+                tooltip.Description = ability.Description;
             }
         }
         private void OnAbilityMouseExit()
