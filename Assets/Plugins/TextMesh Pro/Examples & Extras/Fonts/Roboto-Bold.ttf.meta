@@ -1,5 +1,6 @@
 fileFormatVersion: 2
 guid: 4beb055f07aaff244873dec698d0363e
+importerOverride: Noesis.NoesisGUI.Editor::NoesisFontImporter
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,7 +9,6 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Roboto
   fontNames:
   - Roboto
   fallbackFontReferences: []
