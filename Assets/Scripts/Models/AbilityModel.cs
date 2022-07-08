@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace Core.Models
 {
     [CreateAssetMenu(menuName = "Configuration/Models/Create Ability")]
-    public class AbilityModel : ScriptableObject
+    public class AbilityModel : ScriptableObject, IEquatable<AbilityModel>
     {
         [SerializeField]
         private uint _id;
@@ -21,6 +22,11 @@ namespace Core.Models
         public string Description => _description;
         public float Cooldown => _cooldown;
         public Sprite Icon => _icon;
+
+        public bool Equals(AbilityModel other)
+        {
+            return _id == other._id;
+        }
 
         protected virtual void OnEnable()
         {
