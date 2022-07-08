@@ -1,8 +1,7 @@
-using Core.Models;
 using UnityEngine;
 using Zenject;
 
-namespace Core.Infrastructure
+namespace Core.Models
 {
     [CreateAssetMenu(fileName = "Game Settings", menuName = "Installers/Game Settings")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>

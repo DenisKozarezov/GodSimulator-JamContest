@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba36e4f07f3b4e543829b3ff9d545d1b, type: 3}
-  m_Name: Meteor Strike
+  m_Script: {fileID: 11500000, guid: 50e0dd22144e6724a9fbd7b739e9fe59, type: 3}
+  m_Name: Hades
   m_EditorClassIdentifier: 
-  _id: 1
-  _displayName: Meteor Strike
+  _id: 2
+  _displayName: Hades
   _description: 
-  _cooldown: 5
-  _icon: {fileID: 21300000, guid: 1d5c62b0cb3fcc84093308272bb60746, type: 3}
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  _flag: {fileID: 0}

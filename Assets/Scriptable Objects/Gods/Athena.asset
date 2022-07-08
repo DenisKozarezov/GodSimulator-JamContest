@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e0dd22144e6724a9fbd7b739e9fe59, type: 3}
   m_Name: Athena
   m_EditorClassIdentifier: 
-  _id: 1
+  _id: 0
   _displayName: Athena
   _description: 
+  _color: {r: 0, g: 0, b: 0, a: 0}
+  _flag: {fileID: 0}

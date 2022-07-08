@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba36e4f07f3b4e543829b3ff9d545d1b, type: 3}
   m_Name: Healing
   m_EditorClassIdentifier: 
-  _id: 1
+  _id: 0
   _displayName: Healing
   _description: 
   _cooldown: 3
