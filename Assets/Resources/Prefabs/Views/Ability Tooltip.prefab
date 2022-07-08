@@ -227,6 +227,8 @@ MonoBehaviour:
   _abilityName: {fileID: 5931379037783658930}
   _abilityCooldown: {fileID: 1949957209674666828}
   _abilityDescription: {fileID: 2046802462996096371}
+  _autoSize: 1
+  _minHeight: 200
 --- !u!1 &8498515624926366806
 GameObject:
   m_ObjectHideFlags: 0
