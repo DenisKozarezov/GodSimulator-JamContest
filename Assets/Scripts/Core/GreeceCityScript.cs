@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Core.Infrastructure;
 using TMPro;
@@ -9,8 +8,6 @@ namespace Core
     {
         [SerializeField]
         private TextMeshPro _name;
-
-        private Dictionary<uint, byte> Priests = new Dictionary<uint, byte>();
 
         private void Start()
         {

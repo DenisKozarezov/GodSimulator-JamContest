@@ -11,14 +11,15 @@ namespace Core.Models
         private int _gameTime;
         [SerializeField]
         private PlayerSettings _playerSettings;
+        [SerializeField]
+        private AudioSettings _audioSettings;
 
         public float GameTime => _gameTime;
-        public PlayerSettings PlayerSettings => _playerSettings;
 
         public override void InstallBindings()
         {
             Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
-            Container.BindInstances(_playerSettings);
+            Container.BindInstances(_playerSettings, _audioSettings);
         }
     }
 }

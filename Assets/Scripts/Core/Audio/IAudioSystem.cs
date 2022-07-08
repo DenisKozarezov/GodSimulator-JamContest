@@ -8,5 +8,6 @@ namespace Core.Audio
         void PlayOneShot(AudioClip clip);
         void StartPlayingOST();
         void StopPlayingOST();
+        void Fade(FadeMode mode);
     }
 }

@@ -48,7 +48,18 @@ namespace Core.UI
         }
         private void OnAbilityCasted(AbilityModel ability)
         {
-            _signalBus.Fire(new PlayerUsedAbilitySignal { Ability = ability });
+            switch (ability.AbilityType)
+            {
+                case AbilityType.Target:
+                    _signalBus.AbstractFire(new PlayerUsedTargetAbilitySignal { Ability = ability });
+                    break;
+                case AbilityType.NonTarget:
+                    _signalBus.AbstractFire(new PlayerUsedNonTargetAbilitySignal { Ability = ability });
+                    break;
+                case AbilityType.Area:
+                    _signalBus.AbstractFire(new PlayerUsedAreaAbilitySignal { Ability = ability });
+                    break;
+            }
         }
         private void OnAbilityMouseEnter(AbilityModel ability)
         {

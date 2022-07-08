@@ -15,5 +15,8 @@ MonoBehaviour:
   _id: 0
   _displayName: Healing
   _description: 
+  _abilityType: 1
+  _abilityUsage: 0
   _cooldown: 3
   _icon: {fileID: 21300000, guid: f95f407de340b9a44af6146cfe1e4064, type: 3}
+  _effectPrefab: 

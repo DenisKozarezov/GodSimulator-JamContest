@@ -20,6 +20,8 @@ namespace Core.Audio
 
         private int _currentIndex;
 
+        public int Count => OST.Count;
+
         public AudioClip GetClip()
         {
             switch (_playingOrder)
