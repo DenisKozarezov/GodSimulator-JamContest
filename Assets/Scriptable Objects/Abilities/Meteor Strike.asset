@@ -16,3 +16,4 @@ MonoBehaviour:
   _displayName: Meteor Strike
   _description: 
   _cooldown: 5
+  _icon: {fileID: 21300000, guid: 1d5c62b0cb3fcc84093308272bb60746, type: 3}

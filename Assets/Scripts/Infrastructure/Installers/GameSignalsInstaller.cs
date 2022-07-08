@@ -15,6 +15,7 @@ namespace Core.Infrastructure
             Container.DeclareSignal<GameStartedSignal>();
             Container.DeclareSignal<PlayerVictorySignal>();
             Container.DeclareSignal<GodParametersChangedSignal>();
+            Container.DeclareSignal<PlayerUsedAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerClickedOnCitySignal>();
 
 #if UNITY_EDITOR
@@ -23,6 +24,7 @@ namespace Core.Infrastructure
             Container.BindSignal<PlayerVictorySignal>().ToMethod(() => Logger.Log("PlayerVictorySignal", LogType.Signal));
             Container.BindSignal<GodParametersChangedSignal>().ToMethod((x) => Logger.Log(x.ToString(), LogType.Game));
             Container.BindSignal<PlayerClickedOnCitySignal>().ToMethod((x) => Logger.Log($"Player clicked on <b><color=yellow>{x.View}</color></b>.", LogType.Game));
+            Container.BindSignal<PlayerUsedAbilitySignal>().ToMethod((x) => Logger.Log($"Player used <b><color=yellow>{x.Ability.DisplayName}</color></b> ability.", LogType.Game));
 #endif
         }
     }
