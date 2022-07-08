@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.noesis.noesisgui": {
+      "version": "file:F:/Noesis",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.inputsystem": "1.0.2"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "7.0.4",
       "depth": 1,
