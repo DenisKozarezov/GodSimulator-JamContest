@@ -20,10 +20,13 @@ namespace Core.UI
         private float _timer;
         private AbilityModel _model;
 
+        public event Action Execute;
+
         public void SetAbility(AbilityModel model)
         {
             _model = model;
             _button.image.sprite = model.Icon;
+            _cooldownImage.sprite = model.Icon;
         }
 
         private void Start()
@@ -39,7 +42,8 @@ namespace Core.UI
         {
             if (!_ready) return;
 
-            StartCooldown(5f);
+            StartCooldown(_model.Cooldown);
+            Execute?.Invoke();
         }    
         private void SetTimer(float time)
         {
