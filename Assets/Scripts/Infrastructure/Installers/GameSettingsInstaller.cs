@@ -1,8 +1,7 @@
-using Core.Models;
 using UnityEngine;
 using Zenject;
 
-namespace Core.Infrastructure
+namespace Core.Models
 {
     [CreateAssetMenu(fileName = "Game Settings", menuName = "Installers/Game Settings")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
@@ -12,14 +11,15 @@ namespace Core.Infrastructure
         private int _gameTime;
         [SerializeField]
         private PlayerSettings _playerSettings;
+        [SerializeField]
+        private AudioSettings _audioSettings;
 
         public float GameTime => _gameTime;
-        public PlayerSettings PlayerSettings => _playerSettings;
 
         public override void InstallBindings()
         {
             Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
-            Container.BindInstances(_playerSettings);
+            Container.BindInstances(_playerSettings, _audioSettings);
         }
     }
 }

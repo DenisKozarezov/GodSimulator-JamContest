@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50e0dd22144e6724a9fbd7b739e9fe59, type: 3}
-  m_Name: Zeus
+  m_Script: {fileID: 11500000, guid: cb08951156645db41aaff50f13e600aa, type: 3}
+  m_Name: Music Box
   m_EditorClassIdentifier: 
-  _id: 3
-  _displayName: Zeus Almighty
-  _description: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  _flag: {fileID: 0}
+  _playingOrder: 0
+  OST:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

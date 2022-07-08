@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50e0dd22144e6724a9fbd7b739e9fe59, type: 3}
-  m_Name: Zeus
+  m_Name: Gera
   m_EditorClassIdentifier: 
-  _id: 3
-  _displayName: Zeus Almighty
+  _id: 1
+  _displayName: Gera
   _description: 
   _color: {r: 0, g: 0, b: 0, a: 0}
   _flag: {fileID: 0}

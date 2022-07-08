@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba36e4f07f3b4e543829b3ff9d545d1b, type: 3}
   m_Name: Healing
   m_EditorClassIdentifier: 
-  _id: 1
+  _id: 0
   _displayName: Healing
   _description: 
+  _abilityType: 1
+  _abilityUsage: 0
   _cooldown: 3
   _icon: {fileID: 21300000, guid: f95f407de340b9a44af6146cfe1e4064, type: 3}
+  _effectPrefab: 

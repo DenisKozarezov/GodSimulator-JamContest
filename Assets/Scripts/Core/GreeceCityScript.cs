@@ -1,10 +1,14 @@
-using UnityEngine.EventSystems;
+using UnityEngine;
 using Core.Infrastructure;
+using TMPro;
 
 namespace Core
 {
     public class GreeceCityScript : InteractableView
     {
+        [SerializeField]
+        private TextMeshPro _name;
+
         private void Start()
         {
 

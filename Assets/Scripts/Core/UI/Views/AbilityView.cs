@@ -45,8 +45,9 @@ namespace Core.UI
         {
             if (!_ready) return;
 
-            StartCooldown(_model.Cooldown);
             Execute?.Invoke();
+
+            StartCooldown(_model.Cooldown);
         }    
         private void SetTimer(float time)
         {
