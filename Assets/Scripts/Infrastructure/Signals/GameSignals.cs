@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+
 namespace Core.Infrastructure
 {
     public struct GameStartedSignal { }
-    public struct GodParametersChangedSignal
+    public struct PlayerVirtueChangedSignal
     {
         public float War;
         public float Nature;
