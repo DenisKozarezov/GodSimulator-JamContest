@@ -16,6 +16,8 @@ namespace Core
         }
 
         [SerializeField]
+        private SpriteRenderer _spriteRenderer;
+        [SerializeField]
         private State _state;
         [SerializeField]
         private byte _growthOfPriests;
@@ -71,10 +73,25 @@ namespace Core
 
         private void Update()
         {
-            Debug.Log(NumberOfPriests);
+            DrawOutline();
         }
 
+        private void DrawOutline()
+        {
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+            _spriteRenderer.GetPropertyBlock(mpb);
+            mpb.SetColor("_OutlineColor", Color.green);
+            _spriteRenderer.SetPropertyBlock(mpb);
+        }
         public override void OnMouseDown()
+        {
+            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
+        }
+        public override void OnMouseEnter()
+        {
+            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
+        }
+        public override void OnMouseExit()
         {
             SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
         }

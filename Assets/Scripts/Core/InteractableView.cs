@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Zenject;
 
 namespace Core
@@ -13,5 +12,7 @@ namespace Core
         public void Contruct(SignalBus signalBus) => _signalBus = signalBus;
 
         public abstract void OnMouseDown();
+        public abstract void OnMouseEnter();
+        public abstract void OnMouseExit();
     }
 }
