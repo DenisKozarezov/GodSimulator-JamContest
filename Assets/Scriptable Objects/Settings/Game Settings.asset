@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eced995c10e9aa64a83f09b64f0c4d25, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  _gameTime: 500
+  _gameSettings:
+    _gameTime: 500
+    _virtueLevels: 4
   _playerSettings: {fileID: 11400000, guid: 701b4f0f254ec4d46acdb279d9063a5b, type: 2}
   _audioSettings: {fileID: 11400000, guid: 58dc9916ed1233b45a30ed78be8b5857, type: 2}
