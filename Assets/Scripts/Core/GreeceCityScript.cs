@@ -4,6 +4,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 using Core.Models;
 using System.Collections;
 using Zenject;
+using static Core.Infrastructure.UISignals;
 
 namespace Core
 {
@@ -92,8 +93,13 @@ namespace Core
         {
             //SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
             if (_state == State.CityWithTemple) {
-                SignalBus.Fire(new PlayerWantToMovingPriestsSignal { City = this, TempleRange = 5f });
+                SignalBus.Fire(new MovingModeChangedSignal { City = this, Value = true });
             }
+        }
+
+        public void ShowRangeToCities()
+        {
+            SignalBus.Fire(new PlayerWantToMovingPriestsSignal { City = this, TempleRange = 5f });
         }
     }
 }
