@@ -1,3 +1,6 @@
+using Core.Models;
+using UnityEngine;
+
 namespace Core.Infrastructure
 {
     public interface ISignalInteractableView 
@@ -8,5 +11,18 @@ namespace Core.Infrastructure
     public struct PlayerClickedOnCitySignal : ISignalInteractableView
     {
         public InteractableView View { set; get; }
+    }
+
+    public struct PlayerWantToMovingPriestsSignal
+    {
+        public GreeceCityScript City;
+        public float TempleRange;
+    }
+
+    public struct PlayerMovingPriestsSignal
+    {
+        public GreeceCityScript FromCity;
+        public GreeceCityScript ToCity;
+        public byte NumberOfPriests;
     }
 }
