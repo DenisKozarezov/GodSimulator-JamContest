@@ -9,8 +9,6 @@ namespace Core
     public class GreeceCityScript : InteractableView
     {
         public enum State
-
-        private void Start()
         {
             CityWithoutTemple,
             CityWithTemple,
