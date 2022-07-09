@@ -8,6 +8,11 @@ namespace Core.Infrastructure
         {            
             // Bind signals
             GameSignalsInstaller.Install(Container);
+
+            Container.Bind<MovingBetweenCities>().AsSingle();
+
+            Container.BindSignal<PlayerWantToMovingPriestsSignal>()
+                .ToMethod<MovingBetweenCities>(x => x.ShowRange).FromResolve();
         }
     }
 }

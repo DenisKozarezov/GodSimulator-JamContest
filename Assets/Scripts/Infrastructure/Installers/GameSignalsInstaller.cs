@@ -14,7 +14,9 @@ namespace Core.Infrastructure
             // Declare all signals
             Container.DeclareSignal<GameStartedSignal>();
             Container.DeclareSignal<PlayerVictorySignal>();
+            Container.DeclareSignal<PlayerWantToMovingPriestsSignal>();
             Container.DeclareSignal<PlayerVirtueChangedSignal>();
+
             Container.DeclareSignalWithInterfaces<PlayerUsedTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedNonTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedAreaAbilitySignal>();
@@ -28,6 +30,7 @@ namespace Core.Infrastructure
             Container.BindSignal<PlayerVirtueChangedSignal>().ToMethod((x) => Logger.Log(x.ToString(), LogType.Game));
             Container.BindSignal<PlayerClickedOnCitySignal>().ToMethod((x) => Logger.Log($"Player clicked on <b><color=yellow>{x.View}</color></b>.", LogType.Game));
             Container.BindSignal<IPlayerUsedAbility>().ToMethod((x) => Logger.Log($"Player used <b><color=yellow>{x.Ability.DisplayName}</color></b> ability.", LogType.Game));
+            Container.BindSignal<PlayerWantToMovingPriestsSignal>().ToMethod(() => Logger.Log("PlayerWantToMovingPriestsSignal", LogType.Signal));
 #endif
         }
     }
