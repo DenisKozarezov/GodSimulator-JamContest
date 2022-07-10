@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +11,13 @@ namespace Core.Models
         [SerializeField]
         private string _displayName;
         [SerializeField]
-        private List<VirtueActionModel> _virtuesActions;
+        private Sprite _icon;
+        [Space, SerializeField]
+        private List<VirtueActionModel> _virtueActions;
 
         public uint ID => _id;
         public string DisplayName => _displayName;
-        public IReadOnlyCollection<VirtueActionModel> Abilities => _virtuesActions;
+        public Sprite Icon => _icon;
+        public IReadOnlyCollection<VirtueActionModel> VirtueActions => _virtueActions;
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "RotaryHeart.Runtime",
+    "name": "RotaryHeart",
     "rootNamespace": "",
     "references": [
         "GUID:10ebc479cc081044d87faf0f7bd87988"

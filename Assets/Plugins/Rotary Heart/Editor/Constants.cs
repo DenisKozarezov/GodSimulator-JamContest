@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 namespace RotaryHeart.Lib.SerializableDictionary
@@ -54,3 +55,4 @@ namespace RotaryHeart.Lib.SerializableDictionary
         }
     }
 }
+#endif

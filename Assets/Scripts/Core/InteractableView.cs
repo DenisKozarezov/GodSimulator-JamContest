@@ -8,6 +8,8 @@ namespace Core
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
 
+        public bool Interactable { get; set; } = true;
+
         [Inject]
         public void Contruct(SignalBus signalBus) => _signalBus = signalBus;
 

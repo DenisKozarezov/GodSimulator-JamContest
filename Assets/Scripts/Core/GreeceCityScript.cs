@@ -1,8 +1,8 @@
-using Core.Infrastructure;
+using System.Collections;
 using UnityEngine;
 using RotaryHeart.Lib.SerializableDictionary;
+using Core.Infrastructure;
 using Core.Models;
-using System.Collections;
 using Zenject;
 using static Core.Infrastructure.UISignals;
 
@@ -10,11 +10,11 @@ namespace Core
 {
     public class GreeceCityScript : InteractableView
     {
-        public enum State
+        public enum State : byte
         {
-            CityFree,
-            CityWithTemple,
-            CityDestroyed
+            CityFree = 0x00,
+            CityWithTemple = 0x01,
+            CityDestroyed = 0x02
         }
 
         [SerializeField]
@@ -22,16 +22,13 @@ namespace Core
         [SerializeField]
         private State _state;
         [SerializeField]
-        private byte _growthOfPriests;
-        [SerializeField]
-        private ushort _numberOfPriests;
-        [SerializeField]
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
         [SerializeField]
         private SerializableDictionaryBase<CityModel, sbyte> _relationsToOtherCities;
-        [SerializeField]
+        
+        private byte _growthOfPriests;
+        private ushort _numberOfPriests;
         private GodModel _invader;
-        [SerializeField]
         private Temple _temple;
 
         public State CurrentState => _state;
@@ -55,6 +52,7 @@ namespace Core
                     break;
                 case State.CityDestroyed:
                     StopCoroutine(_generatePriests);
+                    Interactable = false;
                     break;
             }
         }
@@ -98,25 +96,26 @@ namespace Core
             mpb.SetColor("_OutlineColor", Color.green);
             _spriteRenderer.SetPropertyBlock(mpb);
         }
-        public override void OnMouseDown()
-        {
-            //SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
-            if (_state == State.CityWithTemple) {
-                SignalBus.Fire(new MovingModeChangedSignal { City = this, Value = true });
-            }
-        }
-
         public void ShowRangeToCities()
         {
             SignalBus.Fire(new PlayerWantToMovingPriestsSignal { City = this, TempleRange = 5f });
         }
+        public override void OnMouseDown()
+        {
+            if (!Interactable) return;
+
+            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
+            if (_state == State.CityWithTemple) {
+                SignalBus.Fire(new MovingModeChangedSignal { City = this, Value = true });
+            }
+        }
         public override void OnMouseEnter()
         {
-            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
+           
         }
         public override void OnMouseExit()
         {
-            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
+         
         }
     }
 }

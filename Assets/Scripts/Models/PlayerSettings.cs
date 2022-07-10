@@ -8,7 +8,10 @@ namespace Core.Models
     {
         [SerializeField]
         private AbilityModel[] _abilities;
+        [SerializeField]
+        private VirtueModel[] _virtues;
 
         public IReadOnlyCollection<AbilityModel> Abilities => _abilities;
+        public IReadOnlyCollection<VirtueModel> Virtues => _virtues;
     }
 }

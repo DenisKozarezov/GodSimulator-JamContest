@@ -40,9 +40,10 @@ namespace Core.UI
             {
                 var prefab = Instantiate(_abilitySlotPrefab, _abilitiesParent);
                 var view = prefab.GetComponentInChildren<AbilityView>();
+                var rectTransform = prefab.GetComponentInChildren<RectTransform>();
                 view.SetAbility(ability);
                 view.Execute += () => OnAbilityCasted(ability);
-                view.MouseEnter += () => OnAbilityMouseEnter(ability);
+                view.MouseEnter += () => OnAbilityMouseEnter(rectTransform, ability);
                 view.MouseExit += OnAbilityMouseExit;
             }
         }
@@ -61,15 +62,12 @@ namespace Core.UI
                     break;
             }
         }
-        private void OnAbilityMouseEnter(AbilityModel ability)
+        private void OnAbilityMouseEnter(RectTransform abilityRect, AbilityModel ability)
         {
             if (_abilityTooltip == null)
             {
-                _abilityTooltip = Instantiate(_abilityTooltipPrefab);
-                var tooltip = _abilityTooltip.GetComponentInChildren<AbilityTooltip>();
-                tooltip.Name = ability.DisplayName;
-                tooltip.Cooldown = ability.Cooldown;
-                tooltip.Description = ability.Description;
+                RectTransform tooltip = CreateTooltip(ability);
+                tooltip.position = Utils.GetCorrectedPosition(abilityRect, tooltip);
             }
         }
         private void OnAbilityMouseExit()
@@ -79,7 +77,17 @@ namespace Core.UI
                 Destroy(_abilityTooltip.gameObject);
             }
         }
-
+        private RectTransform CreateTooltip(AbilityModel ability)
+        {
+            _abilityTooltip = Instantiate(_abilityTooltipPrefab);
+            var tooltip = _abilityTooltip.GetComponentInChildren<AbilityTooltip>();
+            tooltip.Name = ability.DisplayName;
+            tooltip.Cooldown = ability.Cooldown;
+            tooltip.Description = ability.Description;
+            tooltip.VirtueIcon.sprite = ability.Virtue.Icon;
+            tooltip.AbilityType = ability.AbilityType;
+            return tooltip.GetComponentInChildren<RectTransform>();
+        }
         private void Clear()
         {
             for (int i = 0; i < _abilitiesParent.childCount; i++)

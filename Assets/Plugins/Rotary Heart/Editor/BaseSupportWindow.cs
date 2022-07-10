@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 
 namespace RotaryHeart.Lib
@@ -171,3 +172,4 @@ namespace RotaryHeart.Lib
 
     }
 }
+#endif

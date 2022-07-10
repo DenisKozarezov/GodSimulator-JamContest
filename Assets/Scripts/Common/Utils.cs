@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Core
 {
@@ -21,6 +22,12 @@ namespace Core
             if (number >= 4) return "IV" + ParseToRoman(number - 4);
             if (number >= 1) return "I" + ParseToRoman(number - 1);
             throw new ArgumentOutOfRangeException();
+        }
+        public static Vector2 GetCorrectedPosition(RectTransform first, RectTransform second, float margin = 5f)
+        {
+            float x = first.position.x;
+            float y = first.position.y + first.sizeDelta.y + second.sizeDelta.y / 2 + margin;
+            return new Vector2(x, y);
         }
     }
 }

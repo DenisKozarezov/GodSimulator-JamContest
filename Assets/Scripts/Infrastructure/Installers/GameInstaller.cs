@@ -9,6 +9,7 @@ namespace Core.Infrastructure
             // Bind signals
             GameSignalsInstaller.Install(Container);
 
+            Container.BindInterfacesTo<Player>().AsSingle();
             Container.Bind<MovingBetweenCities>().AsSingle();
 
             Container.BindSignal<PlayerWantToMovingPriestsSignal>()

@@ -6,24 +6,64 @@
             "id": "ac720c25-0cbe-4d3f-88f7-b3a1eba9025d",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Escape",
                     "type": "Button",
                     "id": "961a6bb3-1f13-49e1-8c43-d2312737f2b3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "4bfb6c8c-53eb-4626-874b-085808e6e313",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseWheelDelta",
+                    "type": "Value",
+                    "id": "9e373292-cc79-4a4d-8022-b845c826a7d4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "d60a7455-5616-476e-9a9a-5602b3154a67",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9bf334c-0b28-4374-8704-73941966fc0f",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "866e955e-e5be-4feb-87d3-b528db036aed",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseWheelDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
