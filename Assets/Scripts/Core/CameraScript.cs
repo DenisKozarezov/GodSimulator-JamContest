@@ -28,6 +28,11 @@ namespace Core
         {
             if (_inputSystem == null) return;
 
+            UpdateMove();
+        }
+
+        private void UpdateMove()
+        {
             if (_inputSystem.MousePosition.x >= Screen.width * 0.9f)
             {
                 Translate(Vector2.right);

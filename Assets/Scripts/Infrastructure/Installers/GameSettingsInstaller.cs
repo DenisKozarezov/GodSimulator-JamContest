@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 using Core.Input;
+using System.Collections.Generic;
 
 namespace Core.Models
 {
@@ -15,8 +16,20 @@ namespace Core.Models
             private int _gameTime;
             [SerializeField, Min(0)]
             private int _virtueLevels;
+            [SerializeField, TextArea(minLines: 10, maxLines: 20)]
+            private string _citiesNames;
+            private Stack<string> _names;
+
             public int GameTime => _gameTime;
             public int VirtueLevels => _virtueLevels;
+            public Stack<string> CitiesNames
+            {
+                get
+                {
+                    if (_names == null) _names = new Stack<string>(_citiesNames.Split('\n'));
+                    return _names;
+                }
+            }
         }
 
         [Header("Settings")]

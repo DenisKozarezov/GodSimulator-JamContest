@@ -5,6 +5,8 @@ using Core.Infrastructure;
 using Core.Models;
 using Zenject;
 using static Core.Infrastructure.UISignals;
+using TMPro;
+using static Core.Models.GameSettingsInstaller;
 
 namespace Core
 {
@@ -18,7 +20,7 @@ namespace Core
         }
 
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;
+        private TextMeshPro _name;
         [SerializeField]
         private State _state;
         [SerializeField]
@@ -40,6 +42,12 @@ namespace Core
         public Temple Temple => _temple;
 
         private Coroutine _generatePriests;
+
+        [Inject]
+        public void Construct(GameSettings gameSettings)
+        {
+            _name.text = gameSettings.CitiesNames.Pop();
+        }
 
         public void SetState(State state)
         {
@@ -84,18 +92,6 @@ namespace Core
                 _generatePriests = StartCoroutine(GeneratePriests());
         }
 
-        private void Update()
-        {
-            DrawOutline();
-        }
-
-        private void DrawOutline()
-        {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            _spriteRenderer.GetPropertyBlock(mpb);
-            mpb.SetColor("_OutlineColor", Color.green);
-            _spriteRenderer.SetPropertyBlock(mpb);
-        }
         public void ShowRangeToCities()
         {
             SignalBus.Fire(new PlayerWantToMovingPriestsSignal { City = this, TempleRange = 5f });
@@ -108,14 +104,6 @@ namespace Core
             if (_state == State.CityWithTemple) {
                 SignalBus.Fire(new MovingModeChangedSignal { City = this, Value = true });
             }
-        }
-        public override void OnMouseEnter()
-        {
-           
-        }
-        public override void OnMouseExit()
-        {
-         
         }
     }
 }

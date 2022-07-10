@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 3.23}
-  m_SizeDelta: {x: 5, y: 1}
+  m_SizeDelta: {x: 15, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &559804116095976434
 MeshRenderer:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Athens
+  m_text: Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b3a2c4188cefc674686697fb6337b7e9, type: 2}
   m_sharedMaterial: {fileID: -2995363515137085604, guid: b3a2c4188cefc674686697fb6337b7e9, type: 2}
@@ -227,7 +227,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 137cafef073c1f14ebe925bd07abafa8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -288,9 +288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 1330165681376946780}
+  _name: {fileID: 4815477986943359733}
   _state: 0
-  _growthOfPriests: 0
-  _numberOfPriests: 0
   _percentageOfFaithful:
     reorderableList:
       canAdd: 1
@@ -343,5 +342,3 @@ MonoBehaviour:
     _keyValues: []
     _keys: []
     _values: 
-  _invader: {fileID: 0}
-  _temple: {fileID: 0}
