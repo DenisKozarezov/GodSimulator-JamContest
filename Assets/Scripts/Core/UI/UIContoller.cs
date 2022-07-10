@@ -1,17 +1,20 @@
-using Core.Infrastructure;
 using UnityEngine;
+using static Core.Infrastructure.UISignals;
 
 namespace Core.UI
 {
-    public class UIContoller
+    public class UIContoller : MonoBehaviour
     {
-        private bool _selectionMode;
+        [SerializeField]
+        private bool _movingMode;
 
-        public bool SelectionMode => _selectionMode;
+        public bool MovingMode => _movingMode;
 
-        public void SetSelectionMode(SelectionModeChangedSignal selectionModeChangedSignal)
+        public void SetMovingMode(MovingModeChangedSignal movingModeChangedSignal)
         {
-            _selectionMode = selectionModeChangedSignal.Value;
+            _movingMode = movingModeChangedSignal.Value;
+            if (_movingMode == true)
+                movingModeChangedSignal.City.ShowRangeToCities();
         }
     }
 }

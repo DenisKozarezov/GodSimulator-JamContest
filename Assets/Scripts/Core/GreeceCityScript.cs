@@ -4,6 +4,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 using Core.Models;
 using System.Collections;
 using Zenject;
+using static Core.Infrastructure.UISignals;
 
 namespace Core
 {
@@ -20,11 +21,18 @@ namespace Core
         private SpriteRenderer _spriteRenderer;
         [SerializeField]
         private State _state;
+        [SerializeField]
         private byte _growthOfPriests;
+        [SerializeField]
         private ushort _numberOfPriests;
+        [SerializeField]
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
+        [SerializeField]
         private SerializableDictionaryBase<CityModel, sbyte> _relationsToOtherCities;
+        [SerializeField]
         private GodModel _invader;
+        [SerializeField]
+        private Temple _temple;
 
         public State CurrentState => _state;
         public byte GrowthOfPriests => _growthOfPriests;
@@ -32,6 +40,7 @@ namespace Core
         public SerializableDictionaryBase<GodModel, byte> PercentageOfFaithful => _percentageOfFaithful;
         public SerializableDictionaryBase<CityModel, sbyte> RelationsToOtherCities => _relationsToOtherCities;
         public GodModel Invader => _invader;
+        public Temple Temple => _temple;
 
         private Coroutine _generatePriests;
 
@@ -41,7 +50,6 @@ namespace Core
             switch (_state)
             {
                 case State.CityWithTemple:
-                    //BuildTemple();
                     _growthOfPriests = 1;
                     _generatePriests = StartCoroutine(GeneratePriests());
                     break;
@@ -92,28 +100,23 @@ namespace Core
         }
         public override void OnMouseDown()
         {
+            //SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
             if (_state == State.CityWithTemple) {
-                SignalBus.Fire(new PlayerClickedOnCitySignal { View = this, City = this, NumberOfPriests = _numberOfPriests });
+                SignalBus.Fire(new MovingModeChangedSignal { City = this, Value = true });
             }
-        }
-
-        public void BuildTemple(VirtueModel virtue)
-        {
-            Temple temple = gameObject.AddComponent<Temple>();
-            temple.SetInitialValues(virtue, 10, 2f);
         }
 
         public void ShowRangeToCities()
         {
             SignalBus.Fire(new PlayerWantToMovingPriestsSignal { City = this, TempleRange = 5f });
         }
-
         public override void OnMouseEnter()
         {
+            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
         }
-
         public override void OnMouseExit()
         {
+            SignalBus.AbstractFire(new PlayerClickedOnCitySignal { View = this });
         }
     }
 }

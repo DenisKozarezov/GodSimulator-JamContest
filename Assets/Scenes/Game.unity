@@ -187,10 +187,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1838811035}
     m_Modifications:
-    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
-      propertyPath: _state
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -280,10 +276,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1838811035}
     m_Modifications:
-    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
-      propertyPath: _state
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -2046,7 +2038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2177,7 +2169,6 @@ GameObject:
   - component: {fileID: 1606235835}
   - component: {fileID: 1606235834}
   - component: {fileID: 1606235836}
-  - component: {fileID: 1606235837}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -2201,7 +2192,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ebea6dbc3d586564d8a21df56439f880, type: 2}
   _monoInstallers:
   - {fileID: 1606235836}
-  - {fileID: 1606235837}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2246,19 +2236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fb338188740a4429608d02450956ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1606235837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606235833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c9e1b03dac366b43a56885dd3df590f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movingPriestsPanel: {fileID: 1959368641483113651, guid: d65159da0b9732040bd9e9d87ac40ae1, type: 3}
 --- !u!4 &1609314783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
@@ -2782,6 +2759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1904033319}
   - component: {fileID: 1904033320}
+  - component: {fileID: 1904033321}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: GameController
