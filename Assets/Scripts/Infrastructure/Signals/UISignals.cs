@@ -1,14 +1,7 @@
-using Core.Cities;
-using UnityEngine;
-
 namespace Core.Infrastructure
 {
-    public class UISignals : MonoBehaviour
+    public struct SelectionModeChangedSignal
     {
-        public struct MovingModeChangedSignal
-        {
-            public GreeceCityScript City;
-            public bool Value;
-        }
+        public bool Value;
     }
 }
