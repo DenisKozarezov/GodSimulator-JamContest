@@ -1,10 +1,10 @@
-using Core.Infrastructure;
-using UnityEngine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Core.Infrastructure;
 
-namespace Core
+namespace Core.Cities
 {
     public class MovingBetweenCities
     {

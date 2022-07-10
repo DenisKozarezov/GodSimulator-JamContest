@@ -5,7 +5,8 @@ namespace Core.Input
 {
     public interface IInputSystem
     {
-        Action Escape { get; }
+        Action Escape { set; get; }
+        float MouseWheelDelta { get; }
         Vector2 MousePosition { get; }
     }
 }

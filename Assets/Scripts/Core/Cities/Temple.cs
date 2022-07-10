@@ -1,7 +1,7 @@
-using Core.Models;
 using UnityEngine;
+using Core.Models;
 
-namespace Core
+namespace Core.Cities
 {
     public class Temple : MonoBehaviour
     {

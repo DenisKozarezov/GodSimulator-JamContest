@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Models
 {
     [CreateAssetMenu(menuName = "Configuration/Models/Create Virtue Model")]
-    public class VirtueModel : ScriptableObject
+    public class VirtueModel : ScriptableObject, IEquatable<VirtueModel>
     {
         [SerializeField]
         private uint _id;
@@ -19,5 +20,10 @@ namespace Core.Models
         public string DisplayName => _displayName;
         public Sprite Icon => _icon;
         public IReadOnlyCollection<VirtueActionModel> VirtueActions => _virtueActions;
+
+        public bool Equals(VirtueModel other)
+        {
+            return _id == other.ID;
+        }
     }
 }

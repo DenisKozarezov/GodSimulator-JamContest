@@ -1,13 +1,17 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Core.Input
 {
-    public class StandaloneInput : IInputSystem
+    public class StandaloneInput : IInputSystem, ITickable
     {
         private PlayerControls _playerControls;
 
-        public Action Escape { get; }
+        private float _mouseWheelDelta;
+
+        public Action Escape { set; get; }
+        public float MouseWheelDelta => _mouseWheelDelta;
         public Vector2 MousePosition
         {
             get
@@ -21,6 +25,10 @@ namespace Core.Input
         {
             _playerControls = new PlayerControls();
             _playerControls.Player.Escape.performed += _ => Escape?.Invoke();
+            _playerControls.Player.MouseWheelDelta.started += _ =>
+            {
+                _mouseWheelDelta = _playerControls.Player.MouseWheelDelta.ReadValue<Vector2>().y * 0.01f;
+            };
             Enable();
         }
         public void Enable()
@@ -30,6 +38,16 @@ namespace Core.Input
         public void Disable()
         {
             _playerControls.Disable();
+        }
+
+        public void Tick()
+        {
+            float sign = -Mathf.Sign(_mouseWheelDelta);
+            if (Mathf.Abs(_mouseWheelDelta) > 0f)
+            {
+                _mouseWheelDelta += Time.deltaTime * sign;
+            }
+            else _mouseWheelDelta = 0f;
         }
     }
 }

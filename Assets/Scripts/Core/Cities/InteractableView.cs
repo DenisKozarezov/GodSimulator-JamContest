@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Cities
 {
     public abstract class InteractableView : MonoBehaviour
     {
@@ -12,6 +12,7 @@ namespace Core
         protected SignalBus SignalBus => _signalBus;
 
         protected bool _isHover;
+        protected bool _selected;
         public bool Interactable { get; set; } = true;
 
         [Inject]

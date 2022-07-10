@@ -1,3 +1,5 @@
+using Core.Cities;
+using Core.Input;
 using Zenject;
 
 namespace Core.Infrastructure
@@ -11,6 +13,8 @@ namespace Core.Infrastructure
 
             Container.BindInterfacesTo<Player>().AsSingle();
             Container.Bind<MovingBetweenCities>().AsSingle();
+
+            Container.BindInterfacesAndSelfTo<StandaloneInput>().AsSingle();
 
             Container.BindSignal<PlayerWantToMovingPriestsSignal>()
                 .ToMethod<MovingBetweenCities>(x => x.ShowRange).FromResolve();

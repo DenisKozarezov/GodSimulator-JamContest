@@ -4,11 +4,11 @@ using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
 using Zenject;
-using static Core.Infrastructure.UISignals;
 using TMPro;
+using static Core.Infrastructure.UISignals;
 using static Core.Models.GameSettingsInstaller;
 
-namespace Core
+namespace Core.Cities
 {
     public class GreeceCityScript : InteractableView
     {
@@ -23,11 +23,10 @@ namespace Core
         private TextMeshPro _name;
         [SerializeField]
         private State _state;
-        [SerializeField]
+
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
-        [SerializeField]
         private SerializableDictionaryBase<CityModel, sbyte> _relationsToOtherCities;
-        
+
         private byte _growthOfPriests;
         private ushort _numberOfPriests;
         private GodModel _invader;
@@ -38,15 +37,15 @@ namespace Core
         public ushort NumberOfPriests => _numberOfPriests;
         public SerializableDictionaryBase<GodModel, byte> PercentageOfFaithful => _percentageOfFaithful;
         public SerializableDictionaryBase<CityModel, sbyte> RelationsToOtherCities => _relationsToOtherCities;
-        public GodModel Invader => _invader;
-        public Temple Temple => _temple;
 
         private Coroutine _generatePriests;
 
         [Inject]
         public void Construct(GameSettings gameSettings)
         {
-            _name.text = gameSettings.CitiesNames.Pop();
+            string name = gameSettings.CitiesNames.Pop();
+            _name.text = name;
+            gameObject.name = name + " City";
         }
 
         public void SetState(State state)

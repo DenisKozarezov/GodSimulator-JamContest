@@ -51,7 +51,7 @@ namespace Core.Input
                     ""name"": ""MouseWheelDelta"",
                     ""type"": ""Value"",
                     ""id"": ""9e373292-cc79-4a4d-8022-b845c826a7d4"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -83,7 +83,7 @@ namespace Core.Input
                 {
                     ""name"": """",
                     ""id"": ""866e955e-e5be-4feb-87d3-b528db036aed"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

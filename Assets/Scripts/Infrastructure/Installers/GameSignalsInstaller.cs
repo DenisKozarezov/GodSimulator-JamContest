@@ -20,7 +20,6 @@ namespace Core.Infrastructure
             Container.DeclareSignalWithInterfaces<PlayerUsedTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedNonTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedAreaAbilitySignal>();
-
             Container.DeclareSignalWithInterfaces<PlayerClickedOnCitySignal>();
 
 #if UNITY_EDITOR

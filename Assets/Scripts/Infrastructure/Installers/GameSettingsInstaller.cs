@@ -43,7 +43,6 @@ namespace Core.Models
         public override void InstallBindings()
         {
             Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
-            Container.Bind<IInputSystem>().FromInstance(new StandaloneInput()).AsSingle();
             Container.BindInstances(_gameSettings, _playerSettings, _audioSettings);
         }
     }
