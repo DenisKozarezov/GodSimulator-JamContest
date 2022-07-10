@@ -16,6 +16,18 @@ namespace Core.Cities
         public byte MaxCapacityOfPriests => _maxCapacityOfPriests;
         public float Range => _range;
 
+        public void SetInitialValues(VirtueModel virtue, byte maxCapacityOfPriests, float range)
+        {
+            _virtue = virtue;
+            _maxCapacityOfPriests = maxCapacityOfPriests;
+            _range = range;
+        }
+
+        public void ChangeVirtue(VirtueModel virtue)
+        {
+            _virtue = virtue;
+        }
+
         private void Start()
         {
             _range = 2f;

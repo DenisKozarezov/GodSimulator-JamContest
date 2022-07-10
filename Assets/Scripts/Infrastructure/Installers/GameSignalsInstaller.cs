@@ -16,7 +16,6 @@ namespace Core.Infrastructure
             Container.DeclareSignal<PlayerVictorySignal>();
             Container.DeclareSignal<PlayerWantToMovingPriestsSignal>();
             Container.DeclareSignal<PlayerVirtueChangedSignal>();
-            Container.DeclareSignal<UISignals.MovingModeChangedSignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedNonTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerUsedAreaAbilitySignal>();
