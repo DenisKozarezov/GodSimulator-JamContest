@@ -39,6 +39,12 @@ namespace Core.Models
         [Space, SerializeField, ObjectPicker]
         private string _effectPrefab;
 
+        [Header("Virtue")]
+        [SerializeField]
+        private VirtueModel _virtue;
+        [SerializeField]
+        private byte _virtueCost;
+        
         public uint ID => _id;
         public string DisplayName => _displayName;
         public string Description => _description;
@@ -47,6 +53,8 @@ namespace Core.Models
         public float Cooldown => _cooldown;
         public Sprite Icon => _icon;
         public string EffectPrefab => _effectPrefab;
+        public VirtueModel Virtue => _virtue;
+        public byte VirtueCost => _virtueCost;
 
         public bool Equals(AbilityModel other)
         {
