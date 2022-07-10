@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: City Material
-  m_Shader: {fileID: 4800000, guid: 80115636262dba2438c1b4139e3bda43, type: 3}
+  m_Shader: {fileID: 4800000, guid: cadaf4b1b04a22843a36cf7a03bbb780, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -70,7 +70,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Outline: 1
-    - _OutlineWidth: 1
+    - _OutlineWidth: 0
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -78,7 +78,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0, g: 1, b: 0.12156868, a: 1}
+    - _OutlineColor: {r: 0, g: 1, b: 0.12923098, a: 1}
   m_BuildTextureStacks: []
