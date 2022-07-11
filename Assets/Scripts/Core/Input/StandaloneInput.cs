@@ -39,8 +39,7 @@ namespace Core.Input
         {
             _playerControls.Disable();
         }
-
-        public void Tick()
+        void ITickable.Tick()
         {
             float sign = -Mathf.Sign(_mouseWheelDelta);
             if (Mathf.Abs(_mouseWheelDelta) > 0f)

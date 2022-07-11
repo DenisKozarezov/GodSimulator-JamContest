@@ -62,7 +62,6 @@ namespace Core.UI.Forms
                 _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, MinHeight + _description.preferredHeight);
             }
 
-            _rectTransform.gameObject.SetActive(true);
             _taskCompletion = new TaskCompletionSource<bool>();
             bool result = await _taskCompletion.Task;
             Close();

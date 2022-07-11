@@ -4,13 +4,12 @@ namespace Core.Infrastructure
 {
     public interface ISignalInteractableView 
     {
-        InteractableView View { get; }
+        GreeceCityScript View { get; }
     }
 
     public struct PlayerClickedOnCitySignal : ISignalInteractableView
     {
-        public InteractableView View { set; get; }
-        public GreeceCityScript City;
+        public GreeceCityScript View { set; get; }
         public ushort NumberOfPriests;
     }
 

@@ -1,3 +1,4 @@
+using Core.Models;
 using UnityEngine;
 using Zenject;
 
@@ -13,17 +14,19 @@ namespace Core.Cities
 
         protected bool _isHover;
         protected bool _selected;
+        private float _outlineWidth;
         public bool Interactable { get; set; } = true;
 
         [Inject]
-        public void Contruct(SignalBus signalBus) => _signalBus = signalBus;
+        public void Contruct(SignalBus signalBus, UISettings _UISettings)
+        {
+            _signalBus = signalBus;
+            _outlineWidth = _UISettings.OutlineWidth;
+        }
 
         private void SetOutlineWidth(float width)
         {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            _spriteRenderer.GetPropertyBlock(mpb);
-            mpb.SetFloat("_OutlineWidth", width);
-            _spriteRenderer.SetPropertyBlock(mpb);
+            _spriteRenderer.material.SetFloat("_OutlineWidth", width);
         }
 
         public abstract void OnMouseDown();
@@ -32,7 +35,7 @@ namespace Core.Cities
             if (!Interactable) return;
 
             _isHover = true;
-            SetOutlineWidth(10f);
+            SetOutlineWidth(_outlineWidth);
         }
         private void OnMouseExit()
         {
