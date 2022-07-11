@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Core.UI.Forms
@@ -7,5 +8,6 @@ namespace Core.UI.Forms
         void SetLabel(string label);
         void SetDescription(string description);
         Task<ResultT> AwaitForConfirm();
+        Task<ResultT> AwaitForConfirm(CancellationToken cancelletionToken);
     }
 }

@@ -50,7 +50,7 @@ namespace Core
         private void OnDrawGizmosSelected()
         {
             Vector2 position = _startPosition - _constraintsBox / 2;
-            UnityEditor.Handles.DrawSolidRectangleWithOutline(new Rect(position, _constraintsBox), Color.white.SetAlpha(0f), Color.green);
+            UnityEditor.Handles.DrawSolidRectangleWithOutline(new Rect(position, _constraintsBox), Color.white.WithAlpha(0f), Color.green);
         }
 #endif
 
@@ -108,7 +108,7 @@ namespace Core
         }
         public void Fade(FadeMode mode, float time)
         {
-            Color endColor = mode == FadeMode.Off ? Color.black : _fade.color.SetAlpha(0f);
+            Color endColor = mode == FadeMode.Off ? Color.black : _fade.color.WithAlpha(0f);
             _fade.DOColor(endColor, time);
         }
     }

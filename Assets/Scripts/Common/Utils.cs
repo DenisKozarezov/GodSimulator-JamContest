@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Core
 {
@@ -28,6 +29,10 @@ namespace Core
             float x = first.position.x;
             float y = first.position.y + first.sizeDelta.y + second.sizeDelta.y / 2 + margin;
             return new Vector2(x, y);
+        }
+        public static bool IsPointerOverGameObject()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
         }
     }
 }

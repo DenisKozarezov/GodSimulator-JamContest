@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 264517339}
   - component: {fileID: 264517341}
   - component: {fileID: 264517340}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Map Dissolve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1220,7 +1220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 699332401}
   - component: {fileID: 699332402}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Map Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

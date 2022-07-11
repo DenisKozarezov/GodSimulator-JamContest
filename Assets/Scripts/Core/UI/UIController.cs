@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using Zenject;
 using Core.Infrastructure;
@@ -12,6 +13,8 @@ namespace Core.UI
         private bool _selectionMode;
 
         private SignalBus _signalBus;
+        private CancellationTokenSource _cancellationTokenSource;
+
         public bool SelectionMode => _selectionMode;
 
         [Inject]
@@ -24,13 +27,22 @@ namespace Core.UI
         {
             _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickOnCity);
         }
+        private void OnDestroy()
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+        }
 
         private async void OnPlayerClickOnCity(PlayerClickedOnCitySignal signal)
         {
             var form = Instantiate(_movingPriestsForm).GetComponent<MovingPriestsForm>();
             form.Init(signal.NumberOfPriests);
 
-            ushort priestsCount = await form.AwaitForConfirm();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+            form.Cancelled += () => _cancellationTokenSource.Cancel();
+
+            ushort priestsCount = await form.AwaitForConfirm(_cancellationTokenSource.Token);
 
             if (signal.View != null)
             {
