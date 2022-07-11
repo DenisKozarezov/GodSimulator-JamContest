@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 264517339}
   - component: {fileID: 264517341}
   - component: {fileID: 264517340}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Map Dissolve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2967,7 +2967,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f595ce41968f242419d05629ce51d9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 5
+  _zoomInertia: 0.3
+  _moveInertia: 0.2
   _constraintsBox: {x: 20, y: 15}
   _volume: {fileID: 620422132}
   _fade: {fileID: 819893435}

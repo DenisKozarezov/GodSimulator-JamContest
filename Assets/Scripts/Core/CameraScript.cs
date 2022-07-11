@@ -17,6 +17,10 @@ namespace Core
         [Header("Camera")]
         [SerializeField]
         private float _speed;
+        [SerializeField, Range(0f, 1f)]
+        private float _zoomInertia;
+        [SerializeField, Range(0f, 1f)]
+        private float _moveInertia;
         [SerializeField]
         private Vector2 _constraintsBox;
 
@@ -28,6 +32,7 @@ namespace Core
 
         private IInputSystem _inputSystem;
         private float _zoomVelocity;
+        private Vector3 _moveVelocity;
         private Vector2 _startPosition;
 
         [Inject]
@@ -56,29 +61,32 @@ namespace Core
 
         private void UpdateMove()
         {
+            Vector2 direction = Vector2.zero;
+
             if (_inputSystem.MousePosition.x >= Screen.width * 0.9f)
             {
-                Translate(Vector2.right);
+                direction += Vector2.right;
             }
             if (_inputSystem.MousePosition.x <= Screen.width * 0.1f)
             {
-                Translate(Vector2.left);
+                direction += Vector2.left;
             }
             if (_inputSystem.MousePosition.y >= Screen.height * 0.9f)
             {
-                Translate(Vector2.up);
+                direction += Vector2.up;
             }
             if (_inputSystem.MousePosition.y <= Screen.height * 0.1f)
             {
-                Translate(Vector2.down);
+                direction += Vector2.down;
             }
+            Translate(direction);
             transform.position = ClampCameraPosition();
         }
         private void UpdateZoom()
         {
             if (_inputSystem.MouseWheelDelta != 0f)
             {
-                float zoom = Mathf.SmoothDamp(_camera.orthographicSize, _camera.orthographicSize - _inputSystem.MouseWheelDelta, ref _zoomVelocity, 0.3f);
+                float zoom = Mathf.SmoothDamp(_camera.orthographicSize, _camera.orthographicSize - _inputSystem.MouseWheelDelta, ref _zoomVelocity, _zoomInertia);
                 _camera.orthographicSize = Mathf.Clamp(zoom, ZoomMax, ZoomMin);
             }
         }
@@ -96,7 +104,7 @@ namespace Core
 
         private void Translate(Vector3 direction)
         {
-            transform.position += direction * _speed * Time.deltaTime;
+            transform.position = Vector3.SmoothDamp(transform.position, transform.position + direction, ref _moveVelocity, _moveInertia, _speed);
         }
         private T GetSettings<T>() where T : PostProcessEffectSettings
         {

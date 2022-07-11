@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace Core
 {
-    public class MapDissolve : MonoBehaviour
+    public class DissolveEffect : MonoBehaviour
     {
         [Header("Dissolve")]
         [SerializeField]
@@ -20,7 +20,7 @@ namespace Core
         {
             _colliderStartRadius = _circleCollider.radius;
             _material = _spriteRenderer.material;
-            StartDissolve();
+            //StartDissolve();
         }
 
         private void SetDissolveValue(float value)
@@ -36,5 +36,13 @@ namespace Core
                 _circleCollider.enabled = false;
             });
         }
+
+        //private void OnTriggerExit2D(Collider2D collision)
+        //{
+        //    if (collision.gameObject.layer == Constants.CitiesLayer)
+        //    {
+        //        Destroy(collision.gameObject);
+        //    }
+        //}
     }
 }

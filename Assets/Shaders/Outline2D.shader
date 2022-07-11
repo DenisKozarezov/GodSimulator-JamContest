@@ -1,4 +1,4 @@
-Shader "Sprites/Outline2D"
+Shader "Core/Outline2D"
 {
     Properties
     {

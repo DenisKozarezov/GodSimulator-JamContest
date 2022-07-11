@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1c1e5e94fbf1f4189bff39441e5ef3, type: 3}
   m_Name: UI Settings
   m_EditorClassIdentifier: 
-  _outlineWidth: 2
+  _outlineWidth: 8
