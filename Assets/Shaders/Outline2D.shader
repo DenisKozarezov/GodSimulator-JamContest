@@ -42,7 +42,7 @@ Shader "Sprites/Outline2D"
                 float2 texcoord : TEXCOORD0;
             };
 
-            float _OutlineWidth;
+            half _OutlineWidth;
             fixed4 _OutlineColor;
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;

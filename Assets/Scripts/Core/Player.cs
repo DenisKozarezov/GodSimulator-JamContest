@@ -31,7 +31,7 @@ namespace Core
             }
         }
 
-        public void Initialize()
+        void IInitializable.Initialize()
         {
             _signalBus.Subscribe<IPlayerUsedAbility>(OnAbilityCasted);
 

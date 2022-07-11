@@ -39,11 +39,13 @@ namespace Core.Models
         private PlayerSettings _playerSettings;
         [SerializeField]
         private AudioSettings _audioSettings;
+        [SerializeField]
+        private UISettings _UISettings;
 
         public override void InstallBindings()
         {
             Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
-            Container.BindInstances(_gameSettings, _playerSettings, _audioSettings);
+            Container.BindInstances(_gameSettings, _playerSettings, _audioSettings, _UISettings);
         }
     }
 }

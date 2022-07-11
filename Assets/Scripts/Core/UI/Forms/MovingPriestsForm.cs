@@ -1,12 +1,14 @@
 using Core.Cities;
 using Core.Infrastructure;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Core.UI.Forms
 {
-    public class MovingPriestsPanel : MonoBehaviour, IClosableForm
+    [RequireComponent(typeof(RectTransform))]
+    public class MovingPriestsForm : MonoBehaviour, IClosableForm
     {
         [SerializeField]
         private TMPro.TextMeshProUGUI _count;
@@ -16,10 +18,11 @@ namespace Core.UI.Forms
         private Button _go;
         [SerializeField]
         private Button _close;
-        private GreeceCityScript _city;
+        private GreeceCityScript _view;
 
         private SignalBus _signalBus;
-        protected SignalBus SignalBus => _signalBus;
+
+        public event Action Agreed;
 
         [Inject]
         public void Contruct(SignalBus signalBus) => _signalBus = signalBus;
@@ -30,10 +33,10 @@ namespace Core.UI.Forms
             _close.onClick.AddListener(Close);
         }
 
-        public void InitializePanel(PlayerClickedOnCitySignal playerClickedOnCitySignal)
+        public void Init(PlayerClickedOnCitySignal playerClickedOnCitySignal)
         {
             InitializeSlider(playerClickedOnCitySignal.NumberOfPriests);
-            _city = playerClickedOnCitySignal.City;
+            _view = playerClickedOnCitySignal.View;
         }
 
         private void InitializeSlider(ushort maxNumberOfPriests)
@@ -48,17 +51,17 @@ namespace Core.UI.Forms
 
         public void ActivateSelectionMode()
         {
-            if (_city != null)
+            if (_view != null)
             {
-                SignalBus.Fire(new SelectionModeChangedSignal { Value = true });
-                _city.ShowRangeToCities();
+                _signalBus.Fire(new SelectionModeChangedSignal { Value = true });
+                _view.ShowRangeToCities();
                 Close();
             }
         }
 
         public void Close()
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }

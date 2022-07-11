@@ -16,7 +16,9 @@ namespace Core
 
         [Header("Camera")]
         [SerializeField]
-        private float _speed; 
+        private float _speed;
+        [SerializeField]
+        private Vector2 _constraintsBox;
 
         [Header("Post-processing")]
         [SerializeField]
@@ -26,6 +28,7 @@ namespace Core
 
         private IInputSystem _inputSystem;
         private float _zoomVelocity;
+        private Vector2 _startPosition;
 
         [Inject]
         public void Construct(IInputSystem inputSystem) => _inputSystem = inputSystem;
@@ -33,6 +36,7 @@ namespace Core
         private void Awake()
         {
             _camera = GetComponent<Camera>();
+            _startPosition = transform.position;
         }
         private void Update()
         {
@@ -41,7 +45,15 @@ namespace Core
             UpdateMove();
             UpdateZoom();
         }
-         
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            Vector2 position = _startPosition - _constraintsBox / 2;
+            UnityEditor.Handles.DrawSolidRectangleWithOutline(new Rect(position, _constraintsBox), Color.white.SetAlpha(0f), Color.green);
+        }
+#endif
+
         private void UpdateMove()
         {
             if (_inputSystem.MousePosition.x >= Screen.width * 0.9f)
@@ -60,14 +72,26 @@ namespace Core
             {
                 Translate(Vector2.down);
             }
+            transform.position = ClampCameraPosition();
         }
         private void UpdateZoom()
         {
             if (_inputSystem.MouseWheelDelta != 0f)
             {
-                float zoom = Mathf.SmoothDamp(_camera.orthographicSize, _camera.orthographicSize + _inputSystem.MouseWheelDelta, ref _zoomVelocity, 0.3f);
+                float zoom = Mathf.SmoothDamp(_camera.orthographicSize, _camera.orthographicSize - _inputSystem.MouseWheelDelta, ref _zoomVelocity, 0.3f);
                 _camera.orthographicSize = Mathf.Clamp(zoom, ZoomMax, ZoomMin);
             }
+        }
+        private Vector3 ClampCameraPosition()
+        {
+            float minX = _startPosition.x - _constraintsBox.x / 2;
+            float maxX = _startPosition.x + _constraintsBox.x / 2;
+            float minY = _startPosition.y - _constraintsBox.y / 2;
+            float maxY = _startPosition.y + _constraintsBox.y / 2;
+
+            float newX = Mathf.Clamp(transform.position.x, minX, maxX);
+            float newY = Mathf.Clamp(transform.position.y, minY, maxY);
+            return new Vector3(newX, newY, transform.position.z);
         }
 
         private void Translate(Vector3 direction)

@@ -25,7 +25,6 @@ namespace Core.Cities
         private byte _growthOfPriests;
         private ushort _numberOfPriests;
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
-        private SerializableDictionaryBase<CityModel, sbyte> _relationsToOtherCities;
         private GodModel _invader;
 
         private Coroutine _generatePriests;
@@ -33,8 +32,11 @@ namespace Core.Cities
         [Inject]
         public void Construct(GameSettings gameSettings)
         {
-            string name = gameSettings.CitiesNames.Pop();
-            _name.text = name;
+            if (gameSettings.CitiesNames.Count > 0)
+            {
+                string name = gameSettings.CitiesNames.Pop();
+                _name.text = name;
+            }
             gameObject.name = name + " City";
         }
 
@@ -77,12 +79,9 @@ namespace Core.Cities
         private void Start()
         {
             _percentageOfFaithful = new SerializableDictionaryBase<GodModel, byte>();
-            _relationsToOtherCities = new SerializableDictionaryBase<CityModel, sbyte>();
             if (_state == State.CityWithTemple)
                 _generatePriests = StartCoroutine(GeneratePriests());
         }
-
-
 
         public void BuildTemple(VirtueModel virtue)
         {
@@ -100,7 +99,7 @@ namespace Core.Cities
             if (!Interactable) return;
 
             if (_state == State.CityWithTemple) {
-                SignalBus.Fire(new PlayerClickedOnCitySignal { View = this, City = this, NumberOfPriests = _numberOfPriests });
+                SignalBus.Fire(new PlayerClickedOnCitySignal { View = this, NumberOfPriests = _numberOfPriests });
             }
         }
     }
