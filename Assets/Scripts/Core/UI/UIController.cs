@@ -25,15 +25,23 @@ namespace Core.UI
             _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickOnCity);
         }
 
-        private void OnPlayerClickOnCity(PlayerClickedOnCitySignal signal)
+        private async void OnPlayerClickOnCity(PlayerClickedOnCitySignal signal)
         {
             var form = Instantiate(_movingPriestsForm).GetComponent<MovingPriestsForm>();
-            form.Init(signal);
+            form.Init(signal.NumberOfPriests);
+
+            ushort priestsCount = await form.AwaitForConfirm();
+
+            if (signal.View != null)
+            {
+                SetSelectionMode(true);
+                signal.View.ShowRangeToCities();
+            }
         }
 
-        public void SetSelectionMode(SelectionModeChangedSignal selectionModeChangedSignal)
+        public void SetSelectionMode(bool isSelected)
         {
-            _selectionMode = selectionModeChangedSignal.Value;
+            _selectionMode = isSelected;
         }
     }
 }

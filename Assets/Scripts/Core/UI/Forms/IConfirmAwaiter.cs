@@ -2,10 +2,10 @@ using System.Threading.Tasks;
 
 namespace Core.UI.Forms
 {
-    public interface IConfirmAwaiter
+    public interface IConfirmAwaiter<ResultT>
     {
         void SetLabel(string label);
         void SetDescription(string description);
-        Task AwaitForConfirm();
+        Task<ResultT> AwaitForConfirm();
     }
 }

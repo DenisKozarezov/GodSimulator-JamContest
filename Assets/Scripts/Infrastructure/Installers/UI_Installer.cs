@@ -12,9 +12,6 @@ namespace Core.Infrastructure
             UISignalsInstaller.Install(Container);
 
             Container.Bind<UIController>().AsSingle();
-
-            Container.BindSignal<SelectionModeChangedSignal>()
-                .ToMethod<UIController>(x => x.SetSelectionMode).FromResolve();
         }
     }
 }
