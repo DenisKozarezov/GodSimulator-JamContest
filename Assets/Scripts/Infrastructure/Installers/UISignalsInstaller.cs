@@ -8,6 +8,8 @@ namespace Core.Infrastructure
         {
             // Declare all signals
             Container.DeclareSignal<SelectionModeChangedSignal>();
+            Container.DeclareSignal<TempleDragBeginSignal>();
+            Container.DeclareSignal<TempleDragEndSignal>();
         }
     }
 }

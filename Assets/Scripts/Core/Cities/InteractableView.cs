@@ -1,10 +1,12 @@
-using Core.Models;
 using UnityEngine;
-using Zenject;
+using UnityEngine.EventSystems;
+using Zenject; 
+using Core.Models;
 
 namespace Core.Cities
 {
-    public abstract class InteractableView : MonoBehaviour
+    public abstract class InteractableView : MonoBehaviour, 
+        IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
@@ -29,15 +31,15 @@ namespace Core.Cities
             _spriteRenderer.material.SetFloat("_OutlineWidth", width);
         }
 
-        public abstract void OnMouseDown();
-        private void OnMouseEnter()
+        public abstract void OnPointerClick(PointerEventData eventData);
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (!Interactable) return;
 
             _isHover = true;
             SetOutlineWidth(_outlineWidth);
         }
-        private void OnMouseExit()
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (!Interactable) return;
 

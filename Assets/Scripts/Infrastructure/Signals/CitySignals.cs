@@ -10,7 +10,15 @@ namespace Core.Infrastructure
     public struct PlayerClickedOnCitySignal : ISignalInteractableView
     {
         public GreeceCityScript View { set; get; }
-        public ushort NumberOfPriests;
+    }
+    public struct TempleDragBeginSignal : ISignalInteractableView
+    {
+        public GreeceCityScript View { get; set; }
+    }
+    public struct TempleDragEndSignal : ISignalInteractableView
+    {
+        public GreeceCityScript View { get; set; }
+        public GreeceCityScript Target { get; set; }
     }
 
     public struct PlayerWantToMovingPriestsSignal

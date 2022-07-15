@@ -8,40 +8,40 @@ namespace Core.Cities
 {
     public class MovingBetweenCities
     {
-        private List<Collider2D> colliders;
+        private IEnumerable<Collider2D> _colliders;
 
         public void ShowRange(PlayerWantToMovingPriestsSignal playerWantToMovingPriestsSignal)
         {
-            if (colliders != null && colliders.Count != 0)
+            if (_colliders != null && _colliders.Count() != 0)
             {
                 DeselectCities();
             }
             Debug.Log("Range " + playerWantToMovingPriestsSignal.TempleRange + "!");
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(playerWantToMovingPriestsSignal.City.transform.position, playerWantToMovingPriestsSignal.TempleRange);
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(playerWantToMovingPriestsSignal.City.transform.position, playerWantToMovingPriestsSignal.TempleRange, Constants.CitiesLayer);
             Collider2D selfCollider = playerWantToMovingPriestsSignal.City.GetComponent<Collider2D>();
-            colliders = colliderArray.ToList();
-            colliders.Remove(selfCollider);
-            SelectCities(colliders);
+            _colliders = from collider in colliderArray 
+                         where collider != selfCollider 
+                         select collider;
+            SelectCities(_colliders);
         }
 
         private void SelectCities(IEnumerable<Collider2D> colliders)
         {
             foreach(var collider in colliders)
             {
-                if (collider.TryGetComponent<GreeceCityScript>(out GreeceCityScript city))
+                if (collider.TryGetComponent(out SpriteRenderer renderer))
                 {
-                    city.GetComponent<SpriteRenderer>().color = Color.green;
+                    renderer.color = Color.green;
                 }
             }
         }
-
         private void DeselectCities()
         {
-            foreach (var collider in colliders)
+            foreach (var collider in _colliders)
             {
-                if (collider.TryGetComponent<GreeceCityScript>(out GreeceCityScript city))
+                if (collider.TryGetComponent(out SpriteRenderer renderer))
                 {
-                    city.GetComponent<SpriteRenderer>().color = Color.white;
+                    renderer.color = Color.white;
                 }
             }
         }

@@ -2659,6 +2659,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movingPriestsForm: {fileID: 1959368641483113651, guid: d65159da0b9732040bd9e9d87ac40ae1, type: 3}
+  _animatedDottedLine: {fileID: 7182528012365368370, guid: 0a515b90c51fc5e4aa1efe95d2b229fa, type: 3}
+  _movingPriestsIcon: {fileID: 3409440545077129652, guid: ecb8eb320f7818140ac4ec7213ef6999, type: 3}
+  _cursors:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0001
+    _keys: 0001
+    _values:
+    - {fileID: 2800000, guid: 2ce5c55e85304b819a1826ecbc839aa5, type: 3}
+    - {fileID: 2800000, guid: 83abe34dd431f1c45a00ff04c3c12a35, type: 3}
 --- !u!1 &1606235833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2821,6 +2851,7 @@ GameObject:
   - component: {fileID: 1640422463}
   - component: {fileID: 1640422466}
   - component: {fileID: 1640422467}
+  - component: {fileID: 1640422468}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2973,6 +3004,22 @@ MonoBehaviour:
   _constraintsBox: {x: 20, y: 15}
   _volume: {fileID: 620422132}
   _fade: {fileID: 819893435}
+--- !u!114 &1640422468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640422462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56666c5a40171f54783dd416a44f42bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_MaxRayIntersections: 1
 --- !u!1001 &1656868980
 PrefabInstance:
   m_ObjectHideFlags: 0

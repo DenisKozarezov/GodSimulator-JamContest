@@ -440,6 +440,7 @@ GameObject:
   - component: {fileID: 1330165681376946780}
   - component: {fileID: 871618041627813392}
   - component: {fileID: -4052847701975133218}
+  - component: {fileID: 561539108031118130}
   m_Layer: 6
   m_Name: Temple City
   m_TagString: Untagged
@@ -506,7 +507,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f0442966a8b2f044a9abf8cceca6ed3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -528,7 +529,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -548,7 +549,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 1330165681376946780}
   _name: {fileID: 4815477986943359733}
+  _pranaView: {fileID: 7351679964835276250}
   _state: 1
+--- !u!114 &561539108031118130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707191097254474797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 13
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+  - eventID: 14
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1001 &2379550588304865432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -611,3 +634,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
   m_PrefabInstance: {fileID: 2379550588304865432}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7351679964835276250 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5117133013509430594, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+  m_PrefabInstance: {fileID: 2379550588304865432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e3359cceafbf44492a95d886ae0c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

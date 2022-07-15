@@ -1,15 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using TMPro;
+using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
-using Zenject;
-using TMPro;
 using static Core.Models.GameSettingsInstaller;
 
 namespace Core.Cities
 {
-    public class GreeceCityScript : InteractableView
+    public class GreeceCityScript : InteractableView,
+        IBeginDragHandler, IEndDragHandler
     {
         public enum State : byte
         {
@@ -21,13 +23,18 @@ namespace Core.Cities
         [SerializeField]
         private TextMeshPro _name;
         [SerializeField]
+        private PranaView _pranaView;
+        [SerializeField]
         private State _state;
+
         private byte _growthOfPriests;
         private ushort _numberOfPriests;
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
         private GodModel _invader;
 
         private Coroutine _generatePriests;
+
+        public ushort NumberOfPriests => _numberOfPriests;
 
         [Inject]
         public void Construct(GameSettings gameSettings)
@@ -36,8 +43,8 @@ namespace Core.Cities
             {
                 string name = gameSettings.CitiesNames.Pop();
                 _name.text = name;
+                gameObject.name = name + " City";
             }
-            gameObject.name = name + " City";
         }
 
         public void SetState(State state)
@@ -94,12 +101,25 @@ namespace Core.Cities
             SignalBus.Fire(new PlayerWantToMovingPriestsSignal { City = this, TempleRange = 5f });
         }
 
-        public override void OnMouseDown()
+        public override void OnPointerClick(PointerEventData eventData)
         {
             if (!Interactable) return;
 
-            if (_state == State.CityWithTemple) {
-                SignalBus.Fire(new PlayerClickedOnCitySignal { View = this, NumberOfPriests = _numberOfPriests });
+            SignalBus.Fire(new PlayerClickedOnCitySignal { View = this });
+        }
+        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
+        {
+            if (_state == State.CityWithTemple)
+            {
+                SignalBus.Fire(new TempleDragBeginSignal { View = this });
+            }
+        }
+
+        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
+        {
+            if (_state == State.CityWithTemple)
+            {
+                SignalBus.Fire(new TempleDragEndSignal { View = this, Target = eventData.pointerEnter.GetComponent<GreeceCityScript>() });
             }
         }
     }
