@@ -9,15 +9,15 @@ namespace Core.Cities
     {
         private IEnumerable<Collider2D> _colliders;
 
-        public void ShowRange(PlayerWantToMovingPriestsSignal playerWantToMovingPriestsSignal)
+        public void ShowRange(TempleDragBeginSignal signal)
         {
             if (_colliders != null && _colliders.Count() != 0)
             {
                 DeselectCities();
             }
-            Debug.Log("Range " + playerWantToMovingPriestsSignal.TempleRange + "!");
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(playerWantToMovingPriestsSignal.Transform.position, playerWantToMovingPriestsSignal.TempleRange, Constants.CitiesLayer);
-            Collider2D selfCollider = playerWantToMovingPriestsSignal.Transform.GetComponent<Collider2D>();
+            Debug.Log("Range " + signal.Temple.Range + "!");
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, Constants.CitiesLayer);
+            Collider2D selfCollider = signal.Temple.GetComponent<Collider2D>();
             _colliders = from collider in colliderArray 
                          where collider != selfCollider 
                          select collider;

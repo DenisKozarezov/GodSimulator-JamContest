@@ -16,7 +16,7 @@ namespace Core.Infrastructure
 
             Container.BindInterfacesAndSelfTo<StandaloneInput>().AsSingle();
 
-            Container.BindSignal<PlayerWantToMovingPriestsSignal>()
+            Container.BindSignal<TempleDragBeginSignal>()
                 .ToMethod<MovingBetweenCities>(x => x.ShowRange).FromResolve();
         }
     }

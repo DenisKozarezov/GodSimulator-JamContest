@@ -1,25 +1,18 @@
-using UnityEngine;
 using Core.Cities;
 
 namespace Core.Infrastructure
 {
     public struct PlayerClickedOnCitySignal
     {
-        public CityScript View { set; get; }
+        public CityScript View;
     }
     public struct TempleDragBeginSignal
     {
-        public TempleStrategy Temple { get; set; }
+        public TempleStrategy Temple;
     }
     public struct TempleDragEndSignal
     {
-        public TempleStrategy Temple { get; set; }
-        public CityScript Target { get; set; }
-    }
-
-    public struct PlayerWantToMovingPriestsSignal
-    {
-        public Transform Transform;
-        public float TempleRange;
+        public TempleStrategy Temple;
+        public CityScript Target;
     }
 }

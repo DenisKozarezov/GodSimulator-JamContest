@@ -17,12 +17,6 @@ namespace Core.UI
 
     public class UIController : MonoBehaviour
     {
-        [Serializable]
-        struct Cursors
-        {
-            public Texture2D _targetCursor;
-        }
-
         [SerializeField]
         private GameObject _movingPriestsForm;
         [SerializeField]

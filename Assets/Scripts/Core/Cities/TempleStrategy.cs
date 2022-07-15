@@ -61,7 +61,6 @@ namespace Core.Cities
         {
             if (!Interactable) return;
 
-            _signalBus.Fire(new PlayerWantToMovingPriestsSignal { Transform = transform, TempleRange = _range });
             _signalBus.Fire(new TempleDragBeginSignal { Temple = this });
         }
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
