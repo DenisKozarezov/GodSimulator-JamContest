@@ -1,36 +1,25 @@
+using UnityEngine;
 using Core.Cities;
 
 namespace Core.Infrastructure
 {
-    public interface ISignalInteractableView 
+    public struct PlayerClickedOnCitySignal
     {
-        GreeceCityScript View { get; }
+        public CityScript View { set; get; }
     }
-
-    public struct PlayerClickedOnCitySignal : ISignalInteractableView
+    public struct TempleDragBeginSignal
     {
-        public GreeceCityScript View { set; get; }
+        public TempleStrategy Temple { get; set; }
     }
-    public struct TempleDragBeginSignal : ISignalInteractableView
+    public struct TempleDragEndSignal
     {
-        public GreeceCityScript View { get; set; }
-    }
-    public struct TempleDragEndSignal : ISignalInteractableView
-    {
-        public GreeceCityScript View { get; set; }
-        public GreeceCityScript Target { get; set; }
+        public TempleStrategy Temple { get; set; }
+        public CityScript Target { get; set; }
     }
 
     public struct PlayerWantToMovingPriestsSignal
     {
-        public GreeceCityScript City;
+        public Transform Transform;
         public float TempleRange;
-    }
-
-    public struct PlayerMovingPriestsSignal
-    {
-        public GreeceCityScript FromCity;
-        public GreeceCityScript ToCity;
-        public byte NumberOfPriests;
     }
 }

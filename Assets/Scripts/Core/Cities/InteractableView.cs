@@ -14,10 +14,11 @@ namespace Core.Cities
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
 
-        protected bool _isHover;
-        protected bool _selected;
+        private bool _isHover;
+        private bool _selected;
         private float _outlineWidth;
-        public bool Interactable { get; set; } = true;
+
+        public abstract bool Interactable { get; set; }
 
         [Inject]
         public void Contruct(SignalBus signalBus, UISettings _UISettings)
@@ -26,6 +27,7 @@ namespace Core.Cities
             _outlineWidth = _UISettings.OutlineWidth;
         }
 
+        protected abstract void Start();
         private void SetOutlineWidth(float width)
         {
             _spriteRenderer.material.SetFloat("_OutlineWidth", width);

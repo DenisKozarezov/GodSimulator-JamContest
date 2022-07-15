@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,14 +16,13 @@ namespace Core.Cities
                 DeselectCities();
             }
             Debug.Log("Range " + playerWantToMovingPriestsSignal.TempleRange + "!");
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(playerWantToMovingPriestsSignal.City.transform.position, playerWantToMovingPriestsSignal.TempleRange, Constants.CitiesLayer);
-            Collider2D selfCollider = playerWantToMovingPriestsSignal.City.GetComponent<Collider2D>();
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(playerWantToMovingPriestsSignal.Transform.position, playerWantToMovingPriestsSignal.TempleRange, Constants.CitiesLayer);
+            Collider2D selfCollider = playerWantToMovingPriestsSignal.Transform.GetComponent<Collider2D>();
             _colliders = from collider in colliderArray 
                          where collider != selfCollider 
                          select collider;
             SelectCities(_colliders);
         }
-
         private void SelectCities(IEnumerable<Collider2D> colliders)
         {
             foreach(var collider in colliders)
@@ -44,13 +42,6 @@ namespace Core.Cities
                     renderer.color = Color.white;
                 }
             }
-        }
-
-        public async void Move(PlayerMovingPriestsSignal playerMovingPriestsSignal)
-        {
-            playerMovingPriestsSignal.FromCity.DeletePriests(playerMovingPriestsSignal.NumberOfPriests);
-            await Task.Delay(5000);
-            playerMovingPriestsSignal.ToCity.AddPriests(playerMovingPriestsSignal.NumberOfPriests);
         }
     }
 }

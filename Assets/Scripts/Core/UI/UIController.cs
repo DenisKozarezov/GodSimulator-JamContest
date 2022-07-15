@@ -57,11 +57,10 @@ namespace Core.UI
 
         private void OnTempleDragBegin(TempleDragBeginSignal signal)
         {
-            SetCursor(CursorType.Target);
-            if (signal.View != null)
+            if (signal.Temple != null)
             {
-                SetSelectionMode(true);            
-                signal.View.ShowRangeToCities();
+                SetCursor(CursorType.Target);
+                SetSelectionMode(true);
             }
         }
         private void OnTempleDragEnd(TempleDragEndSignal signal)
@@ -71,10 +70,10 @@ namespace Core.UI
         }
         private async void OnPlayerSelectedCityForPriests(TempleDragEndSignal signal)
         {
-            if (signal.View.Equals(signal.Target)) return;
+            if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
             var form = Instantiate(_movingPriestsForm).GetComponent<MovingPriestsForm>();
-            form.Init(signal.Target.NumberOfPriests);
+            form.Init(signal.Temple.NumberOfPriests);
 
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
@@ -85,7 +84,7 @@ namespace Core.UI
             // Create Dotted Line and Icon
             if (signal.Target == null) return;
 
-            Vector2 startPos = signal.View.transform.position;
+            Vector2 startPos = signal.Temple.transform.position;
             Vector2 endPos = signal.Target.transform.position;
 
             CreateAnimatedTransition(startPos, endPos, 10f);

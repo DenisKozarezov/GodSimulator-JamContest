@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 871618041627813392}
   - component: {fileID: -4052847701975133218}
   - component: {fileID: 561539108031118130}
+  - component: {fileID: -4492852290259063451}
   m_Layer: 6
   m_Name: Temple City
   m_TagString: Untagged
@@ -572,6 +573,20 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &-4492852290259063451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7707191097254474797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f9334efeeba4c49908c039e996ffd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxCapacityOfPriests: 10
+  _range: 2
 --- !u!1001 &2379550588304865432
 PrefabInstance:
   m_ObjectHideFlags: 0
