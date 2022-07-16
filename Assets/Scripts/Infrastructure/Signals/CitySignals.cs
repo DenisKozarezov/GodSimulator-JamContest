@@ -2,10 +2,6 @@ using Core.Cities;
 
 namespace Core.Infrastructure
 {
-    public struct PlayerClickedOnCitySignal
-    {
-        public CityScript View;
-    }
     public struct TempleDragBeginSignal
     {
         public TempleStrategy Temple;

@@ -1,7 +1,6 @@
 using System.Threading;
 using UnityEngine;
 using Zenject;
-using DG.Tweening;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.UI.Forms;
@@ -17,21 +16,19 @@ namespace Core.UI
     public class UIController : MonoBehaviour
     {
         [SerializeField]
-        private GameObject _movingPriestsForm;
-        [SerializeField]
-        private GameObject _animatedDottedLine;
-        [SerializeField]
-        private GameObject _movingPriestsIcon;
-        [SerializeField]
         private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
         private bool _selectionMode;
 
         private SignalBus _signalBus;
+        private MovingPriestsForm _formPrefab;
         private CancellationTokenSource _cancellationTokenSource;
 
         [Inject]
-        public void Construct(SignalBus signalBus) => _signalBus = signalBus;
-
+        public void Construct(SignalBus signalBus, DiContainer container)
+        {
+            _signalBus = signalBus;
+            _formPrefab = container.Resolve<MovingPriestsForm>();
+        }
         private void Awake()
         {
             _signalBus.Subscribe<TempleDragBeginSignal>(OnTempleDragBegin);
@@ -65,11 +62,11 @@ namespace Core.UI
         {
             if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
-            var form = Instantiate(_movingPriestsForm).GetComponent<MovingPriestsForm>();
-            form.Init(signal.Temple.NumberOfPriests);
-
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
+
+            var form = Instantiate(_formPrefab);
+            form.Init(signal.Temple.NumberOfPriests);
             form.Cancelled += () => _cancellationTokenSource.Cancel();
 
             ushort priestsCount = await form.AwaitForConfirm(_cancellationTokenSource.Token);
@@ -77,26 +74,15 @@ namespace Core.UI
             // Create Dotted Line and Icon
             if (signal.Target == null) return;
 
-            Vector2 startPos = signal.Temple.transform.position;
-            Vector2 endPos = signal.Target.transform.position;
-
-            CreateAnimatedTransition(startPos, endPos, 10f);
-        }
-
-        private void CreateAnimatedTransition(Vector2 startPos, Vector2 endPos, float time)
-        {
-            var line = Instantiate(_animatedDottedLine).GetComponent<AnimatedDottedLine>();
-            line.StartPosition = startPos;
-            line.EndPosition = endPos;
-
-            var icon = Instantiate(_movingPriestsIcon, startPos, Quaternion.identity);
-            icon.transform.DOMove(endPos, time).SetEase(Ease.Linear)
-            .OnComplete(() =>
+            _signalBus.Fire(new PlayerMovingPriestsSignal
             {
-                Destroy(icon.gameObject);
-                Destroy(line.gameObject);
+                Temple = signal.Temple,
+                Target = signal.Target,
+                Duration = 10f,
+                PriestsAmount = priestsCount
             });
         }
+
         private void SetCursor(CursorType cursorType)
         {
             Cursor.SetCursor(_cursors[cursorType], Vector2.zero, CursorMode.Auto);

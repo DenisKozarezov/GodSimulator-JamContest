@@ -7,5 +7,10 @@ namespace Core.UI
     {
         [SerializeField]
         private TextMeshPro _amount;
+
+        public void SetAmount(ushort amount)
+        {
+            _amount.text = amount.ToString();
+        }
     }
 }

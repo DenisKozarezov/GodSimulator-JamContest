@@ -1,6 +1,6 @@
+using Zenject;
 using Core.Cities;
 using Core.Input;
-using Zenject;
 
 namespace Core.Infrastructure
 {
@@ -23,12 +23,9 @@ namespace Core.Infrastructure
             Container.BindSignal<GameApocalypsisSignal>().ToMethod(() => Logger.Log("GameApocalypsisSignal", LogType.Signal));
 #endif
 
-            Container.Bind<MovingBetweenCities>().AsSingle();
+            Container.BindInterfacesTo<MovingBetweenCities>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<StandaloneInput>().AsSingle();
-
-            Container.BindSignal<TempleDragBeginSignal>()
-                .ToMethod<MovingBetweenCities>(x => x.ShowRange).FromResolve();
         }
     }
 }
