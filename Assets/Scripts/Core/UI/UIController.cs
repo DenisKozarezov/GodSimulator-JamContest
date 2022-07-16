@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using UnityEngine;
 using Zenject;
@@ -91,7 +90,8 @@ namespace Core.UI
             line.EndPosition = endPos;
 
             var icon = Instantiate(_movingPriestsIcon, startPos, Quaternion.identity);
-            icon.transform.DOMove(endPos, time).OnComplete(() =>
+            icon.transform.DOMove(endPos, time).SetEase(Ease.Linear)
+            .OnComplete(() =>
             {
                 Destroy(icon.gameObject);
                 Destroy(line.gameObject);

@@ -30,16 +30,10 @@ namespace Core.UI
                 IsBackward = _endPosition.x - _startPosition.x < 0;
             }
         }
-
         public bool IsBackward
         {
             get => _material.GetFloat("_IsRight") == 1;
             set => _material.SetFloat("_IsRight", value ? 1 : -1);
-        }
-        public float LineWidth
-        {
-            get => _renderer.startWidth;
-            set => _renderer.startWidth = _renderer.endWidth = value;
         }
 
         private void Awake()

@@ -5,6 +5,7 @@ using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
+using DG.Tweening;
 using static Core.Models.GameSettingsInstaller;
 
 namespace Core.Cities
@@ -23,6 +24,7 @@ namespace Core.Cities
         [SerializeField]
         private PranaView _pranaView;
 
+        private float _timer;
         private bool _interactable = true;
         private ICityStrategy CurrentStrategy;
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
@@ -43,7 +45,7 @@ namespace Core.Cities
         {
             if (gameSettings.CitiesNames.Count > 0)
             {
-                string name = gameSettings.CitiesNames.Pop();
+                string name = gameSettings.CitiesNames.Dequeue();
                 _name.text = name;
                 gameObject.name = name + " City";
             }
@@ -54,6 +56,9 @@ namespace Core.Cities
             CurrentStrategy = GetComponent<ICityStrategy>();
             _percentageOfFaithful = new SerializableDictionaryBase<GodModel, byte>();
             Interactable = true;
+
+            if (_pranaView == null) return;
+            DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
         }
 
         public void BuildTemple(VirtueModel virtue)
