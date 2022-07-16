@@ -71,9 +71,6 @@ namespace Core.UI
 
             ushort priestsCount = await form.AwaitForConfirm(_cancellationTokenSource.Token);
 
-            // Create Dotted Line and Icon
-            if (signal.Target == null) return;
-
             _signalBus.Fire(new PlayerMovingPriestsSignal
             {
                 Temple = signal.Temple,

@@ -2691,9 +2691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9463e0c4ed00941a4a95fac96d1d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movingPriestsForm: {fileID: 1959368641483113651, guid: d65159da0b9732040bd9e9d87ac40ae1, type: 3}
-  _animatedDottedLine: {fileID: 7182528012365368370, guid: 0a515b90c51fc5e4aa1efe95d2b229fa, type: 3}
-  _movingPriestsIcon: {fileID: 3409440545077129652, guid: ecb8eb320f7818140ac4ec7213ef6999, type: 3}
   _cursors:
     reorderableList:
       canAdd: 1
@@ -2816,6 +2813,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9e1b03dac366b43a56885dd3df590f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _movingPriestsForm: {fileID: 1959368641483113651, guid: d65159da0b9732040bd9e9d87ac40ae1, type: 3}
+  _movingPriestsIcon: {fileID: 3409440545077129652, guid: ecb8eb320f7818140ac4ec7213ef6999, type: 3}
+  _animatedDottedLine: {fileID: 7182528012365368370, guid: 0a515b90c51fc5e4aa1efe95d2b229fa, type: 3}
 --- !u!114 &1606235838
 MonoBehaviour:
   m_ObjectHideFlags: 0
