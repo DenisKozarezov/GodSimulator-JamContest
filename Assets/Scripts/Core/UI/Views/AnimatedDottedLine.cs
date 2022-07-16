@@ -6,7 +6,6 @@ namespace Core.UI
     public class AnimatedDottedLine : MonoBehaviour
     {      
         private LineRenderer _renderer;
-        private Material _material;
         private Vector2 _startPosition;
         private Vector2 _endPosition;
 
@@ -17,7 +16,6 @@ namespace Core.UI
             {
                 _startPosition = value;
                 _renderer.SetPosition(0, value);
-                IsBackward = _endPosition.x - _startPosition.x < 0;
             }
         }
         public Vector2 EndPosition
@@ -27,19 +25,12 @@ namespace Core.UI
             {
                 _endPosition = value;
                 _renderer.SetPosition(1, value);
-                IsBackward = _endPosition.x - _startPosition.x < 0;
             }
-        }
-        public bool IsBackward
-        {
-            get => _material.GetFloat("_IsRight") == 1;
-            set => _material.SetFloat("_IsRight", value ? 1 : -1);
         }
 
         private void Awake()
         {
             _renderer = GetComponent<LineRenderer>();
-            _material = _renderer.material;
         }       
     }
 }

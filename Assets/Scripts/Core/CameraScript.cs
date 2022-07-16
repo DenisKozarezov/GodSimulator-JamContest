@@ -71,15 +71,15 @@ namespace Core
             {
                 direction += Vector2.left;
             }
-            if (_inputSystem.MousePosition.y >= Screen.height * 0.9f)
+            if (_inputSystem.MousePosition.y >= Screen.height * 0.95f)
             {
                 direction += Vector2.up;
             }
-            if (_inputSystem.MousePosition.y <= Screen.height * 0.1f)
+            if (_inputSystem.MousePosition.y <= Screen.height * 0.05f)
             {
                 direction += Vector2.down;
             }
-            Translate(direction);
+            Translate(direction * 10f);
             transform.position = ClampCameraPosition();
         }
         private void UpdateZoom()
@@ -116,8 +116,11 @@ namespace Core
         }
         public void Fade(FadeMode mode, float time)
         {
-            Color endColor = mode == FadeMode.Off ? Color.black : _fade.color.WithAlpha(0f);
-            _fade.DOColor(endColor, time);
+            _fade.DOFade(mode == FadeMode.Off ? 1f : 0f, time).SetEase(Ease.Linear);
+        }
+        public void Shake(float time, float strength = 1f)
+        {
+            transform.DOShakePosition(time, strength);
         }
     }
 }

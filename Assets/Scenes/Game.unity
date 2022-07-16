@@ -3045,9 +3045,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f595ce41968f242419d05629ce51d9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 7
   _zoomInertia: 0.3
-  _moveInertia: 0.2
+  _moveInertia: 0.6
   _constraintsBox: {x: 20, y: 15}
   _volume: {fileID: 620422132}
   _fade: {fileID: 819893435}

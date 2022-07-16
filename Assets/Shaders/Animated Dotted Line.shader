@@ -4,7 +4,6 @@ Shader "Core/Animated Dotted Line"
     {
         _MainTex("Texture", 2D) = "white" {}
         _Speed("Speed", Range(0, 20)) = 10
-        [PerRendererData] _IsRight("Is Right", Float) = 1
     }
     SubShader
     {
@@ -46,14 +45,13 @@ Shader "Core/Animated Dotted Line"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             half _Speed;
-            half _IsRight;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.uv.x += _Time.y * _Speed * _IsRight;
+                o.uv.x -= _Time.y * _Speed;
                 return o;
             }
 
