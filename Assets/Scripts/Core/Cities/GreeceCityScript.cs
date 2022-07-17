@@ -200,8 +200,6 @@ namespace Core.Cities
                 if (other.gameObject.TryGetComponent(out GreeceCityScript toCity))
                 {
                     var color = toCity.GetComponent<SpriteRenderer>().color;
-                    Debug.Log(color);
-                    Debug.Log(color == Color.green);
                     if (color == Color.green)
                         SignalBus.Fire(new PlayerClickedOnCitySignal { View = this, God = _invader, FromCity = this, ToCity = toCity, NumberOfPriests = _numberOfPriests[_invader] });
                 }
