@@ -48,9 +48,9 @@ namespace Core.Cities
 
         public async void Move(PlayerMovingPriestsSignal playerMovingPriestsSignal)
         {
-            playerMovingPriestsSignal.FromCity.DeletePriests(playerMovingPriestsSignal.NumberOfPriests);
+            playerMovingPriestsSignal.FromCity.DeletePriests(playerMovingPriestsSignal.God, playerMovingPriestsSignal.NumberOfPriests);
             await Task.Delay(5000);
-            playerMovingPriestsSignal.ToCity.AddPriests(playerMovingPriestsSignal.NumberOfPriests);
+            playerMovingPriestsSignal.ToCity.AddPriests(playerMovingPriestsSignal.God, playerMovingPriestsSignal.NumberOfPriests);
         }
     }
 }

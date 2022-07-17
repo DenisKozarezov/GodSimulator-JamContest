@@ -30,12 +30,20 @@ namespace Core.Cities
 
         private void Start()
         {
-            _range = 2f;
+            _range = GetTempleRange(1);
         }
 
-        public void SetVirtue(VirtueModel virtue)
+        private float GetTempleRange(byte virtueLevel)
         {
-            _virtue = virtue;
+            switch (virtueLevel)
+            {
+                case 1:
+                    return 3f;
+                case 2:
+                    return 5f;
+                default:
+                    return 10f;
+            }
         }
     }
 }

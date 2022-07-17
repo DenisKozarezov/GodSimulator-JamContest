@@ -1,4 +1,5 @@
 using Core.Cities;
+using Core.Models;
 
 namespace Core.Infrastructure
 {
@@ -10,7 +11,9 @@ namespace Core.Infrastructure
     public struct PlayerClickedOnCitySignal : ISignalInteractableView
     {
         public InteractableView View { set; get; }
-        public GreeceCityScript City;
+        public GodModel God;
+        public GreeceCityScript FromCity;
+        public GreeceCityScript ToCity;
         public ushort NumberOfPriests;
     }
 
@@ -22,6 +25,7 @@ namespace Core.Infrastructure
 
     public struct PlayerMovingPriestsSignal
     {
+        public GodModel God;
         public GreeceCityScript FromCity;
         public GreeceCityScript ToCity;
         public byte NumberOfPriests;

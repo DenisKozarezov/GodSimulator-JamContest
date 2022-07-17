@@ -1,12 +1,13 @@
 using Core.Cities;
 using Core.Infrastructure;
+using Core.Models;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 namespace Core.UI.Forms
 {
-    public class MovingPriestsPanel : MonoBehaviour, IClosableForm
+    public class MovingPriestsForm : MonoBehaviour, IClosableForm
     {
         [SerializeField]
         private TMPro.TextMeshProUGUI _count;
@@ -16,7 +17,9 @@ namespace Core.UI.Forms
         private Button _go;
         [SerializeField]
         private Button _close;
-        private GreeceCityScript _city;
+        private GodModel _god;
+        private GreeceCityScript _fromCity;
+        private GreeceCityScript _toCity;
 
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
@@ -33,7 +36,9 @@ namespace Core.UI.Forms
         public void InitializePanel(PlayerClickedOnCitySignal playerClickedOnCitySignal)
         {
             InitializeSlider(playerClickedOnCitySignal.NumberOfPriests);
-            _city = playerClickedOnCitySignal.City;
+            _god = playerClickedOnCitySignal.God;
+            _fromCity = playerClickedOnCitySignal.FromCity;
+            _toCity = playerClickedOnCitySignal.ToCity;
         }
 
         private void InitializeSlider(ushort maxNumberOfPriests)
@@ -48,10 +53,10 @@ namespace Core.UI.Forms
 
         public void ActivateSelectionMode()
         {
-            if (_city != null)
+            if (_fromCity != null)
             {
                 SignalBus.Fire(new SelectionModeChangedSignal { Value = true });
-                _city.ShowRangeToCities();
+                SignalBus.Fire(new PlayerMovingPriestsSignal { God = _god, ToCity = _toCity, FromCity = _fromCity, NumberOfPriests = (byte)_slider.value });
                 Close();
             }
         }
