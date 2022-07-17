@@ -7,7 +7,7 @@ Shader "Core/Prana Shader"
 		_Angle("Angle", Range(0, 360)) = 0
 		_Arc1("Arc Point 1", Range(0, 360)) = 15
 		_Arc2("Arc Point 2", Range(0, 360)) = 15
-		[MaterialToggle] PixelSnap("Pixel snap", Float) = 0
+		[MaterialToggle] PixelSnap("Pixel Snap", Float) = 0
 	}
 
 		SubShader

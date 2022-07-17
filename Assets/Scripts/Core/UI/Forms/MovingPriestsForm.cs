@@ -8,7 +8,7 @@ using TMPro;
 namespace Core.UI.Forms
 {
     [RequireComponent(typeof(RectTransform))]
-    public class MovingPriestsForm : MonoBehaviour, IClosableForm, IConfirmAwaiter<ushort>
+    public class MovingPriestsForm : MonoBehaviour, IConfirmAwaiter<ushort>, IClosableForm
     {
         [SerializeField]
         private TextMeshProUGUI _label;
@@ -27,6 +27,7 @@ namespace Core.UI.Forms
 
         private void Awake()
         {
+            _count.text = _slider.minValue.ToString();
             _go.onClick.AddListener(OnConfirmed);
             _close.onClick.AddListener(OnCancelled);
             _slider.onValueChanged.AddListener(OnSliderChanged);
@@ -50,7 +51,11 @@ namespace Core.UI.Forms
         {
             _slider.maxValue = sliderMaxLimit;
         }
-
+        public void SetLabel(string label)
+        {
+            _label.text = label;
+        }
+        public void SetDescription(string description) { }
         public async Task<ushort> AwaitForConfirm()
         {
             _taskCompletionSource = new TaskCompletionSource<ushort>();
@@ -61,11 +66,6 @@ namespace Core.UI.Forms
             _taskCompletionSource = new TaskCompletionSource<ushort>();
             return await Task.Run(() => _taskCompletionSource.Task, cancellationToken);
         }
-        public void SetLabel(string label)
-        {
-            _label.text = label;
-        }
-        public void SetDescription(string description) { }   
         public void Close()
         {
             Destroy(gameObject);

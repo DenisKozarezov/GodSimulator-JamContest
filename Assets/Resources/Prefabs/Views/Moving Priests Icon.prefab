@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6583659507470935916}
   - component: {fileID: 1639537960836508147}
   - component: {fileID: 206710614152537029}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9004162002489442651}
   - component: {fileID: 7847825133769625866}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1885435829690728482}
   - component: {fileID: 6530471092370742442}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Moving Priests Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3721582766633874376}
   - component: {fileID: 4181759624721594796}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

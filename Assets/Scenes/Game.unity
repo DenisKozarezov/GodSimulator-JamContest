@@ -3048,7 +3048,7 @@ MonoBehaviour:
   _speed: 7
   _zoomInertia: 0.3
   _moveInertia: 0.6
-  _constraintsBox: {x: 20, y: 15}
+  _constraintsBox: {x: 25, y: 15}
   _volume: {fileID: 620422132}
   _fade: {fileID: 819893435}
 --- !u!114 &1640422468

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1996647545331567208}
   - component: {fileID: 5117133013509430594}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Prana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269313911818599381}
   - component: {fileID: 14291992797842520}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5041811457392393705}
   - component: {fileID: 2490564319411167718}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

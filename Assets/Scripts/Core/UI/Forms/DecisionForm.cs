@@ -1,13 +1,13 @@
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Zenject;
 
 namespace Core.UI.Forms
 {
     [RequireComponent(typeof(RectTransform))]
-    public class DecisionForm : MonoBehaviour, IDecisionAwaiter, IAutoSizable, IClosableForm
+    public class DecisionForm : MonoBehaviour, IConfirmAwaiter<bool>, IAutoSizable, IClosableForm
     {
         private const string FormPath = "Prefabs/Views/Decision Form";
 
@@ -39,34 +39,31 @@ namespace Core.UI.Forms
             _denyButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
         }
-        private void OnAccept()
-        {
-            _taskCompletion.SetResult(true);
-        }
-        private void OnDenied()
-        {
-            _taskCompletion.SetResult(false);
-        }
-        public static IDecisionAwaiter CreateForm(string label = null, string description = null)
-        {
-            var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
-            var form = obj.GetComponentInChildren<IDecisionAwaiter>();
-            form.SetLabel(label);
-            form.SetDescription(description);
-            return form;
-        }
-        public async Task<bool> AwaitForDecision()
+        private void Start()
         {
             if (AutoSize)
             {
                 _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, MinHeight + _description.preferredHeight);
             }
-
-            _taskCompletion = new TaskCompletionSource<bool>();
-            bool result = await _taskCompletion.Task;
+        }
+        private void OnAccept()
+        {
+            _taskCompletion.SetResult(true);
             Close();
-            return result;
-        }    
+        }
+        private void OnDenied()
+        {
+            _taskCompletion.SetResult(false);
+            Close();
+        }
+        public static IConfirmAwaiter<bool> CreateForm(string label = null, string description = null)
+        {
+            var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
+            var form = obj.GetComponentInChildren<IConfirmAwaiter<bool>>();
+            form.SetLabel(label);
+            form.SetDescription(description);
+            return form;
+        }
         public void SetLabel(string label)
         {
             if (string.IsNullOrEmpty(label)) return;
@@ -78,6 +75,16 @@ namespace Core.UI.Forms
             if (string.IsNullOrEmpty(description)) return;
 
             _description.text = description;
+        }
+        public async Task<bool> AwaitForConfirm()
+        {
+            _taskCompletion = new TaskCompletionSource<bool>();
+            return await _taskCompletion.Task;
+        }
+        public async Task<bool> AwaitForConfirm(CancellationToken cancellationToken)
+        {
+            _taskCompletion = new TaskCompletionSource<bool>();
+            return await Task.Run(() => _taskCompletion.Task, cancellationToken);
         }
         public void Close()
         {

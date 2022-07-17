@@ -3,11 +3,18 @@ using System.Threading.Tasks;
 
 namespace Core.UI.Forms
 {
-    public interface IConfirmAwaiter<ResultT>
+    public interface IConfirmAwaiter
     {
         void SetLabel(string label);
         void SetDescription(string description);
-        Task<ResultT> AwaitForConfirm();
-        Task<ResultT> AwaitForConfirm(CancellationToken cancelletionToken);
+        Task AwaitForConfirm();
+        Task AwaitForConfirm(CancellationToken cancellationToken);
+    }
+    public interface IConfirmAwaiter<TResult>
+    {
+        void SetLabel(string label);
+        void SetDescription(string description);
+        Task<TResult> AwaitForConfirm();
+        Task<TResult> AwaitForConfirm(CancellationToken cancellationToken);
     }
 }

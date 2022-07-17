@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using Core.Models;
 using Core.Infrastructure;
 using Zenject;
+using System;
 
 namespace Core.Cities
 {
@@ -43,17 +44,17 @@ namespace Core.Cities
         }
         public void AddPriests(ushort value)
         {
-            _numberOfPriests += value;
+            _numberOfPriests = (ushort)Math.Min(_numberOfPriests + value, _maxCapacityOfPriests);
         }
         public void ReducePriests(ushort value)
         {
-            _numberOfPriests -= value;
+            _numberOfPriests = (ushort)Math.Max(_numberOfPriests - value, 0);
         }
         private IEnumerator GeneratePriests()
         {
             while (true)
             {
-                _numberOfPriests += _growthOfPriests;
+                AddPriests(_growthOfPriests);
                 yield return new WaitForSeconds(10f);
             }
         }
