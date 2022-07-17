@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
@@ -21,7 +20,6 @@ namespace Core.UI
 
         private SignalBus _signalBus;
         private MovingPriestsForm _formPrefab;
-        private CancellationTokenSource _cancellationTokenSource;
 
         [Inject]
         public void Construct(SignalBus signalBus, DiContainer container)
@@ -40,9 +38,6 @@ namespace Core.UI
             _signalBus.Unsubscribe<TempleDragBeginSignal>(OnTempleDragBegin);
             _signalBus.Unsubscribe<TempleDragEndSignal>(OnTempleDragEnd);
             _signalBus.Unsubscribe<TempleDragEndSignal>(OnPlayerSelectedCityForPriests);
-
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
         }
 
         private void OnTempleDragBegin(TempleDragBeginSignal signal)
@@ -62,14 +57,10 @@ namespace Core.UI
         {
             if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = new CancellationTokenSource();
-
             var form = Instantiate(_formPrefab);
             form.Init(signal.Temple.NumberOfPriests);
-            form.Cancelled += () => _cancellationTokenSource.Cancel();
 
-            ushort priestsCount = await form.AwaitForConfirm(_cancellationTokenSource.Token);
+            ushort priestsCount = await form.AwaitForConfirm();
 
             _signalBus.Fire(new PlayerMovingPriestsSignal
             {

@@ -8,13 +8,13 @@ namespace Core.UI.Forms
         void SetLabel(string label);
         void SetDescription(string description);
         Task AwaitForConfirm();
-        Task AwaitForConfirm(CancellationToken cancellationToken);
+        Task AwaitForConfirm(CancellationToken externalToken);
     }
     public interface IConfirmAwaiter<TResult>
     {
         void SetLabel(string label);
         void SetDescription(string description);
         Task<TResult> AwaitForConfirm();
-        Task<TResult> AwaitForConfirm(CancellationToken cancellationToken);
+        Task<TResult> AwaitForConfirm(CancellationToken externalToken);
     }
 }

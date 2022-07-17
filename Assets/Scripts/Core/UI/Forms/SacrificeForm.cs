@@ -2,49 +2,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using Core.UI.Forms;
+using Core.Cities;
 
-namespace Core.UI.Forms
+namespace Core.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class DecisionForm : MonoBehaviour, IConfirmAwaiter<bool>, IAutoSizable, IClosableForm
+    public class SacrificeForm : MonoBehaviour, IConfirmAwaiter<bool>, IClosableForm
     {
-        private const string FormPath = "Prefabs/Views/Decision Form";
-
         [Header("References")]
-        [SerializeField]
-        private TMP_Text _label;
-        [SerializeField]
-        private TMP_Text _description;
         [SerializeField]
         private Button _okButton;
         [SerializeField]
-        private Button _denyButton;
-
-        [Header("Form")]
-        [SerializeField]
-        private bool _autoSize;
+        private Button _noButton;
         [SerializeField, Min(0f)]
-        private float _minHeight;
+        private float _offsetY = 1f;
 
         private RectTransform _rectTransform;
         private TaskCompletionSource<bool> _taskCompletionSource = new TaskCompletionSource<bool>();
 
-        public bool AutoSize => _autoSize;
-        public float MinHeight => _minHeight;
-
         private void Awake()
         {
             _okButton.onClick.AddListener(OnAccept);
-            _denyButton.onClick.AddListener(OnDenied);
+            _noButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
-        }
-        private void Start()
-        {
-            if (AutoSize)
-            {
-                _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, MinHeight + _description.preferredHeight);
-            }
         }
         private void OnAccept()
         {
@@ -56,25 +37,24 @@ namespace Core.UI.Forms
             _taskCompletionSource.SetResult(false);
             Close();
         }
-        public void SetLabel(string label)
-        {
-            if (string.IsNullOrEmpty(label)) return;
-            _label.text = label;
-        }
-        public void SetDescription(string description)
-        {
-            if (string.IsNullOrEmpty(description)) return;
-            _description.text = description;
-        }
+
+        public void SetDescription(string description) { }
+        public void SetLabel(string label) { }
         public async Task<bool> AwaitForConfirm()
         {
             return await _taskCompletionSource.Task;
         }
+
         public async Task<bool> AwaitForConfirm(CancellationToken externalToken)
         {
             externalToken.Register(Close);
             return await Task.Run(() => _taskCompletionSource.Task, externalToken);
         }
+        public void AttachToCity(CityScript city)
+        {
+            _rectTransform.position = Utils.WorldToScreenPoint(city.transform.position + Vector3.up * _offsetY);
+        }
+
         public void Close()
         {
             Destroy(transform.parent.gameObject);

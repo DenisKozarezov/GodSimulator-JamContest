@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,6 +9,7 @@ namespace Core.UI.Forms
     [RequireComponent(typeof(RectTransform))]
     public class MovingPriestsForm : MonoBehaviour, IConfirmAwaiter<ushort>, IClosableForm
     {
+        [Header("References")]
         [SerializeField]
         private TextMeshProUGUI _label;
         [SerializeField]
@@ -21,9 +21,8 @@ namespace Core.UI.Forms
         [SerializeField]
         private Button _close;
 
-        private TaskCompletionSource<ushort> _taskCompletionSource;
-
-        public event Action Cancelled;
+        private TaskCompletionSource<ushort> _taskCompletionSource = new TaskCompletionSource<ushort>();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private void Awake()
         {
@@ -39,8 +38,8 @@ namespace Core.UI.Forms
         }
         private void OnCancelled()
         {
-            Cancelled?.Invoke();
-            Close();
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
         private void OnSliderChanged(float value)
         {
@@ -53,18 +52,19 @@ namespace Core.UI.Forms
         }
         public void SetLabel(string label)
         {
+            if (string.IsNullOrEmpty(label)) return;
             _label.text = label;
         }
         public void SetDescription(string description) { }
         public async Task<ushort> AwaitForConfirm()
         {
-            _taskCompletionSource = new TaskCompletionSource<ushort>();
-            return await _taskCompletionSource.Task;
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
-        public async Task<ushort> AwaitForConfirm(CancellationToken cancellationToken)
+        public async Task<ushort> AwaitForConfirm(CancellationToken externalToken)
         {
-            _taskCompletionSource = new TaskCompletionSource<ushort>();
-            return await Task.Run(() => _taskCompletionSource.Task, cancellationToken);
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
+            _cancellationTokenSource.Token.Register(Close);
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public void Close()
         {
