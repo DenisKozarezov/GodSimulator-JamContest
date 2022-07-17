@@ -1,7 +1,19 @@
+using Core.Cities;
 using Core.Models;
 
 namespace Core.Infrastructure
 {
+    public struct PlayerClickedOnCitySignal
+    {
+        public CityScript View;
+    }
+    public struct PlayerMovingPriestsSignal
+    {
+        public TempleStrategy Temple;
+        public CityScript Target;
+        public ushort PriestsAmount;
+        public float Duration;
+    }
     public struct PlayerVictorySignal { }
 
     public interface IPlayerUsedAbility { AbilityModel Ability { get; } }

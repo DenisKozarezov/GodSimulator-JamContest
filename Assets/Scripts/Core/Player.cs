@@ -13,7 +13,7 @@ namespace Core
         public byte Percent;
     }
 
-    public class Player : IInitializable
+    public class Player : IInitializable, ILateDisposable
     {
         [SerializeField]
         private int _prana;
@@ -33,7 +33,7 @@ namespace Core
             }
         }
 
-        public void Initialize()
+        void IInitializable.Initialize()
         {
             _signalBus.Subscribe<IPlayerUsedAbility>(OnAbilityCasted);
 
@@ -42,6 +42,10 @@ namespace Core
             {
                 AddVirtueValue(virtue, (byte)UnityEngine.Random.Range(10, 90));
             }
+        }
+        void ILateDisposable.LateDispose()
+        {
+            _signalBus.Unsubscribe<IPlayerUsedAbility>(OnAbilityCasted);
         }
         private void OnAbilityCasted(IPlayerUsedAbility ability)
         {
@@ -79,5 +83,6 @@ namespace Core
         {
             _prana = Math.Max(_prana - value, 0);
         }
+
     }
 }

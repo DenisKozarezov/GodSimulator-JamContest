@@ -1,13 +1,13 @@
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Zenject;
 
 namespace Core.UI.Forms
 {
     [RequireComponent(typeof(RectTransform))]
-    public class DecisionForm : MonoBehaviour, IDecisionAwaiter, IAutoSizable, IClosableForm
+    public class DecisionForm : MonoBehaviour, IConfirmAwaiter<bool>, IAutoSizable, IClosableForm
     {
         private const string FormPath = "Prefabs/Views/Decision Form";
 
@@ -28,7 +28,7 @@ namespace Core.UI.Forms
         private float _minHeight;
 
         private RectTransform _rectTransform;
-        private TaskCompletionSource<bool> _taskCompletion;
+        private TaskCompletionSource<bool> _taskCompletionSource = new TaskCompletionSource<bool>();
 
         public bool AutoSize => _autoSize;
         public float MinHeight => _minHeight;
@@ -39,46 +39,41 @@ namespace Core.UI.Forms
             _denyButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
         }
-        private void OnAccept()
-        {
-            _taskCompletion.SetResult(true);
-        }
-        private void OnDenied()
-        {
-            _taskCompletion.SetResult(false);
-        }
-        public static IDecisionAwaiter CreateForm(string label = null, string description = null)
-        {
-            var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
-            var form = obj.GetComponentInChildren<IDecisionAwaiter>();
-            form.SetLabel(label);
-            form.SetDescription(description);
-            return form;
-        }
-        public async Task<bool> AwaitForDecision()
+        private void Start()
         {
             if (AutoSize)
             {
                 _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, MinHeight + _description.preferredHeight);
             }
-
-            _rectTransform.gameObject.SetActive(true);
-            _taskCompletion = new TaskCompletionSource<bool>();
-            bool result = await _taskCompletion.Task;
+        }
+        private void OnAccept()
+        {
+            _taskCompletionSource.SetResult(true);
             Close();
-            return result;
-        }    
+        }
+        private void OnDenied()
+        {
+            _taskCompletionSource.SetResult(false);
+            Close();
+        }
         public void SetLabel(string label)
         {
             if (string.IsNullOrEmpty(label)) return;
-
             _label.text = label;
         }
         public void SetDescription(string description)
         {
             if (string.IsNullOrEmpty(description)) return;
-
             _description.text = description;
+        }
+        public async Task<bool> AwaitForConfirm()
+        {
+            return await _taskCompletionSource.Task;
+        }
+        public async Task<bool> AwaitForConfirm(CancellationToken externalToken)
+        {
+            externalToken.Register(Close);
+            return await Task.Run(() => _taskCompletionSource.Task, externalToken);
         }
         public void Close()
         {

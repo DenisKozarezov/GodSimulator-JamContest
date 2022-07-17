@@ -1,8 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Core.Input;
-using System.Collections.Generic;
 
 namespace Core.Models
 {
@@ -18,15 +17,15 @@ namespace Core.Models
             private int _virtueLevels;
             [SerializeField, TextArea(minLines: 10, maxLines: 20)]
             private string _citiesNames;
-            private Stack<string> _names;
+            private Queue<string> _names;
 
             public int GameTime => _gameTime;
             public int VirtueLevels => _virtueLevels;
-            public Stack<string> CitiesNames
+            public Queue<string> CitiesNames
             {
                 get
                 {
-                    if (_names == null) _names = new Stack<string>(_citiesNames.Split('\n'));
+                    if (_names == null) _names = new Queue<string>(_citiesNames.Split('\n'));
                     return _names;
                 }
             }
@@ -39,11 +38,13 @@ namespace Core.Models
         private PlayerSettings _playerSettings;
         [SerializeField]
         private AudioSettings _audioSettings;
+        [SerializeField]
+        private UISettings _UISettings;
 
         public override void InstallBindings()
         {
             Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
-            Container.BindInstances(_gameSettings, _playerSettings, _audioSettings);
+            Container.BindInstances(_gameSettings, _playerSettings, _audioSettings, _UISettings);
         }
     }
 }

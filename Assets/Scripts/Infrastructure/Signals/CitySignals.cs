@@ -3,21 +3,19 @@ using Core.Models;
 
 namespace Core.Infrastructure
 {
-    public interface ISignalInteractableView 
+    public struct TempleDragBeginSignal
     {
-        InteractableView View { get; }
+        public TempleStrategy Temple;
     }
-
-    public struct PlayerClickedOnCitySignal : ISignalInteractableView
+    public struct TempleDragEndSignal
     {
-        public InteractableView View { set; get; }
         public GodModel God;
-        public GreeceCityScript FromCity;
-        public GreeceCityScript ToCity;
-        public ushort NumberOfPriests;
+        public TempleStrategy Temple;
+        public CityScript Target;
     }
+}
 
-    public struct PlayerWantToMovingPriestsSignal
+    /*public struct PlayerWantToMovingPriestsSignal
     {
         public GreeceCityScript City;
         public float TempleRange;
@@ -30,4 +28,4 @@ namespace Core.Infrastructure
         public GreeceCityScript ToCity;
         public byte NumberOfPriests;
     }
-}
+    */

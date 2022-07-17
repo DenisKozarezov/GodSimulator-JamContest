@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Core
 {
@@ -28,6 +29,20 @@ namespace Core
             float x = first.position.x;
             float y = first.position.y + first.sizeDelta.y + second.sizeDelta.y / 2 + margin;
             return new Vector2(x, y);
+        }
+        public static bool IsPointerOverGameObject()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
+        }
+        public static Vector2 WorldToScreenPoint(Vector3 position)
+        {
+            return Camera.main.WorldToScreenPoint(position, Camera.MonoOrStereoscopicEye.Mono);
+        }
+        public static Vector3 ScreenToWorldPoint(Vector2 position)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(position);
+            RaycastHit2D raycastHit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~0);
+            return raycastHit.point;
         }
     }
 }

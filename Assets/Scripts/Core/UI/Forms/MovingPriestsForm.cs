@@ -1,69 +1,74 @@
-using Core.Cities;
-using Core.Infrastructure;
-using Core.Models;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
+using TMPro;
 
 namespace Core.UI.Forms
 {
-    public class MovingPriestsForm : MonoBehaviour, IClosableForm
+    [RequireComponent(typeof(RectTransform))]
+    public class MovingPriestsForm : MonoBehaviour, IConfirmAwaiter<ushort>, IClosableForm
     {
+        [Header("References")]
         [SerializeField]
-        private TMPro.TextMeshProUGUI _count;
+        private TextMeshProUGUI _label;
+        [SerializeField]
+        private TextMeshProUGUI _count;
         [SerializeField]
         private Slider _slider;
         [SerializeField]
         private Button _go;
         [SerializeField]
         private Button _close;
-        private GodModel _god;
-        private GreeceCityScript _fromCity;
-        private GreeceCityScript _toCity;
 
-        private SignalBus _signalBus;
-        protected SignalBus SignalBus => _signalBus;
-
-        [Inject]
-        public void Contruct(SignalBus signalBus) => _signalBus = signalBus;
+        private TaskCompletionSource<ushort> _taskCompletionSource = new TaskCompletionSource<ushort>();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private void Awake()
         {
-            _go.onClick.AddListener(ActivateSelectionMode);
-            _close.onClick.AddListener(Close);
+            _count.text = _slider.minValue.ToString();
+            _go.onClick.AddListener(OnConfirmed);
+            _close.onClick.AddListener(OnCancelled);
+            _slider.onValueChanged.AddListener(OnSliderChanged);
         }
-
-        public void InitializePanel(PlayerClickedOnCitySignal playerClickedOnCitySignal)
+        private void OnConfirmed()
         {
-            InitializeSlider(playerClickedOnCitySignal.NumberOfPriests);
-            _god = playerClickedOnCitySignal.God;
-            _fromCity = playerClickedOnCitySignal.FromCity;
-            _toCity = playerClickedOnCitySignal.ToCity;
+            _taskCompletionSource.SetResult((ushort)_slider.value);
+            Close();
         }
-
-        private void InitializeSlider(ushort maxNumberOfPriests)
+        private void OnCancelled()
         {
-            _slider.maxValue = maxNumberOfPriests;
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
-
-        public void SliderChanged()
+        private void OnSliderChanged(float value)
         {
-            _count.text = _slider.value.ToString();
+            _count.text = value.ToString();
         }
 
-        public void ActivateSelectionMode()
+        public void Init(float sliderMaxLimit)
         {
-            if (_fromCity != null)
-            {
-                SignalBus.Fire(new SelectionModeChangedSignal { Value = true });
-                SignalBus.Fire(new PlayerMovingPriestsSignal { God = _god, ToCity = _toCity, FromCity = _fromCity, NumberOfPriests = (byte)_slider.value });
-                Close();
-            }
+            _slider.maxValue = sliderMaxLimit;
         }
-
+        public void SetLabel(string label)
+        {
+            if (string.IsNullOrEmpty(label)) return;
+            _label.text = label;
+        }
+        public void SetDescription(string description) { }
+        public async Task<ushort> AwaitForConfirm()
+        {
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
+        }
+        public async Task<ushort> AwaitForConfirm(CancellationToken externalToken)
+        {
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
+            _cancellationTokenSource.Token.Register(Close);
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
+        }
         public void Close()
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }

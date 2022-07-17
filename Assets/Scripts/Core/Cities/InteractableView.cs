@@ -1,9 +1,12 @@
 using UnityEngine;
-using Zenject;
+using UnityEngine.EventSystems;
+using Zenject; 
+using Core.Models;
 
 namespace Core.Cities
 {
-    public abstract class InteractableView : MonoBehaviour
+    public abstract class InteractableView : MonoBehaviour, 
+        IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
@@ -11,30 +14,34 @@ namespace Core.Cities
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
 
-        protected bool _isHover;
-        protected bool _selected;
-        public bool Interactable { get; set; } = true;
+        private bool _isHover;
+        private bool _selected;
+        private float _outlineWidth;
+
+        public abstract bool Interactable { get; set; }
 
         [Inject]
-        public void Contruct(SignalBus signalBus) => _signalBus = signalBus;
-
-        private void SetOutlineWidth(float width)
+        public void Contruct(SignalBus signalBus, UISettings _UISettings)
         {
-            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-            _spriteRenderer.GetPropertyBlock(mpb);
-            mpb.SetFloat("_OutlineWidth", width);
-            _spriteRenderer.SetPropertyBlock(mpb);
+            _signalBus = signalBus;
+            _outlineWidth = _UISettings.OutlineWidth;
         }
 
-        public abstract void OnMouseDown();
-        private void OnMouseEnter()
+        protected abstract void Start();
+        private void SetOutlineWidth(float width)
+        {
+            _spriteRenderer.material.SetFloat("_OutlineWidth", width);
+        }
+
+        public abstract void OnPointerClick(PointerEventData eventData);
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (!Interactable) return;
 
             _isHover = true;
-            SetOutlineWidth(10f);
+            SetOutlineWidth(_outlineWidth);
         }
-        private void OnMouseExit()
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (!Interactable) return;
 
