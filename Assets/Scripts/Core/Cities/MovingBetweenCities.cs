@@ -74,7 +74,7 @@ namespace Core.Cities
             var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
             icon.SetAmount(signal.PriestsAmount);
 
-            Move(signal, startPos, endPos);
+            //Move(signal, startPos, endPos);
         }
         private void SelectCities(IEnumerable<Collider2D> colliders)
         {
@@ -98,9 +98,9 @@ namespace Core.Cities
         }
         private async void Move(PlayerMovingPriestsSignal signal, Vector2 startPos, Vector2 endPos)
         {
-            //signal.Temple.DeletePriests(signal.God, signal.PriestsAmount);
+            //signal.Temple.City.ReducePriests(signal.God, signal.PriestsAmount);
             Debug.Log(endPos - startPos);
-            await Task.Delay(5000);
+            await Task.Delay(5000); //signal.Duration
             //signal.Target.AddPriests(signal.God, signal.PriestsAmount);
         }
     }

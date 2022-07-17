@@ -9,6 +9,7 @@ namespace Core.Infrastructure
     }
     public struct PlayerMovingPriestsSignal
     {
+        /*public GodModel God;*/
         public TempleStrategy Temple;
         public CityScript Target;
         public ushort PriestsAmount;

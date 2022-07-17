@@ -58,7 +58,7 @@ namespace Core.UI
             if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
             var form = Instantiate(_formPrefab);
-            form.Init(signal.Temple.NumberOfPriests);
+            form.Init(signal.Temple.City.NumberOfPriests[signal.God]);
 
             ushort priestsCount = await form.AwaitForConfirm();
 
