@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4436732790440274521}
   - component: {fileID: 1154158976485013050}
   - component: {fileID: 8145992425108884329}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 7578782590879679828}
   - component: {fileID: 6455837998710066987}
   - component: {fileID: 1174342719728225219}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

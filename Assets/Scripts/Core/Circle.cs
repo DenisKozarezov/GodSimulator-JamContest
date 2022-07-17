@@ -22,7 +22,6 @@ public class Circle : MonoBehaviour
     {
         float x;
         float y;
-        float z = 0f;
 
         float angle = 20f;
 
@@ -31,7 +30,7 @@ public class Circle : MonoBehaviour
             x = Mathf.Sin(Mathf.Deg2Rad * angle) * xradius;
             y = Mathf.Cos(Mathf.Deg2Rad * angle) * yradius;
 
-            line.SetPosition(i, new Vector3(x, y, z));
+            line.SetPosition(i, new Vector3(x, y));
 
             angle += (360f / segments);
         }

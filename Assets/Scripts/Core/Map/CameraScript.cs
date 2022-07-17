@@ -11,7 +11,7 @@ namespace Core
     public class CameraScript : MonoBehaviour
     {
         private Camera _camera;
-        private const float ZoomMin = 7;
+        private float ZoomMin;
         private const float ZoomMax = 3;
 
         [Header("Camera")]
@@ -35,6 +35,8 @@ namespace Core
         private Vector3 _moveVelocity;
         private Vector2 _startPosition;
 
+        private float Ratio => GetBounds().x / _constraintsBox.x;
+
         [Inject]
         public void Construct(IInputSystem inputSystem) => _inputSystem = inputSystem;
 
@@ -42,6 +44,7 @@ namespace Core
         {
             _camera = GetComponent<Camera>();
             _startPosition = transform.position;
+            ZoomMin = _camera.orthographicSize + _camera.orthographicSize * (1 - Ratio);
         }
         private void Update()
         {
@@ -54,8 +57,8 @@ namespace Core
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
-            Vector2 position = _startPosition - _constraintsBox / 2;
-            UnityEditor.Handles.DrawSolidRectangleWithOutline(new Rect(position, _constraintsBox), Color.white.WithAlpha(0f), Color.green);
+            Vector2 position = _startPosition - _constraintsBox * 0.5f;
+            UnityEditor.Handles.DrawSolidRectangleWithOutline(new Rect(position, _constraintsBox), Color.green.WithAlpha(0.03f), Color.green);
         }
 #endif
 
@@ -71,31 +74,39 @@ namespace Core
             {
                 direction += Vector2.left;
             }
-            if (_inputSystem.MousePosition.y >= Screen.height * 0.9f)
+            if (_inputSystem.MousePosition.y >= Screen.height * 0.95f)
             {
                 direction += Vector2.up;
             }
-            if (_inputSystem.MousePosition.y <= Screen.height * 0.1f)
+            if (_inputSystem.MousePosition.y <= Screen.height * 0.05f)
             {
                 direction += Vector2.down;
             }
-            Translate(direction);
+            Translate(direction * 10f);
             transform.position = ClampCameraPosition();
         }
         private void UpdateZoom()
         {
             if (_inputSystem.MouseWheelDelta != 0f)
             {
-                float zoom = Mathf.SmoothDamp(_camera.orthographicSize, _camera.orthographicSize - _inputSystem.MouseWheelDelta, ref _zoomVelocity, _zoomInertia);
-                _camera.orthographicSize = Mathf.Clamp(zoom, ZoomMax, ZoomMin);
+                float zoom = Mathf.SmoothDamp(0f, _inputSystem.MouseWheelDelta, ref _zoomVelocity, _zoomInertia);
+                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - zoom, ZoomMax, ZoomMin);
             }
         }
+        private Vector2 GetBounds()
+        {
+            float height = _camera.orthographicSize * 2f;
+            float width = height * _camera.aspect;
+            return new Vector2(width, height);
+        }    
         private Vector3 ClampCameraPosition()
         {
-            float minX = _startPosition.x - _constraintsBox.x / 2;
-            float maxX = _startPosition.x + _constraintsBox.x / 2;
-            float minY = _startPosition.y - _constraintsBox.y / 2;
-            float maxY = _startPosition.y + _constraintsBox.y / 2;
+            Vector2 bounds = GetBounds();
+
+            float minX = _startPosition.x - _constraintsBox.x * 0.5f + bounds.x * 0.5f;
+            float maxX = _startPosition.x + _constraintsBox.x * 0.5f - bounds.x * 0.5f;
+            float minY = _startPosition.y - _constraintsBox.y * 0.5f + bounds.y * 0.5f;
+            float maxY = _startPosition.y + _constraintsBox.y * 0.5f - bounds.y * 0.5f;
 
             float newX = Mathf.Clamp(transform.position.x, minX, maxX);
             float newY = Mathf.Clamp(transform.position.y, minY, maxY);
@@ -116,8 +127,11 @@ namespace Core
         }
         public void Fade(FadeMode mode, float time)
         {
-            Color endColor = mode == FadeMode.Off ? Color.black : _fade.color.WithAlpha(0f);
-            _fade.DOColor(endColor, time);
+            _fade.DOFade(mode == FadeMode.Off ? 1f : 0f, time).SetEase(Ease.Linear);
+        }
+        public void Shake(float time, float strength = 1f)
+        {
+            transform.DOShakePosition(time, strength);
         }
     }
 }

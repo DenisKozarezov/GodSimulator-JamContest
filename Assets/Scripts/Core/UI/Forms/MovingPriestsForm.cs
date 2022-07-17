@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -8,8 +7,9 @@ using TMPro;
 namespace Core.UI.Forms
 {
     [RequireComponent(typeof(RectTransform))]
-    public class MovingPriestsForm : MonoBehaviour, IClosableForm, IConfirmAwaiter<ushort>
+    public class MovingPriestsForm : MonoBehaviour, IConfirmAwaiter<ushort>, IClosableForm
     {
+        [Header("References")]
         [SerializeField]
         private TextMeshProUGUI _label;
         [SerializeField]
@@ -21,12 +21,12 @@ namespace Core.UI.Forms
         [SerializeField]
         private Button _close;
 
-        private TaskCompletionSource<ushort> _taskCompletionSource;
-
-        public event Action Cancelled;
+        private TaskCompletionSource<ushort> _taskCompletionSource = new TaskCompletionSource<ushort>();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private void Awake()
         {
+            _count.text = _slider.minValue.ToString();
             _go.onClick.AddListener(OnConfirmed);
             _close.onClick.AddListener(OnCancelled);
             _slider.onValueChanged.AddListener(OnSliderChanged);
@@ -38,8 +38,8 @@ namespace Core.UI.Forms
         }
         private void OnCancelled()
         {
-            Cancelled?.Invoke();
-            Close();
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
         private void OnSliderChanged(float value)
         {
@@ -50,22 +50,22 @@ namespace Core.UI.Forms
         {
             _slider.maxValue = sliderMaxLimit;
         }
-
-        public async Task<ushort> AwaitForConfirm()
-        {
-            _taskCompletionSource = new TaskCompletionSource<ushort>();
-            return await _taskCompletionSource.Task;
-        }
-        public async Task<ushort> AwaitForConfirm(CancellationToken cancellationToken)
-        {
-            _taskCompletionSource = new TaskCompletionSource<ushort>();
-            return await Task.Run(() => _taskCompletionSource.Task, cancellationToken);
-        }
         public void SetLabel(string label)
         {
+            if (string.IsNullOrEmpty(label)) return;
             _label.text = label;
         }
-        public void SetDescription(string description) { }   
+        public void SetDescription(string description) { }
+        public async Task<ushort> AwaitForConfirm()
+        {
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
+        }
+        public async Task<ushort> AwaitForConfirm(CancellationToken externalToken)
+        {
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
+            _cancellationTokenSource.Token.Register(Close);
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
+        }
         public void Close()
         {
             Destroy(gameObject);

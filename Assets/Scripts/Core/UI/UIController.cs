@@ -1,57 +1,81 @@
-using System.Threading;
 using UnityEngine;
 using Zenject;
+using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.UI.Forms;
 
 namespace Core.UI
-{
+{ 
+    public enum CursorType : byte
+    {
+        Default = 0x00,
+        Target = 0x01,
+    }
+
     public class UIController : MonoBehaviour
     {
         [SerializeField]
-        private GameObject _movingPriestsForm;
+        private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
         private bool _selectionMode;
 
         private SignalBus _signalBus;
-        private CancellationTokenSource _cancellationTokenSource;
-
-        public bool SelectionMode => _selectionMode;
+        private MovingPriestsForm _formPrefab;
 
         [Inject]
-        public void Construct(SignalBus signalBus)
+        public void Construct(SignalBus signalBus, DiContainer container)
         {
             _signalBus = signalBus;
+            _formPrefab = container.Resolve<MovingPriestsForm>();
         }
-
         private void Awake()
         {
-            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickOnCity);
+            _signalBus.Subscribe<TempleDragBeginSignal>(OnTempleDragBegin);
+            _signalBus.Subscribe<TempleDragEndSignal>(OnTempleDragEnd);
+            _signalBus.Subscribe<TempleDragEndSignal>(OnPlayerSelectedCityForPriests);
         }
         private void OnDestroy()
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
+            _signalBus.Unsubscribe<TempleDragBeginSignal>(OnTempleDragBegin);
+            _signalBus.Unsubscribe<TempleDragEndSignal>(OnTempleDragEnd);
+            _signalBus.Unsubscribe<TempleDragEndSignal>(OnPlayerSelectedCityForPriests);
         }
 
-        private async void OnPlayerClickOnCity(PlayerClickedOnCitySignal signal)
+        private void OnTempleDragBegin(TempleDragBeginSignal signal)
         {
-            var form = Instantiate(_movingPriestsForm).GetComponent<MovingPriestsForm>();
-            form.Init(signal.NumberOfPriests);
-
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = new CancellationTokenSource();
-            form.Cancelled += () => _cancellationTokenSource.Cancel();
-
-            ushort priestsCount = await form.AwaitForConfirm(_cancellationTokenSource.Token);
-
-            if (signal.View != null)
+            if (signal.Temple != null)
             {
+                SetCursor(CursorType.Target);
                 SetSelectionMode(true);
-                signal.View.ShowRangeToCities();
             }
         }
+        private void OnTempleDragEnd(TempleDragEndSignal signal)
+        {
+            SetCursor(CursorType.Default);
+            SetSelectionMode(false);            
+        }
+        private async void OnPlayerSelectedCityForPriests(TempleDragEndSignal signal)
+        {
+            if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
-        public void SetSelectionMode(bool isSelected)
+            var form = Instantiate(_formPrefab);
+            form.Init(signal.Temple.NumberOfPriests);
+
+            ushort priestsCount = await form.AwaitForConfirm();
+
+            _signalBus.Fire(new PlayerMovingPriestsSignal
+            {
+                Temple = signal.Temple,
+                Target = signal.Target,
+                Duration = 10f,
+                PriestsAmount = priestsCount
+            });
+        }
+
+        private void SetCursor(CursorType cursorType)
+        {
+            Cursor.SetCursor(_cursors[cursorType], Vector2.zero, CursorMode.Auto);
+        }
+        private void SetSelectionMode(bool isSelected)
         {
             _selectionMode = isSelected;
         }

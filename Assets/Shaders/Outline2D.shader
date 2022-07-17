@@ -57,20 +57,20 @@ Shader "Core/Outline2D"
 
             fixed4 frag(v2f IN) : COLOR
             {
-                fixed4 c = tex2D(_MainTex, IN.texcoord);
-                c.rgb *= c.a;
+                fixed4 col = tex2D(_MainTex, IN.texcoord);
+                col.rgb *= col.a;
                 half4 outlineC = _OutlineColor;
                 outlineC.rgb *= outlineC.a;                
 
-                if (_OutlineWidth > 0 && c.a != 0)
+                if (_OutlineWidth > 0 && col.a != 0)
                 {
                     fixed pixelUp = tex2D(_MainTex, IN.texcoord + fixed2(0, _MainTex_TexelSize.y) * _OutlineWidth).a;
                     fixed pixelDown = tex2D(_MainTex, IN.texcoord - fixed2(0, _MainTex_TexelSize.y) * _OutlineWidth).a;
                     fixed pixelRight = tex2D(_MainTex, IN.texcoord + fixed2(_MainTex_TexelSize.x, 0) * _OutlineWidth).a;
                     fixed pixelLeft = tex2D(_MainTex, IN.texcoord - fixed2(_MainTex_TexelSize.x, 0) * _OutlineWidth).a;
-                    return lerp(outlineC, c, ceil(pixelUp * pixelDown * pixelRight * pixelLeft));
+                    return lerp(outlineC, col, ceil(pixelUp * pixelDown * pixelRight * pixelLeft));
                 }
-                else return c;
+                return col;
             }
             ENDCG
         }

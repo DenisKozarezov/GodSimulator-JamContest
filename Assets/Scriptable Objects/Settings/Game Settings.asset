@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Game Settings
   m_EditorClassIdentifier: 
   _gameSettings:
-    _gameTime: 500
+    _gameTime: 10
     _virtueLevels: 4
     _citiesNames: 'Athens
 
