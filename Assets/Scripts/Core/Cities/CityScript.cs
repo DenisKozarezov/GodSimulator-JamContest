@@ -70,7 +70,6 @@ namespace Core.Cities
             {
                 if (!_numberOfPriests.ContainsKey(_invader))
                 {
-                    Debug.Log("fa");
                     _numberOfPriests.Add(_invader, 0);
                 }
             }
