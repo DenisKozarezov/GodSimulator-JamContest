@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Unity.Mathematics;
 using Core.Models;
 using Core.Infrastructure;
 using Zenject;
@@ -11,22 +10,18 @@ namespace Core.Cities
     public class TempleStrategy : MonoBehaviour, ICityStrategy,
         IBeginDragHandler, IEndDragHandler
     {
-        [SerializeField]
-        private byte _maxCapacityOfPriests;
-        [SerializeField]
-        private float _range = 5f;
+        private CityScript _city;
+        private float _range;
 
         private SignalBus _signalBus;
         private VirtueModel _virtue;
         private byte _growthOfPriests;
-        private ushort _numberOfPriests;
         private Coroutine _generatePriests;
 
         public bool Interactable { get; set; }
 
+        public CityScript City => _city;
         public VirtueModel Virtue => _virtue;
-        public byte MaxCapacityOfPriests => _maxCapacityOfPriests;
-        public ushort NumberOfPriests => _numberOfPriests;
         public float Range => _range;
 
         [Inject]
@@ -34,27 +29,44 @@ namespace Core.Cities
 
         private void Start()
         {
+            _city = GetComponent<CityScript>();
+
+            var numberOfCapturedPriests = _city.NumberOfPriests;
+            numberOfCapturedPriests.Remove(_city.Invader);
+            foreach (var priests in numberOfCapturedPriests)
+            {
+                _city.NumberOfPriests[priests.Key] = 0;
+                _city.AddPriests(_city.Invader, priests.Value);
+            }
+
+            _range = GetRange(1);
             _growthOfPriests = 1;
             _generatePriests = StartCoroutine(GeneratePriests());
+            _city.IncreasePercentageOfFaithfulInOtherCities();
         }
 
+        private float GetRange(byte virtueLevel)
+        {
+            switch (virtueLevel)
+            {
+                case 1:
+                    return 3f;
+                case 2:
+                    return 5f;
+                case 3:
+                    return 10f;
+            }
+            return 0;
+        }
         public void SetVirtue(VirtueModel virtue)
         {
             _virtue = virtue;
-        }
-        public void AddPriests(ushort value)
-        {
-            _numberOfPriests = (ushort)math.min(_numberOfPriests + value, _maxCapacityOfPriests);
-        }
-        public void ReducePriests(ushort value)
-        {
-            _numberOfPriests = (ushort)math.max(_numberOfPriests - value, 0);
         }
         private IEnumerator GeneratePriests()
         {
             while (true)
             {
-                AddPriests(_growthOfPriests);
+                _city.AddPriests(_city.Invader, _growthOfPriests);
                 yield return new WaitForSeconds(10f);
             }
         }
@@ -68,7 +80,7 @@ namespace Core.Cities
         {
             if (!Interactable) return;
 
-            _signalBus.Fire(new TempleDragEndSignal { Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
+            _signalBus.Fire(new TempleDragEndSignal { God = _city.Invader, Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
         }
     }
 }

@@ -18,9 +18,11 @@ namespace Core
         [SerializeField]
         private int _prana;
         private Dictionary<VirtueModel, VirtueState> _virtuesLevels = new Dictionary<VirtueModel, VirtueState>();
+        private float _faithRate = 1f;
 
         private readonly SignalBus _signalBus;
         public int Prana => _prana;
+        public float FaithRate => _faithRate;
 
         public Player(SignalBus signalBus, PlayerSettings _playerSettings)
         {

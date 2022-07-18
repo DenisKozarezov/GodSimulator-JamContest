@@ -57,8 +57,10 @@ namespace Core.UI
         {
             if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
+            if (signal.Target.GetComponent<SpriteRenderer>().color == Color.white) return;
+
             var form = Instantiate(_formPrefab);
-            form.Init(signal.Temple.NumberOfPriests);
+            form.Init(signal.Temple.City.NumberOfPriests[signal.God]);
 
             ushort priestsCount = await form.AwaitForConfirm();
 

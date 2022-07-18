@@ -1,4 +1,5 @@
 using Core.Cities;
+using Core.Models;
 
 namespace Core.Infrastructure
 {
@@ -8,6 +9,7 @@ namespace Core.Infrastructure
     }
     public struct TempleDragEndSignal
     {
+        public GodModel God;
         public TempleStrategy Temple;
         public CityScript Target;
     }

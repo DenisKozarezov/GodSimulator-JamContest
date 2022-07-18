@@ -41,7 +41,7 @@ namespace Core.UI.Forms
             _cancellationTokenSource?.Dispose();
         }
         private void OnConfirmed()
-        {          
+        {
             _taskCompletionSource.SetResult((ushort)_slider.value);
             Close();
         }
@@ -66,6 +66,7 @@ namespace Core.UI.Forms
         void IConfirmAwaiter<ushort>.SetDescription(string description) { }
         public async Task<ushort> AwaitForConfirm()
         {
+            _cancellationTokenSource.Token.Register(Close);
             return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public async Task<ushort> AwaitForConfirm(CancellationToken externalToken)
