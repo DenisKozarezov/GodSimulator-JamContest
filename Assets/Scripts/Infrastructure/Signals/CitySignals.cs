@@ -14,18 +14,3 @@ namespace Core.Infrastructure
         public CityScript Target;
     }
 }
-
-    /*public struct PlayerWantToMovingPriestsSignal
-    {
-        public GreeceCityScript City;
-        public float TempleRange;
-    }
-
-    public struct PlayerMovingPriestsSignal
-    {
-        public GodModel God;
-        public GreeceCityScript FromCity;
-        public GreeceCityScript ToCity;
-        public byte NumberOfPriests;
-    }
-    */

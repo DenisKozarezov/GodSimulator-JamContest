@@ -31,11 +31,15 @@ namespace Core.Cities
         private void Start()
         {
             _city = GetComponent<CityScript>();
-            if (_city.IsIncreasePassiveFaithful)
+
+            var numberOfCapturedPriests = _city.NumberOfPriests;
+            numberOfCapturedPriests.Remove(_city.Invader);
+            foreach (var priests in numberOfCapturedPriests)
             {
-                //StopCoroutine(_city.IncreasePercentageOfFaithful());
-                _city.IsIncreasePassiveFaithful = false;
+                _city.NumberOfPriests[priests.Key] = 0;
+                _city.AddPriests(_city.Invader, priests.Value);
             }
+
             _range = GetRange(1);
             _growthOfPriests = 1;
             _generatePriests = StartCoroutine(GeneratePriests());
@@ -77,7 +81,7 @@ namespace Core.Cities
         {
             if (!Interactable) return;
 
-            _signalBus.Fire(new TempleDragEndSignal { God = _city.Invader, Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() }); ;
+            _signalBus.Fire(new TempleDragEndSignal { God = _city.Invader, Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
         }
     }
 }

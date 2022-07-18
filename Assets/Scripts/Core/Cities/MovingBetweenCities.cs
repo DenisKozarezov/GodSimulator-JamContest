@@ -14,26 +14,38 @@ namespace Core.Cities
         private readonly SignalBus _signalBus;
         private IEnumerable<Collider2D> _colliders;
 
+        private TempleRadius _radiusPrefab;
         private AnimatedDottedLine _linePrefab;
         private MovingPriestsIcon _iconPrefab;
+
+        private TempleRadius _radius;
 
         public MovingBetweenCities(SignalBus signalBus, DiContainer container)
         {
             _signalBus = signalBus;
+            _radiusPrefab = container.Resolve<TempleRadius>();
             _linePrefab = container.Resolve<AnimatedDottedLine>();
             _iconPrefab = container.Resolve<MovingPriestsIcon>();
         }
         void IInitializable.Initialize()
         {
             _signalBus.Subscribe<TempleDragBeginSignal>(OnTempleDragBegin);
+            _signalBus.Subscribe<TempleDragEndSignal>(OnTempleDragEndSignal);
             _signalBus.Subscribe<PlayerMovingPriestsSignal>(OnPlayerMovingPriests);
         }
         void ILateDisposable.LateDispose()
         {
             _signalBus.Unsubscribe<TempleDragBeginSignal>(OnTempleDragBegin);
+            _signalBus.Unsubscribe<TempleDragEndSignal>(OnTempleDragEndSignal);
             _signalBus.Unsubscribe<PlayerMovingPriestsSignal>(OnPlayerMovingPriests);
         }
 
+        private TempleRadius CreateTempleVisibleRadius(Transform templeTransform, float range)
+        {
+            var radius = GameObject.Instantiate(_radiusPrefab, templeTransform);
+            radius.SetRange(range);
+            return radius;
+        }
         private AnimatedDottedLine CreateAnimatedDottedLine(Vector2 startPos, Vector2 endPos, float time)
         {
             var line = GameObject.Instantiate(_linePrefab);
@@ -58,23 +70,32 @@ namespace Core.Cities
             {
                 DeselectCities();
             }
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, Constants.CitiesLayer);
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, 1 << Constants.CitiesLayer);
+            Debug.Log(colliderArray.Length);
             Collider2D selfCollider = signal.Temple.GetComponent<Collider2D>();
             _colliders = from collider in colliderArray
                          where collider != selfCollider
                          select collider;
             SelectCities(_colliders);
+            _radius = CreateTempleVisibleRadius(signal.Temple.transform, signal.Temple.Range);
         }
-        private void OnPlayerMovingPriests(PlayerMovingPriestsSignal signal)
+        private void OnTempleDragEndSignal(TempleDragEndSignal signal)
+        {
+            GameObject.Destroy(_radius.gameObject);
+        }
+        private async void OnPlayerMovingPriests(PlayerMovingPriestsSignal signal)
         {
             Vector2 startPos = signal.Temple.transform.position;
             Vector2 endPos = signal.Target.transform.position;
+
+            signal.Temple.City.ReducePriests(signal.Temple.City.Invader, signal.PriestsAmount);
 
             var line = CreateAnimatedDottedLine(startPos, endPos, signal.Duration);
             var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
             icon.SetAmount(signal.PriestsAmount);
 
-            //Move(signal, startPos, endPos);
+            await Task.Delay((int)signal.Duration * 1000);
+            signal.Target.AddPriests(signal.Temple.City.Invader, signal.PriestsAmount);
         }
         private void SelectCities(IEnumerable<Collider2D> colliders)
         {
@@ -95,13 +116,6 @@ namespace Core.Cities
                     renderer.color = Color.white;
                 }
             }
-        }
-        private async void Move(PlayerMovingPriestsSignal signal, Vector2 startPos, Vector2 endPos)
-        {
-            //signal.Temple.City.ReducePriests(signal.God, signal.PriestsAmount);
-            Debug.Log(endPos - startPos);
-            await Task.Delay(5000); //signal.Duration
-            //signal.Target.AddPriests(signal.God, signal.PriestsAmount);
         }
     }
 }
