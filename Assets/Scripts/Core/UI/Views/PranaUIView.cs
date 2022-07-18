@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.Mathematics;
 
 namespace Core.Cities
 {
-    public class PranaView : MonoBehaviour
+    public class PranaUIView : MonoBehaviour
     {
         [SerializeField]
-        private SpriteRenderer _renderer;
+        private Image _renderer;
 
         private Material _material;
         private float ArcMin;
@@ -14,6 +15,7 @@ namespace Core.Cities
 
         private void Start()
         {
+            _renderer.material = new Material(_renderer.material);
             _material = _renderer.material;
             ArcMin = _material.GetFloat("_Arc1");
             ArcMax = 360f - _material.GetFloat("_Arc2");

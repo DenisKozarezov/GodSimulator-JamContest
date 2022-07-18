@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Zenject;
 using DG.Tweening;
 using Core.Input;
+using Unity.Mathematics;
 
 namespace Core
 {
@@ -90,7 +91,7 @@ namespace Core
             if (_inputSystem.MouseWheelDelta != 0f)
             {
                 float zoom = Mathf.SmoothDamp(0f, _inputSystem.MouseWheelDelta, ref _zoomVelocity, _zoomInertia);
-                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - zoom, ZoomMax, ZoomMin);
+                _camera.orthographicSize = math.clamp(_camera.orthographicSize - zoom, ZoomMax, ZoomMin);
             }
         }
         private Vector2 GetBounds()
@@ -108,8 +109,8 @@ namespace Core
             float minY = _startPosition.y - _constraintsBox.y * 0.5f + bounds.y * 0.5f;
             float maxY = _startPosition.y + _constraintsBox.y * 0.5f - bounds.y * 0.5f;
 
-            float newX = Mathf.Clamp(transform.position.x, minX, maxX);
-            float newY = Mathf.Clamp(transform.position.y, minY, maxY);
+            float newX = math.clamp(transform.position.x, minX, maxX);
+            float newY = math.clamp(transform.position.y, minY, maxY);
             return new Vector3(newX, newY, transform.position.z);
         }
 

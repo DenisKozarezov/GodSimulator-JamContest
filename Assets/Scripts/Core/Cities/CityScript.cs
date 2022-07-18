@@ -14,7 +14,7 @@ using System.Collections;
 
 namespace Core.Cities
 {
-    public class CityScript : InteractableView
+    public class CityScript : InteractableView, IEquatable<CityScript>
     {
         [SerializeField]
         private TextMeshPro _name;
@@ -31,7 +31,6 @@ namespace Core.Cities
         private SerializableDictionaryBase<GodModel, float> _percentageOfFaithful;
         [SerializeField]
         private GodModel _invader;
-
         private bool _increasePassiveFaithful;
 
         public ICityStrategy CurrentStrategy => _currentStrategy;
@@ -77,8 +76,11 @@ namespace Core.Cities
             _percentageOfFaithful = new SerializableDictionaryBase<GodModel, float>();
             Interactable = true;
 
-            if (_pranaView == null) return;
-            DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
+            if (_pranaView != null)
+            {
+                DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
+            }
+            MapController.RegisterCity(this);
         }
 
         public void AddGodToPercentageOfFaithful(GodModel god)
@@ -162,6 +164,11 @@ namespace Core.Cities
             if (!Interactable) return;
 
             SignalBus.Fire(new PlayerClickedOnCitySignal { View = this });
+        }
+
+        public bool Equals(CityScript other)
+        {
+            return name.Equals(other.name);
         }
     }
 }

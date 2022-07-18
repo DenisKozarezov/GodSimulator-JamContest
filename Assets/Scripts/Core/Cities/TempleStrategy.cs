@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 using Core.Models;
 using Core.Infrastructure;
 using Zenject;
-using System;
 
 namespace Core.Cities
 {

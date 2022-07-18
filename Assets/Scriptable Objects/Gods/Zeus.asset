@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 3
   _displayName: Zeus Almighty
   _description: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  _flag: {fileID: 0}
+  _color: {r: 1, g: 0.90977335, b: 0.27735847, a: 1}
+  _portrait: {fileID: 0}
