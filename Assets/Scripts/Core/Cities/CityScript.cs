@@ -28,7 +28,7 @@ namespace Core.Cities
         private byte _maxCapacityOfPriests;
         [SerializeField]
         private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
-        private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
+        private SerializableDictionaryBase<GodModel, float> _percentageOfFaithful;
         [SerializeField]
         private GodModel _invader;
 
@@ -74,7 +74,7 @@ namespace Core.Cities
                 }
             }
 
-            _percentageOfFaithful = new SerializableDictionaryBase<GodModel, byte>();
+            _percentageOfFaithful = new SerializableDictionaryBase<GodModel, float>();
             Interactable = true;
 
             if (_pranaView == null) return;
@@ -91,12 +91,15 @@ namespace Core.Cities
 
         public IEnumerator IncreasePercentageOfFaithful()
         {
-            //float templeRate = 0.5f;
+            float templeRate = 0.5f;
             while (CurrentStrategy is NeutralStrategy)
             {
+                var total = _percentageOfFaithful.Values.ToList().Sum(x => x);
                 foreach (var godKey in _percentageOfFaithful.Keys.ToList())
                 {
-                    //_percentageOfFaithful[godKey] += templeRate + faithRate;
+                    if (total >= 100f)
+                        yield break;
+                    _percentageOfFaithful[godKey] += templeRate;
                 }
                 yield return new WaitForSeconds(1f);
             }
@@ -135,6 +138,7 @@ namespace Core.Cities
         {
             if (!_numberOfPriests.ContainsKey(god))
                 _numberOfPriests.Add(god, 0);
+
             _numberOfPriests[god] = (ushort)Math.Min(_numberOfPriests[god] + value, _maxCapacityOfPriests);
         }
 
@@ -148,6 +152,9 @@ namespace Core.Cities
             TempleStrategy temple = gameObject.AddComponent<TempleStrategy>();
             temple.SetVirtue(virtue);
             _currentStrategy = temple;
+
+            if (IsIncreasePassiveFaithful)
+                IsIncreasePassiveFaithful = false;
         }
 
         public override void OnPointerClick(PointerEventData eventData)
