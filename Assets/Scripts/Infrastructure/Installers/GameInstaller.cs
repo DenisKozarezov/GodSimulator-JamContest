@@ -1,6 +1,8 @@
+using UnityEngine;
 using Zenject;
 using Core.Cities;
 using Core.Input;
+using Core.Match;
 
 namespace Core.Infrastructure
 {
@@ -8,6 +10,9 @@ namespace Core.Infrastructure
     {
         [Inject]
         private ILogger Logger;
+
+        [SerializeField]
+        private MapController _mapController;
 
         public override void InstallBindings()
         {
@@ -23,8 +28,9 @@ namespace Core.Infrastructure
             Container.BindSignal<GameApocalypsisSignal>().ToMethod(() => Logger.Log("GameApocalypsisSignal", LogType.Signal));
 #endif
 
+            Container.Bind<MapController>().FromInstance(_mapController).AsSingle();
+            Container.BindInterfacesTo<GameEventsController>().AsSingle();
             Container.BindInterfacesTo<MovingBetweenCities>().AsSingle();
-
             Container.BindInterfacesAndSelfTo<StandaloneInput>().AsSingle();
         }
     }

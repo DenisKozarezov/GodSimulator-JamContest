@@ -34,6 +34,10 @@ namespace Core.UI.Forms
         }
         private void OnDestroy()
         {
+            if (_cancellationTokenSource.IsCancellationRequested)
+            {
+                _cancellationTokenSource?.Cancel();
+            }
             _cancellationTokenSource?.Dispose();
         }
         private void OnConfirmed()
@@ -59,7 +63,7 @@ namespace Core.UI.Forms
             if (string.IsNullOrEmpty(label)) return;
             _label.text = label;
         }
-        public void SetDescription(string description) { }
+        void IConfirmAwaiter<ushort>.SetDescription(string description) { }
         public async Task<ushort> AwaitForConfirm()
         {
             return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);

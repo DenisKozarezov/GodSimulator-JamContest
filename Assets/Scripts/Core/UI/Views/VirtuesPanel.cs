@@ -37,7 +37,7 @@ namespace Core.UI
 
         private void OnVirtueChanged(PlayerVirtueChangedSignal param)
         {
-            _virtues[param.Virtue.ID].SetFillAmount((float)param.State.Percent / Constants.VirtueValueMax);
+            _virtues[param.Virtue.ID].SetFillAmount(param.State.Percent / Constants.VirtueValueMax);
         }
     }
 }

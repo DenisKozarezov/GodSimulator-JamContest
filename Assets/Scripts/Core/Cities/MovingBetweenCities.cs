@@ -57,7 +57,7 @@ namespace Core.Cities
             {
                 DeselectCities();
             }
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, Constants.CitiesLayer);
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, 1 << Constants.CitiesLayer);
             Collider2D selfCollider = signal.Temple.GetComponent<Collider2D>();
             _colliders = from collider in colliderArray
                          where collider != selfCollider

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 using Core.Models;
 using Core.Infrastructure;
@@ -54,7 +54,7 @@ namespace Core
         {
             if (_virtuesLevels.TryGetValue(virtue, out VirtueState state))
             {
-                state.Percent = (byte)Math.Min(state.Percent + value, Constants.VirtueValueMax);
+                state.Percent = (byte)math.min(state.Percent + value, Constants.VirtueValueMax);
                 _signalBus.Fire(new PlayerVirtueChangedSignal { Virtue = virtue, State = state });
             }
         }
@@ -62,7 +62,7 @@ namespace Core
         {
             if (_virtuesLevels.TryGetValue(virtue, out VirtueState state))
             {
-                state.Percent = (byte)Math.Max(state.Percent - value, 0);
+                state.Percent = (byte)math.max(state.Percent - value, 0);
                 _signalBus.Fire(new PlayerVirtueChangedSignal { Virtue = virtue, State = state });
             }
         }
@@ -75,11 +75,11 @@ namespace Core
         }
         public void AddPrana(int value)
         {
-            _prana = Math.Min(_prana + value, Constants.PranaValueMax);
+            _prana = math.min(_prana + value, Constants.PranaValueMax);
         }
         public void RemovePrana(int value)
         {
-            _prana = Math.Max(_prana - value, 0);
+            _prana = math.max(_prana - value, 0);
         }
 
     }

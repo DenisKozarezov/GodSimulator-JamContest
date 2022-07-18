@@ -9,7 +9,7 @@ namespace Core.UI.Forms
     [RequireComponent(typeof(RectTransform))]
     public class DecisionForm : MonoBehaviour, IConfirmAwaiter<bool>, IAutoSizable, IClosableForm
     {
-        private const string FormPath = "Prefabs/Views/Decision Form";
+        private const string FormPath = "Prefabs/Views/Forms/Decision Form";
 
         [Header("References")]
         [SerializeField]
@@ -85,7 +85,7 @@ namespace Core.UI.Forms
         }
         public void Close()
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }

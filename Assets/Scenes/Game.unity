@@ -3116,6 +3116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fb338188740a4429608d02450956ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapController: {fileID: 354472621}
 --- !u!1001 &1635213810
 PrefabInstance:
   m_ObjectHideFlags: 0

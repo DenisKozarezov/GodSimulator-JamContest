@@ -5,6 +5,7 @@ using Zenject;
 using DG.Tweening;
 using Core.Infrastructure;
 using Core.Cities;
+using Core.Models;
 
 namespace Core
 {
@@ -22,10 +23,9 @@ namespace Core
         private Material _material;
 
         private SignalBus _signalBus;
-        private static Dictionary<uint, LinkedList<CityScript>> _cities 
-            = new Dictionary<uint, LinkedList<CityScript>>();
+        private static LinkedList<CityScript> _cities = new LinkedList<CityScript>();
 
-        public IReadOnlyDictionary<uint, LinkedList<CityScript>> Cities => _cities;
+        public IReadOnlyCollection<CityScript> Cities => _cities;
 
         [Inject]
         public void Construct(SignalBus signalBus) => _signalBus = signalBus;
@@ -64,18 +64,11 @@ namespace Core
         }
         public static void RegisterCity(CityScript city)
         {
-            if (!_cities.ContainsKey(city.Invader.ID))
-            {    
-                _cities.Add(city.Invader.ID, new LinkedList<CityScript>());
-            }
-            _cities[city.Invader.ID].AddLast(city);
+            if (!_cities.Contains(city)) _cities.AddLast(city);
         }
         public static void UnregisterCity(CityScript city)
         {
-            if (_cities.ContainsKey(city.Invader.ID))
-            {
-                _cities[city.Invader.ID].Remove(city);
-            }
+            _cities.Remove(city);
         }
     }
 }

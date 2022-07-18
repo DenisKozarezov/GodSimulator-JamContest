@@ -1,3 +1,4 @@
+using Editor;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,12 +16,18 @@ namespace Core.Models
             private int _gameTime;
             [SerializeField, Min(0)]
             private int _virtueLevels;
+            [SerializeField, MinMaxSlider(0f, 200f)]
+            private Vector2Int _sacrificeAppearenceTime;
+            [SerializeField, Min(0f)]
+            private float _sacrificeDuration;
             [SerializeField, TextArea(minLines: 10, maxLines: 20)]
             private string _citiesNames;
             private Queue<string> _names;
 
             public int GameTime => _gameTime;
             public int VirtueLevels => _virtueLevels;
+            public Vector2Int SacrificeAppearenceTime => _sacrificeAppearenceTime;
+            public float SacrificeDuration => _sacrificeDuration;
             public Queue<string> CitiesNames
             {
                 get

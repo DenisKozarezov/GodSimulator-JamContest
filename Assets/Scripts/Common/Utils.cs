@@ -24,19 +24,19 @@ namespace Core
             if (number >= 1) return "I" + ParseToRoman(number - 1);
             throw new ArgumentOutOfRangeException();
         }
+        public static bool IsPointerOverGameObject()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
+        }
         public static Vector2 GetCorrectedPosition(RectTransform first, RectTransform second, float margin = 5f)
         {
             float x = first.position.x;
             float y = first.position.y + first.sizeDelta.y + second.sizeDelta.y / 2 + margin;
             return new Vector2(x, y);
         }
-        public static bool IsPointerOverGameObject()
-        {
-            return EventSystem.current.IsPointerOverGameObject();
-        }
         public static Vector2 WorldToScreenPoint(Vector3 position)
         {
-            return Camera.main.WorldToScreenPoint(position, Camera.MonoOrStereoscopicEye.Mono);
+            return Camera.main.WorldToScreenPoint(position);
         }
         public static Vector3 ScreenToWorldPoint(Vector2 position)
         {
