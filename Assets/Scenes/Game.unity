@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -314,6 +318,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _invader
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ea8537ebfa54af4db63412108b5cfd8, type: 2}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canAdd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canRemove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.expandable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.slideEasing
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.footerHeight
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.headerHeight
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.label.m_Text
+      value: Keys
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.verticalSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.multipleSelection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.showDefaultBackground
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
@@ -393,6 +449,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -465,6 +525,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -868,6 +932,58 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _invader
+      value: 
+      objectReference: {fileID: 11400000, guid: f4bf9b82a3d7b5b48806415cf2475a96, type: 2}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canAdd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canRemove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.expandable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.slideEasing
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.footerHeight
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.headerHeight
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.label.m_Text
+      value: Keys
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.verticalSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.multipleSelection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.showDefaultBackground
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1026,6 +1142,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -1554,6 +1674,58 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _invader
+      value: 
+      objectReference: {fileID: 11400000, guid: f4bf9b82a3d7b5b48806415cf2475a96, type: 2}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canAdd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canRemove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.expandable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.slideEasing
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.footerHeight
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.headerHeight
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.label.m_Text
+      value: Keys
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.verticalSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.multipleSelection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.showDefaultBackground
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1631,6 +1803,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1698,6 +1874,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _invader
+      value: 
+      objectReference: {fileID: 11400000, guid: d21e0fa3ad24f4343bdfea5b82afaacd, type: 2}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canAdd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.canRemove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.expandable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.slideEasing
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.footerHeight
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.headerHeight
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.label.m_Text
+      value: Keys
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.verticalSpacing
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.multipleSelection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _numberOfPriests.reorderableList.showDefaultBackground
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
@@ -1860,6 +2088,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1933,6 +2165,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -2005,6 +2241,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -2124,6 +2364,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2196,6 +2440,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -2440,6 +2688,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -2733,6 +2985,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -2811,6 +3067,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2883,6 +3143,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -3090,6 +3354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movingPriestsForm: {fileID: 1959368641483113651, guid: d65159da0b9732040bd9e9d87ac40ae1, type: 3}
+  _templeRadius: {fileID: 2799078878414181061, guid: 305a99c863fcbab4c824d70532371961, type: 3}
   _movingPriestsIcon: {fileID: 3409440545077129652, guid: ecb8eb320f7818140ac4ec7213ef6999, type: 3}
   _animatedDottedLine: {fileID: 7182528012365368370, guid: 0a515b90c51fc5e4aa1efe95d2b229fa, type: 3}
 --- !u!114 &1606235838
@@ -3143,6 +3408,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -3399,6 +3668,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -3476,6 +3749,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -3799,6 +4076,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -3915,6 +4196,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -4080,6 +4365,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -4260,6 +4549,10 @@ PrefabInstance:
       propertyPath: _color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -4348,6 +4641,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -4499,6 +4796,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -4691,6 +4992,10 @@ PrefabInstance:
     - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: _color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _maxCapacityOfPriests
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
