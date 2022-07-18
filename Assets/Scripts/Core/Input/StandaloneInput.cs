@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 
 namespace Core.Input
@@ -42,7 +43,7 @@ namespace Core.Input
         void ITickable.Tick()
         {
             float sign = -Mathf.Sign(_mouseWheelDelta);
-            if (Mathf.Abs(_mouseWheelDelta) > 1E-2)
+            if (math.abs(_mouseWheelDelta) > 1E-2)
             {
                 _mouseWheelDelta += Time.deltaTime * sign;
             }

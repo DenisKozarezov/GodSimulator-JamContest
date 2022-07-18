@@ -551,7 +551,6 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 1330165681376946780}
   _name: {fileID: 4815477986943359733}
   _pranaView: {fileID: 7351679964835276250}
-  _state: 1
 --- !u!114 &561539108031118130
 MonoBehaviour:
   m_ObjectHideFlags: 0

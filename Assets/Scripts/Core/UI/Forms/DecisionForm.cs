@@ -9,7 +9,7 @@ namespace Core.UI.Forms
     [RequireComponent(typeof(RectTransform))]
     public class DecisionForm : MonoBehaviour, IConfirmAwaiter<bool>, IAutoSizable, IClosableForm
     {
-        private const string FormPath = "Prefabs/Views/Decision Form";
+        private const string FormPath = "Prefabs/Views/Forms/Decision Form";
 
         [Header("References")]
         [SerializeField]
@@ -66,6 +66,14 @@ namespace Core.UI.Forms
             if (string.IsNullOrEmpty(description)) return;
             _description.text = description;
         }
+        public static IConfirmAwaiter<bool> CreateForm(string label = null, string description = null)
+        {
+            var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
+            var form = obj.GetComponentInChildren<IConfirmAwaiter<bool>>();
+            form.SetLabel(label);
+            form.SetDescription(description);
+            return form;
+        }
         public async Task<bool> AwaitForConfirm()
         {
             return await _taskCompletionSource.Task;
@@ -77,7 +85,7 @@ namespace Core.UI.Forms
         }
         public void Close()
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }

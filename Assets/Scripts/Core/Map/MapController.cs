@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 using DG.Tweening;
 using Core.Infrastructure;
 using Core.Cities;
+using Core.Models;
 
 namespace Core
 {
@@ -21,7 +23,9 @@ namespace Core
         private Material _material;
 
         private SignalBus _signalBus;
-        private LinkedList<CityScript> _cities;
+        private static LinkedList<CityScript> _cities = new LinkedList<CityScript>();
+
+        public IReadOnlyCollection<CityScript> Cities => _cities;
 
         [Inject]
         public void Construct(SignalBus signalBus) => _signalBus = signalBus;
@@ -48,15 +52,23 @@ namespace Core
         private void SetDissolveValue(float value)
         {
             _material.SetFloat("_DissolveValue", value);
-            _circleCollider.radius = Mathf.Lerp(0f, _colliderStartRadius, value);
+            _circleCollider.radius = math.lerp(0f, _colliderStartRadius, value);
         }
-        public void StartDissolve()
+        private void StartDissolve()
         {
             DOTween.To(() => 1f, x => SetDissolveValue(x), 0f, _dissolveDuration).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 _circleCollider.enabled = false;
             });
+        }
+        public static void RegisterCity(CityScript city)
+        {
+            if (!_cities.Contains(city)) _cities.AddLast(city);
+        }
+        public static void UnregisterCity(CityScript city)
+        {
+            _cities.Remove(city);
         }
     }
 }

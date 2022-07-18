@@ -20,3 +20,35 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e4e2de2f7649e647ac78419a9f521be, type: 2}
   - {fileID: 11400000, guid: bff83f49cc1482a4ca50d408af96b4b3, type: 2}
   - {fileID: 11400000, guid: c87b9fb358b54584888e18fda68cfcb1, type: 2}
+  _playersColors:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: 010000000200000003000000040000000500000006000000
+    _keys: 010000000200000003000000040000000500000006000000
+    _values:
+    - {r: 1, g: 0.37169808, b: 0.37169808, a: 1}
+    - {r: 0.38421106, g: 1, b: 0.3339622, a: 1}
+    - {r: 0.33333337, g: 0.91287774, b: 1, a: 1}
+    - {r: 1, g: 0.33333337, b: 0.9095726, a: 1}
+    - {r: 1, g: 0.9351976, b: 0.33333337, a: 1}
+    - {r: 1, g: 0.6651427, b: 0.33333337, a: 1}

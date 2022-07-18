@@ -7,10 +7,11 @@ using Core.Infrastructure;
 using Core.Models;
 using DG.Tweening;
 using static Core.Models.GameSettingsInstaller;
+using System;
 
 namespace Core.Cities
 {
-    public class CityScript : InteractableView
+    public class CityScript : InteractableView, IEquatable<CityScript>
     {
         public enum State : byte
         {
@@ -29,6 +30,8 @@ namespace Core.Cities
         private ICityStrategy CurrentStrategy;
         private SerializableDictionaryBase<GodModel, byte> _percentageOfFaithful;
         private GodModel _invader;
+
+        public GodModel Invader => _invader;
 
         public override bool Interactable
         {
@@ -57,8 +60,11 @@ namespace Core.Cities
             _percentageOfFaithful = new SerializableDictionaryBase<GodModel, byte>();
             Interactable = true;
 
-            if (_pranaView == null) return;
-            DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
+            if (_pranaView != null)
+            {
+                DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
+            }
+            MapController.RegisterCity(this);
         }
 
         public void BuildTemple(VirtueModel virtue)
@@ -73,6 +79,11 @@ namespace Core.Cities
             if (!Interactable) return;
 
             SignalBus.Fire(new PlayerClickedOnCitySignal { View = this });
+        }
+
+        public bool Equals(CityScript other)
+        {
+            return name.Equals(other.name);
         }
     }
 }

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
+using DG.Tweening;
 using Core.Infrastructure;
 using Core.UI;
-using DG.Tweening;
 
 namespace Core.Cities
 {
@@ -57,7 +57,7 @@ namespace Core.Cities
             {
                 DeselectCities();
             }
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, Constants.CitiesLayer);
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, 1 << Constants.CitiesLayer);
             Collider2D selfCollider = signal.Temple.GetComponent<Collider2D>();
             _colliders = from collider in colliderArray
                          where collider != selfCollider

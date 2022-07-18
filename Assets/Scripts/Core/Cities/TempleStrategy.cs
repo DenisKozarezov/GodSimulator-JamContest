@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Unity.Mathematics;
 using Core.Models;
 using Core.Infrastructure;
 using Zenject;
-using System;
 
 namespace Core.Cities
 {
@@ -44,11 +44,11 @@ namespace Core.Cities
         }
         public void AddPriests(ushort value)
         {
-            _numberOfPriests = (ushort)Math.Min(_numberOfPriests + value, _maxCapacityOfPriests);
+            _numberOfPriests = (ushort)math.min(_numberOfPriests + value, _maxCapacityOfPriests);
         }
         public void ReducePriests(ushort value)
         {
-            _numberOfPriests = (ushort)Math.Max(_numberOfPriests - value, 0);
+            _numberOfPriests = (ushort)math.max(_numberOfPriests - value, 0);
         }
         private IEnumerator GeneratePriests()
         {

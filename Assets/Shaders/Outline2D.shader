@@ -2,8 +2,8 @@ Shader "Core/Outline2D"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-        _OutlineWidth("Outline Width", Range(0, 15)) = 1
+        [PerRendererData] _MainTex("Texture", 2D) = "white" {}
+        [Space] _OutlineWidth("Outline Width", Range(0, 15)) = 1
         _OutlineColor("Outline Color", Color) = (1,1,1,1)
     }
     SubShader
