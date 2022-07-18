@@ -6,6 +6,7 @@ using DG.Tweening;
 using Core.Infrastructure;
 using Core.UI;
 using System.Threading.Tasks;
+using System;
 
 namespace Core.Cities
 {
@@ -14,16 +15,16 @@ namespace Core.Cities
         private readonly SignalBus _signalBus;
         private IEnumerable<Collider2D> _colliders;
 
-        private TempleRadius _radiusPrefab;
+        private Circle _radiusPrefab;
         private AnimatedDottedLine _linePrefab;
         private MovingPriestsIcon _iconPrefab;
 
-        private TempleRadius _radius;
+        private Circle _radius;
 
         public MovingBetweenCities(SignalBus signalBus, DiContainer container)
         {
             _signalBus = signalBus;
-            _radiusPrefab = container.Resolve<TempleRadius>();
+            _radiusPrefab = container.Resolve<Circle>();
             _linePrefab = container.Resolve<AnimatedDottedLine>();
             _iconPrefab = container.Resolve<MovingPriestsIcon>();
         }
@@ -40,11 +41,11 @@ namespace Core.Cities
             _signalBus.Unsubscribe<PlayerMovingPriestsSignal>(OnPlayerMovingPriests);
         }
 
-        private TempleRadius CreateTempleVisibleRadius(Transform templeTransform, float range)
+        private Circle CreateTempleVisibleRadius(Vector2 position, float range)
         {
-            var radius = GameObject.Instantiate(_radiusPrefab, templeTransform);
-            radius.SetRange(range);
-            return radius;
+            var circle = GameObject.Instantiate(_radiusPrefab, position, Quaternion.identity);
+            circle.SetRadius(range);
+            return circle;
         }
         private AnimatedDottedLine CreateAnimatedDottedLine(Vector2 startPos, Vector2 endPos, float time)
         {
@@ -76,7 +77,7 @@ namespace Core.Cities
                          where collider != selfCollider
                          select collider;
             SelectCities(_colliders);
-            _radius = CreateTempleVisibleRadius(signal.Temple.transform, signal.Temple.Range);
+            _radius = CreateTempleVisibleRadius(signal.Temple.transform.position, signal.Temple.Range);
         }
         private void OnTempleDragEndSignal(TempleDragEndSignal signal)
         {
@@ -93,7 +94,7 @@ namespace Core.Cities
             var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
             icon.SetAmount(signal.PriestsAmount);
 
-            await Task.Delay((int)signal.Duration * 1000);
+            await Task.Delay(TimeSpan.FromSeconds(signal.Duration));
             signal.Target.AddPriests(signal.Temple.City.Invader, signal.PriestsAmount);
         }
         private void SelectCities(IEnumerable<Collider2D> colliders)

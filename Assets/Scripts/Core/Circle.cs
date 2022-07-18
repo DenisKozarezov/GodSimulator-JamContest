@@ -1,38 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Circle : MonoBehaviour
+namespace Core.UI
 {
-    public int segments;
-    public float xradius;
-    public float yradius;
-    LineRenderer line;
-
-    void Start()
+    [RequireComponent(typeof(LineRenderer))]
+    public class Circle : MonoBehaviour
     {
-        line = gameObject.GetComponent<LineRenderer>();
+        [SerializeField]
+        private int _segments;
+        private LineRenderer _lineRenderer;
 
-        line.SetVertexCount(segments + 1);
-        line.useWorldSpace = false;
-        CreatePoints();
-    }
-
-    void CreatePoints()
-    {
-        float x;
-        float y;
-
-        float angle = 20f;
-
-        for (int i = 0; i < (segments + 1); i++)
+        private void Awake()
         {
-            x = Mathf.Sin(Mathf.Deg2Rad * angle) * xradius;
-            y = Mathf.Cos(Mathf.Deg2Rad * angle) * yradius;
+            _lineRenderer = GetComponent<LineRenderer>();
+        }
+        private void Clear()
+        {
+            _lineRenderer.positionCount = 0;
+        }
+        public void SetRadius(float radius)
+        {
+            Clear();
 
-            line.SetPosition(i, new Vector3(x, y));
+            float x;
+            float y;
+            float angle = 20f;
 
-            angle += (360f / segments);
+            _lineRenderer.positionCount = _segments;
+            for (int i = 0; i < _segments; i++)
+            {
+                x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+                y = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+
+                _lineRenderer.SetPosition(i, new Vector3(x, y));
+
+                angle += 360f / _segments;
+            }
         }
     }
 }

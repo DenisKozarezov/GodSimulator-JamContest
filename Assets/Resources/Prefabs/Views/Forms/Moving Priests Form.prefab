@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1959368641483113661}
   - component: {fileID: 1959368641483113650}
   - component: {fileID: 4533459754187156510}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Moving Priests Form
   m_TagString: Untagged
   m_Icon: {fileID: 0}

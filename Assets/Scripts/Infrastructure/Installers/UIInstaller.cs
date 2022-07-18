@@ -1,6 +1,6 @@
+using UnityEngine;
 using Core.UI;
 using Core.UI.Forms;
-using UnityEngine;
 using Zenject;
 
 namespace Core.Infrastructure
@@ -21,7 +21,7 @@ namespace Core.Infrastructure
             UISignalsInstaller.Install(Container);
 
             Container.Bind<MovingPriestsForm>().FromInstance(_movingPriestsForm.GetComponent<MovingPriestsForm>()).AsCached();
-            Container.Bind<TempleRadius>().FromInstance(_templeRadius.GetComponent<TempleRadius>()).AsCached();
+            Container.Bind<Circle>().FromInstance(_templeRadius.GetComponent<Circle>()).AsCached();
             Container.Bind<MovingPriestsIcon>().FromInstance(_movingPriestsIcon.GetComponent<MovingPriestsIcon>()).AsCached();
             Container.Bind<AnimatedDottedLine>().FromInstance(_animatedDottedLine.GetComponent<AnimatedDottedLine>()).AsCached();
         }
