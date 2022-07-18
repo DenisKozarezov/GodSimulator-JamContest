@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace Core.Cities
 {
@@ -9,7 +10,7 @@ namespace Core.Cities
 
         private Material _material;
         private float ArcMin;
-        private float ArcMax => 360 - ArcMin / 2;
+        private float ArcMax => 360f - ArcMin / 2f;
 
         private void Start()
         {
@@ -18,7 +19,7 @@ namespace Core.Cities
         }
         public void SetFillAmount(float fillAmount)
         {
-            _material.SetFloat("_Arc1", Mathf.Lerp(ArcMin, ArcMax, fillAmount));
+            _material.SetFloat("_Arc1", math.lerp(ArcMin, ArcMax, fillAmount));
         }
     }
 }

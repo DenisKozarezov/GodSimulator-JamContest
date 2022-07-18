@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 1
   _displayName: Gera
   _description: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  _flag: {fileID: 0}
+  _color: {r: 0.30017367, g: 0.754717, b: 0.28052685, a: 1}
+  _portrait: {fileID: 0}

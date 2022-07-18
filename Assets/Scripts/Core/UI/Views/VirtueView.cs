@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Mathematics;
 using Zenject;
 using static Core.Models.GameSettingsInstaller;
 
@@ -31,7 +32,7 @@ namespace Core.UI
 
             // Create final division with ultimate wonder
             float lastDivision = 1f - (1f / DivisionsCount);
-            float factor = Mathf.Lerp(lastDivision, 1f, 0.5f);
+            float factor = math.lerp(lastDivision, 1f, 0.5f);
             var wonderSeparator = CreateSeparator(factor);
             wonderSeparator.sizeDelta += Vector2.up * 10f;
             wonderSeparator.GetComponent<RawImage>().color = Color.white;
@@ -62,7 +63,7 @@ namespace Core.UI
         }
         public void SetFillAmount(float fillAmount)
         {
-            float width = Mathf.Lerp(_rectTransform.rect.width, 0f, fillAmount);
+            float width = math.lerp(_rectTransform.rect.width, 0f, fillAmount);
             _bar.offsetMax = Vector2.left * width;
         }
     }

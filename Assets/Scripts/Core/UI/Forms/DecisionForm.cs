@@ -66,6 +66,14 @@ namespace Core.UI.Forms
             if (string.IsNullOrEmpty(description)) return;
             _description.text = description;
         }
+        public static IConfirmAwaiter<bool> CreateForm(string label = null, string description = null)
+        {
+            var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
+            var form = obj.GetComponentInChildren<IConfirmAwaiter<bool>>();
+            form.SetLabel(label);
+            form.SetDescription(description);
+            return form;
+        }
         public async Task<bool> AwaitForConfirm()
         {
             return await _taskCompletionSource.Task;

@@ -26,10 +26,15 @@ namespace Core.UI.Forms
 
         private void Awake()
         {
+            _cancellationTokenSource.Token.Register(Close);
             _count.text = _slider.minValue.ToString();
             _go.onClick.AddListener(OnConfirmed);
             _close.onClick.AddListener(OnCancelled);
             _slider.onValueChanged.AddListener(OnSliderChanged);
+        }
+        private void OnDestroy()
+        {
+            _cancellationTokenSource?.Dispose();
         }
         private void OnConfirmed()
         {          
@@ -38,8 +43,7 @@ namespace Core.UI.Forms
         }
         private void OnCancelled()
         {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource?.Cancel();
         }
         private void OnSliderChanged(float value)
         {
@@ -63,7 +67,6 @@ namespace Core.UI.Forms
         public async Task<ushort> AwaitForConfirm(CancellationToken externalToken)
         {
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
-            _cancellationTokenSource.Token.Register(Close);
             return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public void Close()

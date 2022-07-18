@@ -231,6 +231,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -284,6 +300,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1838811035}
     m_Modifications:
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -345,6 +377,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -401,6 +449,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -788,6 +852,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1838811035}
     m_Modifications:
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -930,6 +1010,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -1442,6 +1538,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1838811035}
     m_Modifications:
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1503,6 +1615,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1556,6 +1684,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1838811035}
     m_Modifications:
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4052847701975133218, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1700,6 +1844,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1757,6 +1917,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -1813,6 +1989,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -1916,6 +2108,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1972,6 +2180,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -2200,6 +2424,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -2477,6 +2717,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -2539,6 +2795,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2595,6 +2867,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -2839,6 +3127,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -3078,6 +3382,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -3139,6 +3459,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -3446,6 +3782,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -3546,6 +3898,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -3695,6 +4063,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -3859,6 +4243,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: City Without Temple (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -3931,6 +4331,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -4066,6 +4482,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder
@@ -4242,6 +4674,22 @@ PrefabInstance:
     - target: {fileID: 5089804300151170733, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_Name
       value: City Without Temple
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.a
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752536641790558558, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
+      propertyPath: _color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
       propertyPath: m_RootOrder

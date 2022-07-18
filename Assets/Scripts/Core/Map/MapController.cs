@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 using DG.Tweening;
 using Core.Infrastructure;
@@ -21,7 +22,10 @@ namespace Core
         private Material _material;
 
         private SignalBus _signalBus;
-        private LinkedList<CityScript> _cities;
+        private static Dictionary<uint, LinkedList<CityScript>> _cities 
+            = new Dictionary<uint, LinkedList<CityScript>>();
+
+        public IReadOnlyDictionary<uint, LinkedList<CityScript>> Cities => _cities;
 
         [Inject]
         public void Construct(SignalBus signalBus) => _signalBus = signalBus;
@@ -48,15 +52,30 @@ namespace Core
         private void SetDissolveValue(float value)
         {
             _material.SetFloat("_DissolveValue", value);
-            _circleCollider.radius = Mathf.Lerp(0f, _colliderStartRadius, value);
+            _circleCollider.radius = math.lerp(0f, _colliderStartRadius, value);
         }
-        public void StartDissolve()
+        private void StartDissolve()
         {
             DOTween.To(() => 1f, x => SetDissolveValue(x), 0f, _dissolveDuration).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 _circleCollider.enabled = false;
             });
+        }
+        public static void RegisterCity(CityScript city)
+        {
+            if (!_cities.ContainsKey(city.Invader.ID))
+            {    
+                _cities.Add(city.Invader.ID, new LinkedList<CityScript>());
+            }
+            _cities[city.Invader.ID].AddLast(city);
+        }
+        public static void UnregisterCity(CityScript city)
+        {
+            if (_cities.ContainsKey(city.Invader.ID))
+            {
+                _cities[city.Invader.ID].Remove(city);
+            }
         }
     }
 }

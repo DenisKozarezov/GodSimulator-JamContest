@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: 0
   _displayName: Athena
   _description: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  _flag: {fileID: 0}
+  _color: {r: 1, g: 0.5415094, b: 0.5415094, a: 1}
+  _portrait: {fileID: 0}

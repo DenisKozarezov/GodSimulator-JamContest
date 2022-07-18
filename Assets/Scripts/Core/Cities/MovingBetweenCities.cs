@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
+using DG.Tweening;
 using Core.Infrastructure;
 using Core.UI;
-using DG.Tweening;
 
 namespace Core.Cities
 {

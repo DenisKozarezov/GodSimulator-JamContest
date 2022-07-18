@@ -1,9 +1,13 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using Core.Infrastructure;
 using static Core.Models.GameSettingsInstaller;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Cities;
 
 namespace Core
 {
@@ -39,7 +43,7 @@ namespace Core
             try
             {
                 _gameTimerSource = new CancellationTokenSource();
-                await Task.Delay(_gameSettings.GameTime * 1000, _gameTimerSource.Token);
+                await Task.Delay(TimeSpan.FromSeconds(_gameSettings.GameTime), _gameTimerSource.Token);
                 _signalBus.Fire<GameApocalypsisSignal>();
             }
             catch (TaskCanceledException e)
