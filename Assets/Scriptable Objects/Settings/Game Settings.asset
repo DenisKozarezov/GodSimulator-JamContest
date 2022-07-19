@@ -59,5 +59,6 @@ MonoBehaviour:
   _sacrificeSettings:
     _appearenceInterval: {x: 45, y: 90}
     _duration: 15
+    _probability: 0.75
     _enabledSacrifices:
     - {fileID: 11400000, guid: 510a5e4b579a4dc4bb6bffd9bfa0efe4, type: 2}

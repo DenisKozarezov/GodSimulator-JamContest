@@ -908,6 +908,7 @@ MonoBehaviour:
   _okButton: {fileID: 6470832721092083157}
   _noButton: {fileID: 2548574052910380392}
   _pranaView: {fileID: 908143634214656273}
+  _icon: {fileID: 6926440766765728045}
   _offsetY: 1
 --- !u!1 &7292153308016850481
 GameObject:

@@ -31,6 +31,8 @@ namespace Core.UI
         private void Awake()
         {
             _renderer = GetComponent<LineRenderer>();
+            _renderer.positionCount = 2;
+            _renderer.useWorldSpace = true;
         }       
     }
 }
