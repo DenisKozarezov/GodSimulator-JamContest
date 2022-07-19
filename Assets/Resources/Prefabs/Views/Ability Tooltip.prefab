@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 994920347156018914}
   - component: {fileID: 2560934801047062000}
   - component: {fileID: 5804794984837695828}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Virtue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 9105910103119370391}
   - component: {fileID: 4144546876244557633}
   - component: {fileID: 5931379037783658930}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 8511030348586867522}
   - component: {fileID: 7434728454185157693}
   - component: {fileID: 9059918949452960886}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Ability Type
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 6357651734911540583}
   - component: {fileID: 2454076284361406168}
   - component: {fileID: 6754005795434102208}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Ability Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 6883334455327061021}
   - component: {fileID: 4948883969416050176}
   - component: {fileID: 2046802462996096371}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 6626199698411337700}
   - component: {fileID: 1308994390974448792}
   - component: {fileID: 2306288218510959243}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 3666277525269838077}
   - component: {fileID: 4836908879139459814}
   - component: {fileID: 1949957209674666828}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Cooldown
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21,6 +21,8 @@ namespace Core.UI
         private Button _noButton;
         [SerializeField]
         private PranaUIView _pranaView;
+        [SerializeField]
+        private Image _icon;
         [SerializeField, Min(0f)]
         private float _offsetY = 1f;
 
@@ -87,6 +89,7 @@ namespace Core.UI
         {
             DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, duration)
             .SetEase(Ease.Linear)
+            .SetLink(gameObject)
             .OnComplete(() =>
             {
                 _cancellationTokenSource?.Cancel();

@@ -9,7 +9,6 @@ namespace Core.Infrastructure
     }
     public struct TempleDragEndSignal
     {
-        public GodModel God;
         public TempleStrategy Temple;
         public CityScript Target;
     }

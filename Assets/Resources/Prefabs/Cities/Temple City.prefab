@@ -356,7 +356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 50f72ab74c899344797bb0f4cc239232, type: 2}
   m_sharedMaterial: {fileID: -4848393908901536678, guid: 50f72ab74c899344797bb0f4cc239232, type: 2}
@@ -550,7 +550,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 1330165681376946780}
   _name: {fileID: 4815477986943359733}
+  _priestsCount: {fileID: 5731054657314208436}
   _pranaView: {fileID: 7351679964835276250}
+  _maxCapacityOfPriests: 0
+  _numberOfPriests:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: []
+    _keys: []
+    _values: 
+  _invader: {fileID: 0}
 --- !u!114 &561539108031118130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,8 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f9334efeeba4c49908c039e996ffd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCapacityOfPriests: 10
-  _range: 2
+  _startRange: 3
 --- !u!1001 &2379550588304865432
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.UI.Forms;
+using Unity.Mathematics;
 
 namespace Core.UI
 { 
@@ -57,10 +58,12 @@ namespace Core.UI
         {
             if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
 
-            if (signal.Target.GetComponent<SpriteRenderer>().color == Color.white) return;
+            float sqrDistance = math.distancesq(signal.Temple.transform.position, signal.Target.transform.position);
+            float sqrRange = math.pow(signal.Temple.GetRange(), 2);
+            if (sqrDistance >= sqrRange) return;
 
             var form = Instantiate(_formPrefab);
-            form.Init(signal.Temple.City.NumberOfPriests[signal.God]);
+            form.Init(signal.Temple.City.PriestsAmount);
 
             ushort priestsCount = await form.AwaitForConfirm();
 

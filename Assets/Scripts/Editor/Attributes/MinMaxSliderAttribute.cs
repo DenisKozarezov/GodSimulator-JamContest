@@ -24,7 +24,8 @@ namespace Editor
     [CustomPropertyDrawer(typeof(MinMaxSliderAttribute))]
     internal sealed class MinMaxSliderAttributeDrawer : PropertyDrawer
     {
-        private const float FloatWidth = 35f;
+        private const float FloatWidth = 45f;
+        private const float Padding = 8f;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -39,10 +40,17 @@ namespace Editor
 
             EditorGUI.LabelField(position, new GUIContent(property.displayName));
 
-            Rect rect = new Rect(EditorGUIUtility.labelWidth, position.y, FloatWidth / 2, EditorGUIUtility.singleLineHeight);
-            Rect minRect = GetRect(rect, FloatWidth, 2f);
-            Rect sliderRect = GetRect(minRect, position.width - minRect.x - FloatWidth * 2 + 8f);
-            Rect maxRect = GetRect(sliderRect, FloatWidth);
+            position.x = EditorGUIUtility.labelWidth + 5f;
+            position.height = EditorGUIUtility.singleLineHeight;
+            
+            Rect minRect = new Rect(position.x, position.y, FloatWidth, position.height);
+            position.x += FloatWidth - Padding;
+            
+            float sliderWidth = EditorGUIUtility.currentViewWidth - EditorGUIUtility.labelWidth - FloatWidth * 2 + 5f;
+            Rect sliderRect = new Rect(position.x, position.y, sliderWidth, position.height);
+            
+            position.x += sliderWidth - Padding;
+            Rect maxRect = new Rect(position.x, position.y, FloatWidth, position.height);
 
             float min = isVector2Int ? property.vector2IntValue.x : property.vector2Value.x;
             float max = isVector2Int ? property.vector2IntValue.y : property.vector2Value.y;
@@ -68,14 +76,6 @@ namespace Editor
         private Vector2Int CalculateIntRange(float min, float max)
         {
             return new Vector2Int(Mathf.FloorToInt(min), Mathf.FloorToInt(max));
-        }
-        private Rect GetRect(Rect lastRect, float width, float padding = 5f)
-        {
-            return new Rect(
-                lastRect.position.x + lastRect.width + padding,
-                lastRect.position.y,
-                width,
-                lastRect.height);
         }
     }
 #endif

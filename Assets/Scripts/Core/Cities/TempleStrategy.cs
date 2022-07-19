@@ -1,28 +1,31 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 using Core.Models;
 using Core.Infrastructure;
-using Zenject;
 
 namespace Core.Cities
 {
     public class TempleStrategy : MonoBehaviour, ICityStrategy,
         IBeginDragHandler, IEndDragHandler
     {
-        private CityScript _city;
-        private float _range;
+        [SerializeField, Min(0f)]
+        private float _startRange;
 
         private SignalBus _signalBus;
+        private TempleRangeDecorator _rangeDecorator;
         private VirtueModel _virtue;
         private byte _growthOfPriests;
         private Coroutine _generatePriests;
+        private CityScript _city;
 
+        private bool _dragging;
         public bool Interactable { get; set; }
 
         public CityScript City => _city;
         public VirtueModel Virtue => _virtue;
-        public float Range => _range;
+        public float StartRange => _startRange;
 
         [Inject]
         public void Construct(SignalBus signalBus) => _signalBus = signalBus;
@@ -39,29 +42,22 @@ namespace Core.Cities
                 _city.AddPriests(_city.Invader, priests.Value);
             }
 
-            _range = GetRange(1);
+            _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
             _growthOfPriests = 1;
             _generatePriests = StartCoroutine(GeneratePriests());
             _city.IncreasePercentageOfFaithfulInOtherCities();
         }
 
-        private float GetRange(byte virtueLevel)
-        {
-            switch (virtueLevel)
-            {
-                case 1:
-                    return 3f;
-                case 2:
-                    return 5f;
-                case 3:
-                    return 10f;
-            }
-            return 0;
-        }
         public void SetVirtue(VirtueModel virtue)
         {
             _virtue = virtue;
         }
+        public float GetRange()
+        {
+            if (_rangeDecorator == null) return _startRange;
+            return _rangeDecorator.GetRange();
+        }
+
         private IEnumerator GeneratePriests()
         {
             while (true)
@@ -72,15 +68,17 @@ namespace Core.Cities
         }
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!Interactable || City.PriestsAmount == 0) return;
 
+            _dragging = true;
             _signalBus.Fire(new TempleDragBeginSignal { Temple = this });
         }
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!Interactable || !_dragging) return;
 
-            _signalBus.Fire(new TempleDragEndSignal { God = _city.Invader, Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
+            _dragging = false;
+            _signalBus.Fire(new TempleDragEndSignal { Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
         }
     }
 }

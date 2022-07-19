@@ -15,7 +15,6 @@ namespace Core.Cities
         protected SignalBus SignalBus => _signalBus;
 
         private bool _isHover;
-        private bool _selected;
         private float _outlineWidth;
 
         public abstract bool Interactable { get; set; }

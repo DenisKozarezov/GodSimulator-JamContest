@@ -3354,7 +3354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movingPriestsForm: {fileID: 1959368641483113651, guid: d65159da0b9732040bd9e9d87ac40ae1, type: 3}
-  _templeRadius: {fileID: 2799078878414181061, guid: 305a99c863fcbab4c824d70532371961, type: 3}
+  _templeRadius: {fileID: 3896502768562171045, guid: ac99757090659e5409a940ac5f889d0e, type: 3}
   _movingPriestsIcon: {fileID: 3409440545077129652, guid: ecb8eb320f7818140ac4ec7213ef6999, type: 3}
   _animatedDottedLine: {fileID: 7182528012365368370, guid: 0a515b90c51fc5e4aa1efe95d2b229fa, type: 3}
 --- !u!114 &1606235838
