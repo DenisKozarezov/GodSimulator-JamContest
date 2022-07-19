@@ -1,5 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Unity.Mathematics;
 using TMPro;
 using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
@@ -7,11 +12,6 @@ using Core.Infrastructure;
 using Core.Models;
 using DG.Tweening;
 using static Core.Models.GameSettingsInstaller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
-using Unity.Mathematics;
 
 namespace Core.Cities
 {
@@ -104,7 +104,6 @@ namespace Core.Cities
                 _percentageOfFaithful.Add(god, 0);
             }
         }
-
         private IEnumerator IncreasePercentageOfFaithful()
         {
             float templeRate = 0.5f;
@@ -120,11 +119,10 @@ namespace Core.Cities
                 yield return new WaitForSeconds(1f);
             }
         }
-
         public void IncreasePercentageOfFaithfulInOtherCities()
         {
             TempleStrategy temple = GetComponent<TempleStrategy>();
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, temple.Range);
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, temple.GetRange());
             Collider2D selfCollider = GetComponent<Collider2D>();
             IEnumerable<Collider2D> colliders = 
                          from collider in colliderArray
@@ -150,7 +148,6 @@ namespace Core.Cities
                 }
             }
         }
-
         public void AddPriests(GodModel god, ushort value)
         {
             if (!_numberOfPriests.ContainsKey(god))
@@ -159,13 +156,11 @@ namespace Core.Cities
             _numberOfPriests[god] = (ushort)math.min(_numberOfPriests[god] + value, _maxCapacityOfPriests);
             _priestsCount.text = _numberOfPriests[god].ToString();
         }
-
         public void ReducePriests(GodModel god, ushort value)
         {
             _numberOfPriests[god] = (ushort)math.max(_numberOfPriests[god] - value, 0);
             _priestsCount.text = _numberOfPriests[god].ToString();
         }
-
         public void BuildTemple(VirtueModel virtue)
         {
             TempleStrategy temple = gameObject.AddComponent<TempleStrategy>();

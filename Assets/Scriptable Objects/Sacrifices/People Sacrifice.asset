@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _displayName: People Sacrifice
+  _description: 
+  _virtue: {fileID: 11400000, guid: 2e4e2de2f7649e647ac78419a9f521be, type: 2}
+  _virtueBoost: 15

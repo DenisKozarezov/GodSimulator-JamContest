@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eced995c10e9aa64a83f09b64f0c4d25, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
+  _playerSettings: {fileID: 11400000, guid: 701b4f0f254ec4d46acdb279d9063a5b, type: 2}
+  _audioSettings: {fileID: 11400000, guid: 58dc9916ed1233b45a30ed78be8b5857, type: 2}
+  _UISettings: {fileID: 11400000, guid: 5610eba59854db74a928c893d3b035df, type: 2}
   _gameSettings:
     _gameTime: 100
     _virtueLevels: 4
@@ -56,6 +59,5 @@ MonoBehaviour:
   _sacrificeSettings:
     _appearenceInterval: {x: 45, y: 90}
     _duration: 15
-  _playerSettings: {fileID: 11400000, guid: 701b4f0f254ec4d46acdb279d9063a5b, type: 2}
-  _audioSettings: {fileID: 11400000, guid: 58dc9916ed1233b45a30ed78be8b5857, type: 2}
-  _UISettings: {fileID: 11400000, guid: 5610eba59854db74a928c893d3b035df, type: 2}
+    _enabledSacrifices:
+    - {fileID: 11400000, guid: 510a5e4b579a4dc4bb6bffd9bfa0efe4, type: 2}

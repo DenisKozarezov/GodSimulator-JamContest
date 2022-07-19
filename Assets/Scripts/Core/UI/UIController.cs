@@ -3,6 +3,7 @@ using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.UI.Forms;
+using Unity.Mathematics;
 
 namespace Core.UI
 { 
@@ -56,6 +57,10 @@ namespace Core.UI
         private async void OnPlayerSelectedCityForPriests(TempleDragEndSignal signal)
         {
             if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
+
+            float sqrDistance = math.distancesq(signal.Temple.transform.position, signal.Target.transform.position);
+            float sqrRange = math.pow(signal.Temple.GetRange(), 2);
+            if (sqrDistance >= sqrRange) return;
 
             var form = Instantiate(_formPrefab);
             form.Init(signal.Temple.City.PriestsAmount);

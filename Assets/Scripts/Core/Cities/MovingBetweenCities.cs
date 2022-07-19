@@ -1,12 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using DG.Tweening;
 using Core.Infrastructure;
 using Core.UI;
-using System.Threading.Tasks;
-using System;
 
 namespace Core.Cities
 {
@@ -18,7 +18,6 @@ namespace Core.Cities
         private Circle _radiusPrefab;
         private AnimatedDottedLine _linePrefab;
         private MovingPriestsIcon _iconPrefab;
-
         private Circle _radius;
 
         public MovingBetweenCities(SignalBus signalBus, DiContainer container)
@@ -71,13 +70,13 @@ namespace Core.Cities
             {
                 DeselectCities();
             }
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.Range, 1 << Constants.CitiesLayer);
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.GetRange(), 1 << Constants.CitiesLayer);
             Collider2D selfCollider = signal.Temple.GetComponent<Collider2D>();
             _colliders = from collider in colliderArray
                          where collider != selfCollider
                          select collider;
             SelectCities(_colliders);
-            _radius = CreateTempleVisibleRadius(signal.Temple.transform.position, signal.Temple.Range);
+            _radius = CreateTempleVisibleRadius(signal.Temple.transform.position, signal.Temple.GetRange());
         }
         private void OnTempleDragEndSignal(TempleDragEndSignal signal)
         {
