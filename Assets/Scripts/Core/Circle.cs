@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace Core.UI
 {
@@ -21,17 +22,15 @@ namespace Core.UI
         {
             Clear();
 
-            float x;
-            float y;
-            float angle = 20f;
-
             _lineRenderer.positionCount = _segments;
+            
+            float angle = 20f;
             for (int i = 0; i < _segments; i++)
             {
-                x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
-                y = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+                float x = math.sin(math.radians(angle)) * radius;
+                float y = math.cos(math.radians(angle)) * radius;
 
-                _lineRenderer.SetPosition(i, new Vector3(x, y));
+                _lineRenderer.SetPosition(i, new Vector2(x, y));
 
                 angle += 360f / _segments;
             }

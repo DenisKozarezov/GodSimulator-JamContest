@@ -60,7 +60,7 @@ namespace Core
                 _signalBus.Fire(new PlayerVirtueChangedSignal { Virtue = virtue, State = state });
             }
         }
-        public void RemoveVirtueValue(VirtueModel virtue, byte value)
+        public void ReduceVirtueValue(VirtueModel virtue, byte value)
         {
             if (_virtuesLevels.TryGetValue(virtue, out VirtueState state))
             {
@@ -72,7 +72,7 @@ namespace Core
         {
             foreach (var virtue in _virtuesLevels)
             {
-                RemoveVirtueValue(virtue.Key, virtue.Value.Percent);
+                ReduceVirtueValue(virtue.Key, virtue.Value.Percent);
             }
         }
         public void AddPrana(int value)

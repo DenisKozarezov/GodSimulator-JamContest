@@ -461,6 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 4477244193726576860}
   _name: {fileID: 7963468925333342325}
+  _priestsCount: {fileID: 7196511016432986164}
   _pranaView: {fileID: 0}
   _maxCapacityOfPriests: 0
   _numberOfPriests:

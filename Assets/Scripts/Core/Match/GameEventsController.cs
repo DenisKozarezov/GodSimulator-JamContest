@@ -10,14 +10,14 @@ namespace Core.Match
     {        
         private readonly SignalBus _signalBus;
         private readonly MapController _mapController;
-        private readonly GameSettings _gameSettings;
+        private readonly SacrificeSettings _sacrificeSettings;
         private readonly ILogger Logger;
 
-        public GameEventsController(SignalBus signalBus, MapController mapController, GameSettings gameSettings, ILogger logger)
+        public GameEventsController(SignalBus signalBus, MapController mapController, SacrificeSettings gameSettings, ILogger logger)
         {
             _signalBus = signalBus;
             _mapController = mapController;
-            _gameSettings = gameSettings;
+            _sacrificeSettings = gameSettings;
             Logger = logger;
         }
 
@@ -30,7 +30,7 @@ namespace Core.Match
             form.Elapsed += () => Logger.Log($"Player <b><color=yellow>ignored</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
 
-            form.StartTimer(_gameSettings.SacrificeDuration);
+            form.StartTimer(_sacrificeSettings.Duration);
             bool accepted = await form.AwaitForConfirm();
 
 #if UNITY_EDITOR

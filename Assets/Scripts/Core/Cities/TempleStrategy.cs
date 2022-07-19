@@ -10,10 +10,10 @@ namespace Core.Cities
     public class TempleStrategy : MonoBehaviour, ICityStrategy,
         IBeginDragHandler, IEndDragHandler
     {
+        private SignalBus _signalBus;
         private CityScript _city;
         private float _range;
-
-        private SignalBus _signalBus;
+        private bool _dragging;
         private VirtueModel _virtue;
         private byte _growthOfPriests;
         private Coroutine _generatePriests;
@@ -72,15 +72,17 @@ namespace Core.Cities
         }
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!Interactable || City.PriestsAmount == 0) return;
 
+            _dragging = true;
             _signalBus.Fire(new TempleDragBeginSignal { Temple = this });
         }
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!Interactable || !_dragging) return;
 
-            _signalBus.Fire(new TempleDragEndSignal { God = _city.Invader, Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
+            _dragging = false;
+            _signalBus.Fire(new TempleDragEndSignal { Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
         }
     }
 }
