@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,7 +6,7 @@ using Core.Models;
 
 namespace Core.Cities
 {
-    public class NeutralStrategy : MonoBehaviour, ICityStrategy
+    public class NeutralStrategy : MonoBehaviour, ICityStrategy, IEquatable<NeutralStrategy>
     {
         [Header("Neutral City")]
         [SerializeField, Min(0f)]
@@ -53,6 +54,11 @@ namespace Core.Cities
                 _percentageOfFaithful.Add(god, 0);
                 _rating = true;
             }
+        }
+
+        public bool Equals(NeutralStrategy other)
+        {
+            return _city.Equals(other._city);
         }
     }
 }

@@ -69,32 +69,13 @@ namespace Core
                 if (func(city)) yield return city;
             }
         }
-        public IEnumerable<T> Select<T>(Func<T, bool> func)
+        public IEnumerable<T> Select<T>(Func<T, bool> func) where T : ICityStrategy 
         {
             foreach (var city in _cities)
             {
-                if (city.TryGetComponent(out T value) && func(value))
-                    yield return value;
+                if (city.TryGetComponent(out T value) && func(value)) yield return value;
             }
-        }
-        public IEnumerable<CityScript> SelectByDistance(Func<CityScript, bool> func, Vector3 position, float distance)
-        {
-            foreach (var city in _cities)
-            {
-                float sqrDistance = math.distancesq(position, city.transform.position);
-                if (func(city) && sqrDistance <= math.pow(distance, 2))
-                    yield return city;
-            }
-        }
-        public IEnumerable<T> SelectByDistance<T>(Func<T, bool> func, Vector3 position, float distance)
-        {
-            foreach (var city in _cities)
-            {
-                float sqrDistance = math.distancesq(position, city.transform.position);
-                if (city.TryGetComponent(out T value) && func(value) && sqrDistance <= math.pow(distance, 2))
-                    yield return value;
-            }
-        }
+        }      
         public static void RegisterCity(CityScript city)
         {
             if (!_cities.Contains(city)) _cities.AddLast(city);

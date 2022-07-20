@@ -64,8 +64,12 @@ namespace Core.Cities
                 _name.text = name;
                 gameObject.name = name + " City";
             }
-        }       
+        }
 
+        private void Awake()
+        {
+            MapController.RegisterCity(this);
+        }
         protected override void Start()
         {
             _currentStrategy = GetComponent<ICityStrategy>();
@@ -78,7 +82,6 @@ namespace Core.Cities
             {
                 DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
             }
-            MapController.RegisterCity(this);
         }
 
         public void AddPriests(GodModel god, ushort value)

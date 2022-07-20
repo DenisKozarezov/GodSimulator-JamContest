@@ -53,10 +53,9 @@ namespace Core.Cities
 
         private void IncreasePercentageOfFaithfulInOtherCities()
         {
-            IEnumerable<NeutralStrategy> cities = _mapController.SelectByDistance<NeutralStrategy>(
-                city => city != this, 
-                transform.position, 
-                GetRange());
+            IEnumerable<NeutralStrategy> cities = _mapController
+                .Select<NeutralStrategy>(city => city != this)
+                .ByDistance(transform.position, GetRange());
             foreach (var city in cities)
             {
                 city.AddNewGodForFaithfull(City.Invader);

@@ -77,10 +77,9 @@ namespace Core.Cities
             Vector3 position = signal.Temple.transform.position;
             float range = signal.Temple.GetRange();
 
-            _cities = _mapController.SelectByDistance(
-                city => city != signal.Temple,
-                position,
-                range);
+            _cities = _mapController
+                .Select(city => city != signal.Temple)
+                .ByDistance(position, range);
             SelectCities(_cities);
             _radius = CreateTempleVisibleRadius(position, range);
         }

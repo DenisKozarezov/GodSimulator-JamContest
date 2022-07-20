@@ -12,5 +12,10 @@ namespace Core.Models
 
         public Color Color => _color;
         public Sprite Portrait => _portrait;
+
+        public static implicit operator uint(GodModel god)
+        {
+            return god.ID;
+        }
     }
 }
