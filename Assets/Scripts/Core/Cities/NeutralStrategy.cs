@@ -9,7 +9,7 @@ namespace Core.Cities
     {
         [Header("Neutral City")]
         [SerializeField, Min(0f)]
-        private float _growthRate;
+        private float _faithRate;
         [SerializeField, Min(0f)]
         private float _growthOfFaith;
 
@@ -42,7 +42,7 @@ namespace Core.Cities
                         value += _growthOfFaith;
                     }
                 }
-                _timer = _growthRate;
+                _timer = _faithRate;
             }
         }
 

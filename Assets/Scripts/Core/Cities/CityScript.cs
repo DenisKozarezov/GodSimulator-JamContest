@@ -21,17 +21,16 @@ namespace Core.Cities
         private TextMeshPro _priestsCount;
         [SerializeField]
         private PranaView _pranaView;
+        [SerializeField]
+        private byte _maxCapacityOfPriests;
 
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
-        [SerializeField]
-        private byte _maxCapacityOfPriests;
         [SerializeField]
         private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
         [SerializeField]
         private GodModel _invader;
 
-        public ICityStrategy CurrentStrategy => _currentStrategy;
         public ushort PriestsAmount
         {
             get

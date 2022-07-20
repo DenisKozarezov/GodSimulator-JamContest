@@ -41,8 +41,12 @@ namespace Core
         public static Vector3 ScreenToWorldPoint(Vector2 position)
         {
             Ray ray = Camera.main.ScreenPointToRay(position);
-            RaycastHit2D raycastHit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~0);
-            return raycastHit.point;
+            RaycastHit2D[] raycastHits = new RaycastHit2D[1];
+            int hits = Physics2D.RaycastNonAlloc(ray.origin, ray.direction, raycastHits, Mathf.Infinity, ~0);
+            
+            if (hits == 0) return Vector3.zero;
+            
+            return raycastHits[0].point;
         }
     }
 }

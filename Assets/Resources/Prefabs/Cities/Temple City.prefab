@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minRange: 3
-  _priestsRate: 1
+  _priestsRate: 10
   _growthOfPriests: 1
 --- !u!1001 &2379550588304865432
 PrefabInstance:

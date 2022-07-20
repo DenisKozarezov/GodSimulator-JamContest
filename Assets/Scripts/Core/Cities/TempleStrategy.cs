@@ -71,7 +71,6 @@ namespace Core.Cities
             if (_rangeDecorator == null) return _minRange;
             return _rangeDecorator.GetRange();
         }
-
         private IEnumerator GeneratePriests()
         {
             while (true)
@@ -80,6 +79,7 @@ namespace Core.Cities
                 yield return new WaitForSeconds(_priestsRate);
             }
         }
+
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             if (!Interactable || City.PriestsAmount == 0) return;
