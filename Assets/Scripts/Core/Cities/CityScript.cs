@@ -32,6 +32,7 @@ namespace Core.Cities
         private GodModel _invader;
 
         public ICityStrategy CurrentStrategy => _currentStrategy;
+        public SerializableDictionaryBase<GodModel, ushort> NumberOfPriests => _numberOfPriests;
         public ushort PriestsAmount
         {
             get

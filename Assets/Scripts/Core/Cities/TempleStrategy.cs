@@ -44,13 +44,24 @@ namespace Core.Cities
         private void Start()
         {
             _city = GetComponent<CityScript>();
-            _city.AddPriests(_city.Invader, 0);
+
+            CaptureOfPriests();
 
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
             _generatePriests = StartCoroutine(GeneratePriests());
             IncreasePercentageOfFaithfulInOtherCities();
         }
 
+        private void CaptureOfPriests()
+        {
+            var numberOfCapturedPriests = _city.NumberOfPriests;
+            numberOfCapturedPriests.Remove(_city.Invader);
+            foreach (var priests in numberOfCapturedPriests)
+            {
+                _city.AddPriests(_city.Invader, priests.Value);
+                _city.NumberOfPriests[priests.Key] = 0;
+            }
+        }
         private void IncreasePercentageOfFaithfulInOtherCities()
         {
             IEnumerable<NeutralStrategy> cities = _mapController.SelectByDistance<NeutralStrategy>(
