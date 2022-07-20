@@ -14,7 +14,7 @@ namespace Core.Cities
         public TempleRangeVirtueLevelDecorator(TempleStrategy temple) : base(temple) { }
         public override float GetRange()
         {
-            return Temple.StartRange + (virtueLevel - 1) * Coefficient;
+            return Temple.MinRange + (virtueLevel - 1) * Coefficient;
         }
     }
     public class TempleRangeSacrificeDecorator : TempleRangeDecorator
@@ -22,7 +22,7 @@ namespace Core.Cities
         public TempleRangeSacrificeDecorator(TempleStrategy temple) : base(temple) { }
         public override float GetRange()
         {
-            return Temple.StartRange;
+            return Temple.MinRange;
         }
     }
 }

@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
@@ -17,6 +14,7 @@ namespace Core.Cities
 {
     public class CityScript : InteractableView, IEquatable<CityScript>
     {
+        [Header("City")]
         [SerializeField]
         private TextMeshPro _name;
         [SerializeField]
@@ -30,13 +28,10 @@ namespace Core.Cities
         private byte _maxCapacityOfPriests;
         [SerializeField]
         private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
-        private SerializableDictionaryBase<GodModel, float> _percentageOfFaithful;
         [SerializeField]
         private GodModel _invader;
-        private bool _increasePassiveFaithful;
 
         public ICityStrategy CurrentStrategy => _currentStrategy;
-        public byte MaxCapacityOfPriests => _maxCapacityOfPriests;
         public ushort PriestsAmount
         {
             get
@@ -49,9 +44,7 @@ namespace Core.Cities
                 return 0;
             }
         }
-        public SerializableDictionaryBase<GodModel, ushort> NumberOfPriests => _numberOfPriests;
         public GodModel Invader => _invader;
-        public bool IsIncreasePassiveFaithful { get { return _increasePassiveFaithful; } set { _increasePassiveFaithful = value; } }
 
         public override bool Interactable
         {
@@ -79,15 +72,7 @@ namespace Core.Cities
             _currentStrategy = GetComponent<ICityStrategy>();
 
             _numberOfPriests = new SerializableDictionaryBase<GodModel, ushort>();
-            if (_currentStrategy is TempleStrategy)
-            {
-                if (!_numberOfPriests.ContainsKey(_invader))
-                {
-                    _numberOfPriests.Add(_invader, 0);
-                }
-            }
 
-            _percentageOfFaithful = new SerializableDictionaryBase<GodModel, float>();
             Interactable = true;
 
             if (_pranaView != null)
@@ -97,57 +82,6 @@ namespace Core.Cities
             MapController.RegisterCity(this);
         }
 
-        public void AddGodToPercentageOfFaithful(GodModel god)
-        {
-            if (!_percentageOfFaithful.ContainsKey(god))
-            {
-                _percentageOfFaithful.Add(god, 0);
-            }
-        }
-        private IEnumerator IncreasePercentageOfFaithful()
-        {
-            float templeRate = 0.5f;
-            while (CurrentStrategy is NeutralStrategy)
-            {
-                var total = _percentageOfFaithful.Values.ToList().Sum(x => x);
-                foreach (var godKey in _percentageOfFaithful.Keys.ToList())
-                {
-                    if (total >= 100f)
-                        yield break;
-                    _percentageOfFaithful[godKey] += templeRate;
-                }
-                yield return new WaitForSeconds(1f);
-            }
-        }
-        public void IncreasePercentageOfFaithfulInOtherCities()
-        {
-            TempleStrategy temple = GetComponent<TempleStrategy>();
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, temple.GetRange());
-            Collider2D selfCollider = GetComponent<Collider2D>();
-            IEnumerable<Collider2D> colliders = 
-                         from collider in colliderArray
-                         where collider != selfCollider
-                         select collider;
-            foreach (var collider in colliders)
-            {
-                if (collider.TryGetComponent(out CityScript city))
-                {
-                    if (city.CurrentStrategy is NeutralStrategy)
-                    {
-                        if (!city.IsIncreasePassiveFaithful)
-                        {
-                            city.IsIncreasePassiveFaithful = true;
-                            city.AddGodToPercentageOfFaithful(_invader);
-                            StartCoroutine(city.IncreasePercentageOfFaithful());
-                        }
-                        else
-                        {
-                            city.AddGodToPercentageOfFaithful(_invader);
-                        }
-                    }
-                }
-            }
-        }
         public void AddPriests(GodModel god, ushort value)
         {
             if (!_numberOfPriests.ContainsKey(god))
@@ -158,17 +92,24 @@ namespace Core.Cities
         }
         public void ReducePriests(GodModel god, ushort value)
         {
-            _numberOfPriests[god] = (ushort)math.max(_numberOfPriests[god] - value, 0);
-            _priestsCount.text = _numberOfPriests[god].ToString();
+            if (_numberOfPriests.ContainsKey(god))
+            {
+                _numberOfPriests[god] = (ushort)math.max(_numberOfPriests[god] - value, 0);
+                _priestsCount.text = _numberOfPriests[god].ToString();
+            }
+        }
+        public void ClearPriests()
+        {
+            foreach (var priests in _numberOfPriests)
+            {
+                ReducePriests(priests.Key, priests.Value);
+            }
         }
         public void BuildTemple(VirtueModel virtue)
         {
             TempleStrategy temple = gameObject.AddComponent<TempleStrategy>();
             temple.SetVirtue(virtue);
             _currentStrategy = temple;
-
-            if (IsIncreasePassiveFaithful)
-                IsIncreasePassiveFaithful = false;
         }
 
         public override void OnPointerClick(PointerEventData eventData)
