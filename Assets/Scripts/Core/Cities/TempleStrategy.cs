@@ -24,8 +24,8 @@ namespace Core.Cities
         private MapController _mapController;
         private TempleRangeDecorator _rangeDecorator;
         private VirtueModel _virtue;
-        private Coroutine _generatePriests;
         private CityScript _city;
+        private Coroutine _generatePriests;
 
         private bool _dragging;
         public bool Interactable { get; set; }
@@ -44,14 +44,7 @@ namespace Core.Cities
         private void Start()
         {
             _city = GetComponent<CityScript>();
-
-            var numberOfCapturedPriests = _city.NumberOfPriests;
-            numberOfCapturedPriests.Remove(_city.Invader);
-            foreach (var priests in numberOfCapturedPriests)
-            {
-                _city.NumberOfPriests[priests.Key] = 0;
-                _city.AddPriests(_city.Invader, priests.Value);
-            }
+            _city.AddPriests(_city.Invader, 0);
 
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
             _generatePriests = StartCoroutine(GeneratePriests());

@@ -44,7 +44,6 @@ namespace Core.Cities
                 return 0;
             }
         }
-        public SerializableDictionaryBase<GodModel, ushort> NumberOfPriests => _numberOfPriests;
         public GodModel Invader => _invader;
 
         public override bool Interactable
@@ -73,10 +72,6 @@ namespace Core.Cities
             _currentStrategy = GetComponent<ICityStrategy>();
 
             _numberOfPriests = new SerializableDictionaryBase<GodModel, ushort>();
-            if (_currentStrategy is TempleStrategy)
-            {
-                AddPriests(_invader, 0);
-            }
 
             Interactable = true;
 
@@ -97,8 +92,11 @@ namespace Core.Cities
         }
         public void ReducePriests(GodModel god, ushort value)
         {
-            _numberOfPriests[god] = (ushort)math.max(_numberOfPriests[god] - value, 0);
-            _priestsCount.text = _numberOfPriests[god].ToString();
+            if (_numberOfPriests.ContainsKey(god))
+            {
+                _numberOfPriests[god] = (ushort)math.max(_numberOfPriests[god] - value, 0);
+                _priestsCount.text = _numberOfPriests[god].ToString();
+            }
         }
         public void ClearPriests()
         {

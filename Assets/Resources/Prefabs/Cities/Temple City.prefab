@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.851}
+  m_AnchoredPosition: {x: 0, y: -0.85}
   m_SizeDelta: {x: 1.5, y: 0.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3806863973800156101
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minRange: 3
-  _priestsRate: 10
+  _priestsRate: 1
   _growthOfPriests: 1
 --- !u!1001 &2379550588304865432
 PrefabInstance:
