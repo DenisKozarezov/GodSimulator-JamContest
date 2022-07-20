@@ -1,9 +1,9 @@
 using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.UI.Forms;
-using Unity.Mathematics;
 
 namespace Core.UI
 { 
@@ -19,14 +19,14 @@ namespace Core.UI
         private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
         private bool _selectionMode;
 
+        private const string FormPrefab = "Prefabs/Views/Forms/Moving Priests Form";
+
         private SignalBus _signalBus;
-        private MovingPriestsForm _formPrefab;
 
         [Inject]
-        public void Construct(SignalBus signalBus, DiContainer container)
+        public void Construct(SignalBus signalBus)
         {
             _signalBus = signalBus;
-            _formPrefab = container.Resolve<MovingPriestsForm>();
         }
         private void Awake()
         {
@@ -62,7 +62,8 @@ namespace Core.UI
             float sqrRange = math.pow(signal.Temple.GetRange(), 2);
             if (sqrDistance >= sqrRange) return;
 
-            var form = Instantiate(_formPrefab);
+            var asset = Resources.Load<MovingPriestsForm>(FormPrefab);
+            var form = Instantiate(asset);
             form.Init(signal.Temple.City.PriestsAmount);
 
             ushort priestsCount = await form.AwaitForConfirm();

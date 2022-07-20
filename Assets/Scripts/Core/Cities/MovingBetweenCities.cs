@@ -13,19 +13,19 @@ namespace Core.Cities
     public class MovingBetweenCities : IInitializable, ILateDisposable
     {
         private readonly SignalBus _signalBus;
-        private IEnumerable<Collider2D> _colliders;
+        private readonly MapController _mapController;
+        private IEnumerable<CityScript> _cities;
 
-        private Circle _radiusPrefab;
-        private AnimatedDottedLine _linePrefab;
-        private MovingPriestsIcon _iconPrefab;
+        private const string RadiusPrefabPath = "Prefabs/Views/Solid Circle";
+        private const string LinePrefabPath = "Prefabs/Cities/Animated Dotted Line";
+        private const string IconPrefabPath = "Prefabs/Views/Moving Priests Icon";
+
         private Circle _radius;
 
-        public MovingBetweenCities(SignalBus signalBus, DiContainer container)
+        public MovingBetweenCities(SignalBus signalBus, MapController mapController)
         {
             _signalBus = signalBus;
-            _radiusPrefab = container.Resolve<Circle>();
-            _linePrefab = container.Resolve<AnimatedDottedLine>();
-            _iconPrefab = container.Resolve<MovingPriestsIcon>();
+            _mapController = mapController;
         }
         void IInitializable.Initialize()
         {
@@ -42,13 +42,15 @@ namespace Core.Cities
 
         private Circle CreateTempleVisibleRadius(Vector2 position, float range)
         {
-            var circle = GameObject.Instantiate(_radiusPrefab, position, Quaternion.identity);
+            var asset = Resources.Load<Circle>(RadiusPrefabPath);
+            var circle = GameObject.Instantiate(asset, position, Quaternion.identity);
             circle.SetRadius(range);
             return circle;
         }
         private AnimatedDottedLine CreateAnimatedDottedLine(Vector2 startPos, Vector2 endPos, float time)
         {
-            var line = GameObject.Instantiate(_linePrefab);
+            var asset = Resources.Load<AnimatedDottedLine>(LinePrefabPath);
+            var line = GameObject.Instantiate(asset);
             line.StartPosition = startPos;
             line.EndPosition = endPos;
             GameObject.Destroy(line.gameObject, time);
@@ -56,7 +58,8 @@ namespace Core.Cities
         }
         private MovingPriestsIcon CreateMovingIcon(Vector2 startPos, Vector2 endPos, float time)
         {
-            var icon = GameObject.Instantiate(_iconPrefab, startPos, Quaternion.identity);
+            var asset = Resources.Load<MovingPriestsIcon>(IconPrefabPath);
+            var icon = GameObject.Instantiate(asset, startPos, Quaternion.identity);
             icon.transform.DOMove(endPos, time).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
@@ -66,17 +69,20 @@ namespace Core.Cities
         }
         private void OnTempleDragBegin(TempleDragBeginSignal signal)
         {
-            if (_colliders != null && _colliders.Count() != 0)
+            if (_cities != null && _cities.Count() != 0)
             {
                 DeselectCities();
             }
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(signal.Temple.transform.position, signal.Temple.GetRange(), 1 << Constants.CitiesLayer);
-            Collider2D selfCollider = signal.Temple.GetComponent<Collider2D>();
-            _colliders = from collider in colliderArray
-                         where collider != selfCollider
-                         select collider;
-            SelectCities(_colliders);
-            _radius = CreateTempleVisibleRadius(signal.Temple.transform.position, signal.Temple.GetRange());
+
+            Vector3 position = signal.Temple.transform.position;
+            float range = signal.Temple.GetRange();
+
+            _cities = _mapController.SelectByDistance(
+                city => city != signal.Temple,
+                position,
+                range);
+            SelectCities(_cities);
+            _radius = CreateTempleVisibleRadius(position, range);
         }
         private void OnTempleDragEndSignal(TempleDragEndSignal signal)
         {
@@ -89,18 +95,18 @@ namespace Core.Cities
 
             signal.Temple.City.ReducePriests(signal.Temple.City.Invader, signal.PriestsAmount);
 
-            var line = CreateAnimatedDottedLine(startPos, endPos, signal.Duration);
+            CreateAnimatedDottedLine(startPos, endPos, signal.Duration);
             var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
             icon.SetAmount(signal.PriestsAmount);
 
             await Task.Delay(TimeSpan.FromSeconds(signal.Duration));
             signal.Target.AddPriests(signal.Temple.City.Invader, signal.PriestsAmount);
         }
-        private void SelectCities(IEnumerable<Collider2D> colliders)
+        private void SelectCities(IEnumerable<CityScript> cities)
         {
-            foreach (var collider in colliders)
+            foreach (var city in cities)
             {
-                if (collider.TryGetComponent(out SpriteRenderer renderer))
+                if (city.TryGetComponent(out SpriteRenderer renderer))
                 {
                     renderer.color = Color.green;
                 }
@@ -108,9 +114,9 @@ namespace Core.Cities
         }
         private void DeselectCities()
         {
-            foreach (var collider in _colliders)
+            foreach (var city in _cities)
             {
-                if (collider.TryGetComponent(out SpriteRenderer renderer))
+                if (city.TryGetComponent(out SpriteRenderer renderer))
                 {
                     renderer.color = Color.white;
                 }
