@@ -87,7 +87,11 @@ namespace Core.UI
         }
         public void StartTimer(float duration)
         {
-            DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, duration)
+            DOTween.To(() => 0f, (x) =>
+            {
+                _pranaView.SetFillAmount(x);
+                _pranaView.SetColor(Color.Lerp(Color.black, Color.white, x));
+            }, 1f, duration)
             .SetEase(Ease.Linear)
             .SetLink(gameObject)
             .OnComplete(() =>

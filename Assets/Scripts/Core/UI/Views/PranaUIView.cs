@@ -24,5 +24,9 @@ namespace Core.Cities
         {
             _material.SetFloat("_Arc1", math.lerp(ArcMin, ArcMax, fillAmount));
         }
+        public void SetColor(Color color)
+        {
+            _material.SetColor("_Color", color);
+        }
     }
 }
