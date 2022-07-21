@@ -13,12 +13,22 @@ namespace Core.Cities
         private float ArcMin;
         private float ArcMax;
 
-        private void Start()
+        public Color color
+        {
+            get => _material.color;
+            set => SetColor(value);
+        }
+
+        private void Awake()
         {
             _renderer.material = new Material(_renderer.material);
             _material = _renderer.material;
             ArcMin = _material.GetFloat("_Arc1");
             ArcMax = 360f - _material.GetFloat("_Arc2");
+        }
+        private void SetColor(Color color)
+        {
+            _material.SetColor("_Color", color);
         }
         public void SetFillAmount(float fillAmount)
         {

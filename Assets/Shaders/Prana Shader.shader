@@ -55,7 +55,7 @@ Shader "Core/Prana Shader"
 					v2f OUT;
 					OUT.vertex = UnityObjectToClipPos(IN.vertex);
 					OUT.texcoord = IN.texcoord;
-					OUT.color = IN.color * _Color;
+					OUT.color = IN.color;
 					#ifdef PIXELSNAP_ON
 					OUT.vertex = UnityPixelSnap(OUT.vertex);
 					#endif
@@ -86,7 +86,8 @@ Shader "Core/Prana Shader"
 				fixed4 frag(v2f IN) : SV_Target
 				{
 					fixed4 col = SampleSpriteTexture(IN.texcoord) * IN.color;
-					col.rgb *= col.a;
+					col.r += 1 - _Color.r;
+					col.rgba *= col.a;
 
 					float startAngle = _Angle - _Arc1;
 					float endAngle = _Angle + _Arc2;
