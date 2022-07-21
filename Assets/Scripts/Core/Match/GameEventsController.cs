@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Zenject;
+﻿using Zenject;
 using Core.Infrastructure;
 using Core.UI;
 using static Core.Models.GameSettingsInstaller;
@@ -30,7 +29,7 @@ namespace Core.Match
         }
         private async void OnGameStarted()
         {
-            var city = _mapController.Cities.First();
+            var city = _mapController.Cities.Randomly();
             var form = (SacrificeForm)SacrificeForm.CreateForm(city);
 
 #if UNITY_EDITOR

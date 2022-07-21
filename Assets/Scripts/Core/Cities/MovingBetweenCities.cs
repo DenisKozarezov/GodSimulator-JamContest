@@ -83,7 +83,7 @@ namespace Core.Cities
             float range = signal.Temple.GetRange();
 
             _cities = _mapController
-                .Select(city => city != signal.Temple)
+                .SelectMany(city => city != signal.Temple)
                 .ByDistance(position, range);
 
             SelectCities(_cities);
@@ -116,14 +116,14 @@ namespace Core.Cities
             Vector2 startPos = signal.Temple.transform.position;
             Vector2 endPos = signal.Target.transform.position;
 
-            signal.Temple.City.ReducePriests(signal.Temple.City.Invader, signal.PriestsAmount);
+            signal.Temple.City.ReducePriests(signal.Temple.City.Owner, signal.PriestsAmount);
 
             CreateAnimatedDottedLine(startPos, endPos, signal.Duration);
             var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
             icon.SetAmount(signal.PriestsAmount);
 
             await Task.Delay(TimeSpan.FromSeconds(signal.Duration));
-            signal.Target.AddPriests(signal.Temple.City.Invader, signal.PriestsAmount);
+            signal.Target.AddPriests(signal.Temple.City.Owner, signal.PriestsAmount);
         }
         private void SelectCities(IEnumerable<CityScript> cities)
         {
