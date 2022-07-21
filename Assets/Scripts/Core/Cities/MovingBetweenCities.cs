@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 using DG.Tweening;
 using Core.Infrastructure;
 using Core.UI;
+using Core.UI.Forms;
 
 namespace Core.Cities
 {
@@ -14,13 +15,13 @@ namespace Core.Cities
     {
         private readonly SignalBus _signalBus;
         private readonly MapController _mapController;
+        private Circle _radius;
         private IEnumerable<CityScript> _cities;
 
         private const string RadiusPrefabPath = "Prefabs/Views/Solid Circle";
         private const string LinePrefabPath = "Prefabs/Cities/Animated Dotted Line";
         private const string IconPrefabPath = "Prefabs/Views/Moving Priests Icon";
-
-        private Circle _radius;
+        private const string FormPrefab = "Prefabs/Views/Forms/Moving Priests Form";
 
         public MovingBetweenCities(SignalBus signalBus, MapController mapController)
         {
@@ -67,26 +68,48 @@ namespace Core.Cities
             });
             return icon;
         }
+        private MovingPriestsForm CreateMovingPriestsForm(TempleDragEndSignal signal)
+        {
+            var asset = Resources.Load<MovingPriestsForm>(FormPrefab);
+            var form = GameObject.Instantiate(asset);
+            form.Init(signal.Temple.City.PriestsAmount);
+            return form;
+        }
         private void OnTempleDragBegin(TempleDragBeginSignal signal)
         {
-            if (_cities != null && _cities.Count() != 0)
-            {
-                DeselectCities();
-            }
+            DeselectCities(); 
 
             Vector3 position = signal.Temple.transform.position;
             float range = signal.Temple.GetRange();
 
-            _cities = _mapController.SelectByDistance(
-                city => city != signal.Temple,
-                position,
-                range);
+            _cities = _mapController
+                .Select(city => city != signal.Temple)
+                .ByDistance(position, range);
+
             SelectCities(_cities);
             _radius = CreateTempleVisibleRadius(position, range);
         }
-        private void OnTempleDragEndSignal(TempleDragEndSignal signal)
+        private async void OnTempleDragEndSignal(TempleDragEndSignal signal)
         {
             GameObject.Destroy(_radius.gameObject);
+
+            if (signal.Target == null || signal.Temple.Equals(signal.Target)) return;
+
+            float3 templePos = signal.Temple.transform.position;
+            float3 targetPos = signal.Target.transform.position;
+            float range = signal.Temple.GetRange();
+            if (!MathUtils.CheckDistance(templePos, targetPos, range)) return;
+
+            MovingPriestsForm form = CreateMovingPriestsForm(signal);
+            ushort priestsCount = await form.AwaitForConfirm();
+
+            _signalBus.Fire(new PlayerMovingPriestsSignal
+            {
+                Temple = signal.Temple,
+                Target = signal.Target,
+                Duration = 10f,
+                PriestsAmount = priestsCount
+            });
         }
         private async void OnPlayerMovingPriests(PlayerMovingPriestsSignal signal)
         {
@@ -114,6 +137,8 @@ namespace Core.Cities
         }
         private void DeselectCities()
         {
+            if (_cities == null) return;
+
             foreach (var city in _cities)
             {
                 if (city.TryGetComponent(out SpriteRenderer renderer))

@@ -1,32 +1,32 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using RotaryHeart.Lib.SerializableDictionary;
 
 namespace Core.Models
 {
-    [CreateAssetMenu(menuName = "Configuration/Models/Create City")]
-    public class CityModel : ScriptableObject, IEquatable<CityModel>
+    public abstract class BaseModel : ScriptableObject, IEquatable<BaseModel>
     {
         [SerializeField]
         private uint _id;
         [SerializeField]
         private string _displayName;
+        [SerializeField, TextArea]
+        private string _description;
 
         public uint ID => _id;
         public string DisplayName => _displayName;
+        public string Description => _description;
 
-        public bool Equals(CityModel other)
-        {
-            return _id == other._id;
-        }
-
-        protected virtual void OnEnable()
+        protected virtual void OnValidate()
         {
             if (string.IsNullOrEmpty(_displayName))
             {
                 _displayName = this.name;
             }
+        }
+
+        public bool Equals(BaseModel other)
+        {
+            return _id == other._id;
         }
     }
 }

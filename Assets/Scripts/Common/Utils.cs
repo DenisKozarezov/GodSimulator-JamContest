@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -41,8 +42,31 @@ namespace Core
         public static Vector3 ScreenToWorldPoint(Vector2 position)
         {
             Ray ray = Camera.main.ScreenPointToRay(position);
-            RaycastHit2D raycastHit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~0);
-            return raycastHit.point;
+            RaycastHit2D[] raycastHits = new RaycastHit2D[1];
+            int hits = Physics2D.RaycastNonAlloc(ray.origin, ray.direction, raycastHits, Mathf.Infinity, ~0);
+            
+            if (hits == 0) return Vector3.zero;
+            
+            return raycastHits[0].point;
+        }
+    }
+    public static class MathUtils
+    {
+        public static float DistanceSqr(float2 first, float2 second)
+        {
+            return math.distancesq(first, second);
+        }
+        public static float DistanceSqr(float3 first, float3 second)
+        {
+            return math.distancesq(first, second);
+        }
+        public static bool CheckDistance(float2 first, float2 second, float distance)
+        {
+            return DistanceSqr(first, second) <= math.pow(distance, 2);
+        }
+        public static bool CheckDistance(float3 first, float3 second, float distance)
+        {
+            return DistanceSqr(first, second) <= math.pow(distance, 2);
         }
     }
 }

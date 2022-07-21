@@ -21,17 +21,16 @@ namespace Core.Cities
         private TextMeshPro _priestsCount;
         [SerializeField]
         private PranaView _pranaView;
+        [SerializeField]
+        private byte _maxCapacityOfPriests;
 
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
-        [SerializeField]
-        private byte _maxCapacityOfPriests;
         [SerializeField]
         private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
         [SerializeField]
         private GodModel _invader;
 
-        public ICityStrategy CurrentStrategy => _currentStrategy;
         public ushort PriestsAmount
         {
             get
@@ -65,8 +64,12 @@ namespace Core.Cities
                 _name.text = name;
                 gameObject.name = name + " City";
             }
-        }       
+        }
 
+        private void Awake()
+        {
+            MapController.RegisterCity(this);
+        }
         protected override void Start()
         {
             _currentStrategy = GetComponent<ICityStrategy>();
@@ -79,7 +82,6 @@ namespace Core.Cities
             {
                 DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
             }
-            MapController.RegisterCity(this);
         }
 
         public void AddPriests(GodModel god, ushort value)

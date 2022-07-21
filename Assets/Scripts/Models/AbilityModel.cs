@@ -20,14 +20,8 @@ namespace Core.Models
     }
 
     [CreateAssetMenu(menuName = "Configuration/Models/Create Ability")]
-    public class AbilityModel : ScriptableObject, IEquatable<AbilityModel>
+    public class AbilityModel : BaseModel
     {
-        [SerializeField]
-        private uint _id;
-        [SerializeField]
-        private string _displayName;
-        [SerializeField, TextArea]
-        private string _description;
         [SerializeField]
         private AbilityType _abilityType = AbilityType.Target;
         [SerializeField]
@@ -43,30 +37,14 @@ namespace Core.Models
         [SerializeField]
         private VirtueModel _virtue;
         [SerializeField]
-        private byte _virtueCost;
-        
-        public uint ID => _id;
-        public string DisplayName => _displayName;
-        public string Description => _description;
+        private byte _virtueCost;        
+   
         public AbilityType AbilityType => _abilityType;
         public AbilityUsage AbilityUsage => _abilityUsage;
         public float Cooldown => _cooldown;
         public Sprite Icon => _icon;
         public string EffectPrefab => _effectPrefab;
         public VirtueModel Virtue => _virtue;
-        public byte VirtueCost => _virtueCost;
-
-        public bool Equals(AbilityModel other)
-        {
-            return _id == other._id;
-        }
-
-        protected virtual void OnEnable()
-        {
-            if (string.IsNullOrEmpty(_displayName))
-            {
-                _displayName = this.name;
-            }
-        }
+        public byte VirtueCost => _virtueCost;   
     }
 }

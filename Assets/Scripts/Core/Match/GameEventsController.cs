@@ -20,7 +20,14 @@ namespace Core.Match
             _sacrificeSettings = gameSettings;
             Logger = logger;
         }
-
+        void IInitializable.Initialize()
+        {
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
+        }
+        void ILateDisposable.LateDispose()
+        {
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+        }
         private async void OnGameStarted()
         {
             var city = _mapController.Cities.First();
@@ -36,14 +43,6 @@ namespace Core.Match
 #if UNITY_EDITOR
             Logger.Log($"Player <b>{(accepted ? "<color=green>accepted" : "<color=red>denied")}</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
-        }
-        void IInitializable.Initialize()
-        {
-            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
-        }
-        void ILateDisposable.LateDispose()
-        {
-            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
         }
     }
 }

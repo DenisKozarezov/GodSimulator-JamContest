@@ -4,6 +4,7 @@ Shader "Core/Animated Dotted Line"
     {
         _MainTex("Texture", 2D) = "white" {}
         _Speed("Speed", Range(0, 20)) = 10
+        [MaterialToggle] PixelSnap("Pixel Snap", Float) = 0
     }
     SubShader
     {
@@ -27,6 +28,7 @@ Shader "Core/Animated Dotted Line"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile _ PIXELSNAP_ON
 
             #include "UnityCG.cginc"
 
@@ -52,6 +54,9 @@ Shader "Core/Animated Dotted Line"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uv.x -= _Time.y * _Speed;
+                #ifdef PIXELSNAP_ON
+                o.vertex = UnityPixelSnap(o.vertex);
+                #endif
                 return o;
             }
 

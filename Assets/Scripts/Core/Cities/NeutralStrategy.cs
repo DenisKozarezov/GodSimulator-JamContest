@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Core.Cities
     {
         [Header("Neutral City")]
         [SerializeField, Min(0f)]
-        private float _growthRate;
+        private float _faithRate;
         [SerializeField, Min(0f)]
         private float _growthOfFaith;
 
@@ -42,7 +43,7 @@ namespace Core.Cities
                         value += _growthOfFaith;
                     }
                 }
-                _timer = _growthRate;
+                _timer = _faithRate;
             }
         }
 
@@ -53,6 +54,12 @@ namespace Core.Cities
                 _percentageOfFaithful.Add(god, 0);
                 _rating = true;
             }
+        }
+
+        public bool Equals(ICityStrategy other)
+        {
+            if (other == null) return false;
+            return _city.Equals(other.City);
         }
     }
 }

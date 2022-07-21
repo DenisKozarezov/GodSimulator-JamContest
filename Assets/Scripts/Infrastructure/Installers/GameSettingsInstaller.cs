@@ -1,8 +1,8 @@
-using Editor;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Editor;
 
 namespace Core.Models
 {
@@ -10,7 +10,7 @@ namespace Core.Models
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
         [Header("Settings")]
-        [Space, SerializeField]
+        [SerializeField]
         private PlayerSettings _playerSettings;
         [SerializeField]
         private AudioSettings _audioSettings;
@@ -28,12 +28,15 @@ namespace Core.Models
             private int _gameTime;
             [SerializeField, Min(0)]
             private int _virtueLevels;
+            [SerializeField]
+            private bool _enableFogOfWar;
             [SerializeField, TextArea(minLines: 10, maxLines: 20)]
             private string _citiesNames;
             private Queue<string> _names;
 
             public int GameTime => _gameTime;
             public int VirtueLevels => _virtueLevels;
+            public bool EnableFogOfWar => _enableFogOfWar;
             public Queue<string> CitiesNames
             {
                 get
@@ -64,6 +67,6 @@ namespace Core.Models
         {
             Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
             Container.BindInstances(_gameSettings, _sacrificeSettings, _playerSettings, _audioSettings, _UISettings);
-        }
+        }     
     }
 }
