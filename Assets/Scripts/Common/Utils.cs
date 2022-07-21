@@ -59,6 +59,14 @@ namespace Core
             _random = new Unity.Mathematics.Random();
             _random.InitState(unchecked((uint)DateTime.Now.Ticks));
         }
+        public static float Distance(float2 first, float2 second)
+        {
+            return math.distance(first, second);
+        }
+        public static float Distance(float3 first, float3 second)
+        {
+            return math.distance(first, second);
+        }
         public static float DistanceSqr(float2 first, float2 second)
         {
             return math.distancesq(first, second);
