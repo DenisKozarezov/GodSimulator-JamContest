@@ -3,7 +3,7 @@ Shader "Core/Prana Shader"
 	Properties
 	{
 		_MainTex("Sprite Texture", 2D) = "white" {}
-		[PerRendererData] _Color("Tint", Color) = (1,1,1,1)
+		_Color("Tint", Color) = (1,1,1,1)
 		_Angle("Angle", Range(0, 360)) = 0
 		_Arc1("Arc Point 1", Range(0, 360)) = 15
 		_Arc2("Arc Point 2", Range(0, 360)) = 15
@@ -86,7 +86,7 @@ Shader "Core/Prana Shader"
 				fixed4 frag(v2f IN) : SV_Target
 				{
 					fixed4 col = SampleSpriteTexture(IN.texcoord) * IN.color;
-					col.r += _Color.r;
+					col.r += 1 - _Color.r;
 					col.rgba *= col.a;
 
 					float startAngle = _Angle - _Arc1;

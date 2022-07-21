@@ -35,10 +35,14 @@ namespace Core.UI
 
         private void Awake()
         {
-            _cancellationTokenSource.Token.Register(Close);
+            _cancellationTokenSource.Token.Register(() => Fade(FadeMode.Off));
             _okButton.onClick.AddListener(OnAccept);
             _noButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
+        }
+        private void Start()
+        {
+            Fade(FadeMode.On);
         }
         private void Update()
         {
@@ -56,16 +60,31 @@ namespace Core.UI
         private void OnAccept()
         {
             _taskCompletionSource.SetResult(true);
-            Close();
+            Fade(FadeMode.Off);
         }
         private void OnDenied()
         {
             _taskCompletionSource.SetResult(false);
-            Close();
+            Fade(FadeMode.Off);
         }
-        private void AttachToCity(CityScript city)
+
+        private void Fade(FadeMode mode)
         {
-            _attachedCity = city;          
+            SetInteractable(false);
+
+            float alpha = mode == FadeMode.On ? 1f : 0f;
+            _icon.color = _icon.color.WithAlpha(1f - alpha);
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Join(_icon.DOColor(_icon.color.WithAlpha(alpha), 1f));
+            sequence.SetEase(Ease.Linear);
+            sequence.SetLink(gameObject);
+            sequence.OnComplete(() =>
+            {
+                if (mode == FadeMode.On) SetInteractable(true);
+                else Close();
+            });
+            sequence.Play();
         }
         void IConfirmAwaiter<bool>.SetDescription(string description) { }
         void IConfirmAwaiter<bool>.SetLabel(string label) { }
@@ -73,7 +92,7 @@ namespace Core.UI
         {
             var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
             var form = obj.GetComponentInChildren<SacrificeForm>();
-            form.AttachToCity(target);
+            form._attachedCity = target;
             return form;
         }
         public async Task<bool> AwaitForConfirm()
@@ -85,12 +104,17 @@ namespace Core.UI
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
             return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
+        public void SetInteractable(bool isInteractable)
+        {
+            _okButton.interactable = isInteractable;
+            _noButton.interactable = isInteractable;
+        }
         public void StartTimer(float duration)
         {
             DOTween.To(() => 0f, (x) =>
             {
                 _pranaView.SetFillAmount(x);
-                _pranaView.SetColor(Color.Lerp(Color.black, Color.white, x));
+                _pranaView.color = Color.Lerp(Color.white, Color.black, x);
             }, 1f, duration)
             .SetEase(Ease.Linear)
             .SetLink(gameObject)
