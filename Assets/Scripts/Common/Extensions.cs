@@ -31,16 +31,11 @@ namespace Core
     }
     public static class CitiesExtensions
     {
-        private static bool CheckDistance(float3 first, float3 second, float distance)
-        {
-            return math.distancesq(first, second) <= math.pow(distance, 2);
-        }
-
         public static IEnumerable<CityScript> ByDistance(this IEnumerable<CityScript> cities, float3 position, float distance)
         {
             foreach (var city in cities)
             {
-                if (CheckDistance(city.transform.position, position, distance))
+                if (MathUtils.CheckDistance(city.transform.position, position, distance))
                     yield return city;
             }
         }
@@ -49,7 +44,7 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.TryGetComponent(out T value) && CheckDistance(city.transform.position, position, distance))
+                if (city.TryGetComponent(out T value) && MathUtils.CheckDistance(city.transform.position, position, distance))
                     yield return value;
             }
         }

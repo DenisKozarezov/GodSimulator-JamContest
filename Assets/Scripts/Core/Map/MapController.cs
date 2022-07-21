@@ -62,18 +62,18 @@ namespace Core
                 _circleCollider.enabled = false;
             });
         }
-        public IEnumerable<CityScript> Select(Func<CityScript, bool> func)
+        public IEnumerable<CityScript> Select(Func<CityScript, bool> selector)
         {
             foreach (var city in _cities)
             {
-                if (func(city)) yield return city;
+                if (selector(city)) yield return city;
             }
         }
-        public IEnumerable<T> Select<T>(Func<T, bool> func) where T : ICityStrategy 
+        public IEnumerable<T> Select<T>(Func<T, bool> selector) where T : ICityStrategy 
         {
             foreach (var city in _cities)
             {
-                if (city.TryGetComponent(out T value) && func(value)) yield return value;
+                if (city.TryGetComponent(out T value) && selector(value)) yield return value;
             }
         }      
         public static void RegisterCity(CityScript city)

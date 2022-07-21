@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -47,6 +48,25 @@ namespace Core
             if (hits == 0) return Vector3.zero;
             
             return raycastHits[0].point;
+        }
+    }
+    public static class MathUtils
+    {
+        public static float DistanceSqr(float2 first, float2 second)
+        {
+            return math.distancesq(first, second);
+        }
+        public static float DistanceSqr(float3 first, float3 second)
+        {
+            return math.distancesq(first, second);
+        }
+        public static bool CheckDistance(float2 first, float2 second, float distance)
+        {
+            return DistanceSqr(first, second) <= math.pow(distance, 2);
+        }
+        public static bool CheckDistance(float3 first, float3 second, float distance)
+        {
+            return DistanceSqr(first, second) <= math.pow(distance, 2);
         }
     }
 }

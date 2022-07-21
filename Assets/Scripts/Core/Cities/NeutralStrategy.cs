@@ -6,7 +6,7 @@ using Core.Models;
 
 namespace Core.Cities
 {
-    public class NeutralStrategy : MonoBehaviour, ICityStrategy, IEquatable<NeutralStrategy>
+    public class NeutralStrategy : MonoBehaviour, ICityStrategy
     {
         [Header("Neutral City")]
         [SerializeField, Min(0f)]
@@ -56,9 +56,10 @@ namespace Core.Cities
             }
         }
 
-        public bool Equals(NeutralStrategy other)
+        public bool Equals(ICityStrategy other)
         {
-            return _city.Equals(other._city);
+            if (other == null) return false;
+            return _city.Equals(other.City);
         }
     }
 }

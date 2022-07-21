@@ -10,7 +10,7 @@ using Core.Infrastructure;
 namespace Core.Cities
 {
     public class TempleStrategy : MonoBehaviour, ICityStrategy,
-        IBeginDragHandler, IEndDragHandler, IEquatable<TempleStrategy>
+        IBeginDragHandler, IEndDragHandler
     {
         [Header("Temple")]
         [SerializeField, Min(0f)]
@@ -74,8 +74,8 @@ namespace Core.Cities
         {
             while (true)
             {
-                _city.AddPriests(_city.Invader, _growthOfPriests);
                 yield return new WaitForSeconds(_priestsRate);
+                _city.AddPriests(_city.Invader, _growthOfPriests);
             }
         }
 
@@ -94,9 +94,10 @@ namespace Core.Cities
             _signalBus.Fire(new TempleDragEndSignal { Temple = this, Target = eventData.pointerEnter?.GetComponent<CityScript>() });
         }
 
-        public bool Equals(TempleStrategy other)
+        public bool Equals(ICityStrategy other)
         {
-            return _city.Equals(other._city);
+            if (other == null) return false;
+            return _city.Equals(other.City);
         }
     }
 }

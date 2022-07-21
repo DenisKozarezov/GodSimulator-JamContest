@@ -1,8 +1,8 @@
-using Editor;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Editor;
 
 namespace Core.Models
 {
@@ -10,7 +10,7 @@ namespace Core.Models
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
         [Header("Settings")]
-        [Space, SerializeField]
+        [SerializeField]
         private PlayerSettings _playerSettings;
         [SerializeField]
         private AudioSettings _audioSettings;
