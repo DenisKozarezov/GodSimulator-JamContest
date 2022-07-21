@@ -35,14 +35,10 @@ namespace Core.UI
 
         private void Awake()
         {
-            _cancellationTokenSource.Token.Register(() => Fade(FadeMode.Off));
+            _cancellationTokenSource.Token.Register(Close);
             _okButton.onClick.AddListener(OnAccept);
             _noButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
-        }
-        private void Start()
-        {
-            Fade(FadeMode.On);
         }
         private void Update()
         {
@@ -60,32 +56,14 @@ namespace Core.UI
         private void OnAccept()
         {
             _taskCompletionSource.SetResult(true);
-            Fade(FadeMode.Off);
+            Close();
         }
         private void OnDenied()
         {
             _taskCompletionSource.SetResult(false);
-            Fade(FadeMode.Off);
+            Close();
         }
 
-        private void Fade(FadeMode mode)
-        {
-            SetInteractable(false);
-
-            float alpha = mode == FadeMode.On ? 1f : 0f;
-            _icon.color = _icon.color.WithAlpha(1f - alpha);
-
-            Sequence sequence = DOTween.Sequence();
-            sequence.Join(_icon.DOColor(_icon.color.WithAlpha(alpha), 1f));
-            sequence.SetEase(Ease.Linear);
-            sequence.SetLink(gameObject);
-            sequence.OnComplete(() =>
-            {
-                if (mode == FadeMode.On) SetInteractable(true);
-                else Close();
-            });
-            sequence.Play();
-        }
         void IConfirmAwaiter<bool>.SetDescription(string description) { }
         void IConfirmAwaiter<bool>.SetLabel(string label) { }
         public static IConfirmAwaiter<bool> CreateForm(CityScript target)

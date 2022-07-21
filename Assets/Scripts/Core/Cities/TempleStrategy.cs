@@ -43,7 +43,7 @@ namespace Core.Cities
         private void Start()
         {
             _city = GetComponent<CityScript>();
-            _city.AddPriests(_city.Invader, 0);
+            _city.AddPriests(_city.Owner, 0);
 
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
             _generatePriests = StartCoroutine(GeneratePriests());
@@ -53,11 +53,11 @@ namespace Core.Cities
         private void IncreasePercentageOfFaithfulInOtherCities()
         {
             IEnumerable<NeutralStrategy> cities = _mapController
-                .Select<NeutralStrategy>(city => city != this)
+                .SelectMany<NeutralStrategy>(city => city != this)
                 .ByDistance(transform.position, GetRange());
             foreach (var city in cities)
             {
-                city.AddNewGodForFaithfull(City.Invader);
+                city.AddNewGodForFaithfull(City.Owner);
             }
         }
         public void SetVirtue(VirtueModel virtue)
@@ -74,7 +74,7 @@ namespace Core.Cities
             while (true)
             {
                 yield return new WaitForSeconds(_priestsRate);
-                _city.AddPriests(_city.Invader, _growthOfPriests);
+                _city.AddPriests(_city.Owner, _growthOfPriests);
             }
         }
 

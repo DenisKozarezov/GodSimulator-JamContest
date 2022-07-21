@@ -29,21 +29,21 @@ namespace Core.Cities
         [SerializeField]
         private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
         [SerializeField]
-        private GodModel _invader;
+        private GodModel _owner;
 
         public ushort PriestsAmount
         {
             get
             {
-                if (_invader == null) return 0;
-                if (_numberOfPriests.TryGetValue(_invader, out ushort amount))
+                if (_owner == null) return 0;
+                if (_numberOfPriests.TryGetValue(_owner, out ushort amount))
                 {
                     return amount;
                 }
                 return 0;
             }
         }
-        public GodModel Invader => _invader;
+        public GodModel Owner => _owner;
 
         public override bool Interactable
         {
@@ -84,20 +84,20 @@ namespace Core.Cities
             }
         }
 
-        public void AddPriests(GodModel god, ushort value)
+        public void AddPriests(GodModel owner, ushort value)
         {
-            if (!_numberOfPriests.ContainsKey(god))
-                _numberOfPriests.Add(god, 0);
+            if (!_numberOfPriests.ContainsKey(owner))
+                _numberOfPriests.Add(owner, 0);
 
-            _numberOfPriests[god] = (ushort)math.min(_numberOfPriests[god] + value, _maxCapacityOfPriests);
-            _priestsCount.text = _numberOfPriests[god].ToString();
+            _numberOfPriests[owner] = (ushort)math.min(_numberOfPriests[owner] + value, _maxCapacityOfPriests);
+            _priestsCount.text = _numberOfPriests[owner].ToString();
         }
-        public void ReducePriests(GodModel god, ushort value)
+        public void ReducePriests(GodModel owner, ushort value)
         {
-            if (_numberOfPriests.ContainsKey(god))
+            if (_numberOfPriests.ContainsKey(owner))
             {
-                _numberOfPriests[god] = (ushort)math.max(_numberOfPriests[god] - value, 0);
-                _priestsCount.text = _numberOfPriests[god].ToString();
+                _numberOfPriests[owner] = (ushort)math.max(_numberOfPriests[owner] - value, 0);
+                _priestsCount.text = _numberOfPriests[owner].ToString();
             }
         }
         public void ClearPriests()

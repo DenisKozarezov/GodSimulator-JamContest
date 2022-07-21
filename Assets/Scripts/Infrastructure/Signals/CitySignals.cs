@@ -1,5 +1,4 @@
 using Core.Cities;
-using Core.Models;
 
 namespace Core.Infrastructure
 {
@@ -11,5 +10,9 @@ namespace Core.Infrastructure
     {
         public TempleStrategy Temple;
         public CityScript Target;
+    }
+    public struct CityCapturedSignal
+    {
+        public CityScript City;
     }
 }

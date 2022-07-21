@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
@@ -52,7 +53,7 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.Invader.Equals(owner)) yield return city;
+                if (city.Owner.Equals(owner)) yield return city;
             }
         }
         public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, GodModel owner)
@@ -60,7 +61,7 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.TryGetComponent(out T value) && value.City.Invader.Equals(owner))
+                if (city.TryGetComponent(out T value) && value.City.Owner.Equals(owner))
                     yield return value;
             }
         }
@@ -68,7 +69,7 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.Invader == id) yield return city;
+                if (city.Owner == id) yield return city;
             }
         }
         public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, uint id)
@@ -76,9 +77,45 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.TryGetComponent(out T value) && value.City.Invader == id)
+                if (city.TryGetComponent(out T value) && value.City.Owner == id)
                     yield return value;
             }
+        }
+        public static CityScript Randomly(this IEnumerable<CityScript> cities)
+        {
+            int count = cities.Count();
+            int rand = MathUtils.Random.NextInt(0, count);
+            IEnumerator<CityScript> iterator = cities.GetEnumerator();
+            iterator.MoveNext();
+            for (int i = 0; i < count; i++)
+            {
+                if (i == rand) break;
+                iterator.MoveNext();
+            }
+            return iterator.Current;
+        }
+        public static T Randomly<T>(this IEnumerable<T> cities)
+          where T : MonoBehaviour, ICityStrategy
+        {
+            int count = cities.Count();
+            int rand = MathUtils.Random.NextInt(0, count);
+            IEnumerator<T> iterator = cities.GetEnumerator();
+            iterator.MoveNext();
+            for (int i = 0; i < count; i++)
+            {
+                if (i == rand) break;
+                iterator.MoveNext();
+            }
+            return iterator.Current;
+        }
+        public static IEnumerable<CityScript> Randomly(this IEnumerable<CityScript> cities, byte count)
+        {
+            return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
+        }
+        public static IEnumerable<T> Randomly<T>(this IEnumerable<T> cities, byte count)
+        where T : MonoBehaviour, ICityStrategy
+        {
+            return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
         }
     }
 }
