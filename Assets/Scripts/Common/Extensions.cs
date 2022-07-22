@@ -1,9 +1,9 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using Core.Cities;
-using Core.Models;
 
 namespace Core
 {
@@ -32,37 +32,26 @@ namespace Core
     }
     public static class CitiesExtensions
     {
-        public static IEnumerable<CityScript> ByDistance(this IEnumerable<CityScript> cities, float3 position, float distance)
+        public static IEnumerable<CityScript> SelectMany(this IEnumerable<CityScript> cities, Func<CityScript, bool> selector)
+        {
+            foreach (var city in cities)
+            {
+                if (selector(city)) yield return city;
+            }
+        }
+        public static IEnumerable<T> SelectMany<T>(this IEnumerable<CityScript> cities, Func<T, bool> selector) where T : ICityStrategy
+        {
+            foreach (var city in cities)
+            {
+                if (city.TryGetComponent(out T value) && selector(value)) yield return value;
+            }
+        }
+        public static IEnumerable<T> ByDistance<T>(this IEnumerable<T> cities, float3 position, float distance) where T : MonoBehaviour
         {
             foreach (var city in cities)
             {
                 if (MathUtils.CheckDistance(city.transform.position, position, distance))
                     yield return city;
-            }
-        }
-        public static IEnumerable<T> ByDistance<T>(this IEnumerable<T> cities, float3 position, float distance)
-            where T : MonoBehaviour, ICityStrategy
-        {
-            foreach (var city in cities)
-            {
-                if (city.TryGetComponent(out T value) && MathUtils.CheckDistance(city.transform.position, position, distance))
-                    yield return value;
-            }
-        }
-        public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, GodModel owner)
-        {
-            foreach (var city in cities)
-            {
-                if (city.Owner.Equals(owner)) yield return city;
-            }
-        }
-        public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, GodModel owner)
-          where T : MonoBehaviour, ICityStrategy
-        {
-            foreach (var city in cities)
-            {
-                if (city.TryGetComponent(out T value) && value.City.Owner.Equals(owner))
-                    yield return value;
             }
         }
         public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, uint id)
@@ -77,25 +66,10 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.TryGetComponent(out T value) && value.City.Owner == id)
-                    yield return value;
+                if (city.City.Owner == id) yield return city;
             }
-        }
-        public static CityScript Randomly(this IEnumerable<CityScript> cities)
-        {
-            int count = cities.Count();
-            int rand = MathUtils.Random.NextInt(0, count);
-            IEnumerator<CityScript> iterator = cities.GetEnumerator();
-            iterator.MoveNext();
-            for (int i = 0; i < count; i++)
-            {
-                if (i == rand) break;
-                iterator.MoveNext();
-            }
-            return iterator.Current;
         }
         public static T Randomly<T>(this IEnumerable<T> cities)
-          where T : MonoBehaviour, ICityStrategy
         {
             int count = cities.Count();
             int rand = MathUtils.Random.NextInt(0, count);
@@ -108,12 +82,7 @@ namespace Core
             }
             return iterator.Current;
         }
-        public static IEnumerable<CityScript> Randomly(this IEnumerable<CityScript> cities, byte count)
-        {
-            return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
-        }
         public static IEnumerable<T> Randomly<T>(this IEnumerable<T> cities, byte count)
-        where T : MonoBehaviour, ICityStrategy
         {
             return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
         }

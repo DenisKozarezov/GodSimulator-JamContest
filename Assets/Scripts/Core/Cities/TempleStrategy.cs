@@ -34,7 +34,7 @@ namespace Core.Cities
         public float MinRange => _minRange;
 
         [Inject]
-        public void Construct(SignalBus signalBus, MapController mapController)
+        private void Construct(SignalBus signalBus, MapController mapController)
         {
             _signalBus = signalBus;
             _mapController = mapController;
@@ -42,17 +42,24 @@ namespace Core.Cities
 
         private void Start()
         {
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _city = GetComponent<CityScript>();
-            _city.AddPriests(_city.Owner, 0);
-
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
+        }
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+        }
+        private void OnGameStarted()
+        {
+            _city.AddPriests(_city.Owner, 0);
             _generatePriests = StartCoroutine(GeneratePriests());
             IncreasePercentageOfFaithfulInOtherCities();
         }
 
         private void IncreasePercentageOfFaithfulInOtherCities()
         {
-            IEnumerable<NeutralStrategy> cities = _mapController
+            IEnumerable<NeutralStrategy> cities = _mapController.Cities
                 .SelectMany<NeutralStrategy>(city => city != this)
                 .ByDistance(transform.position, GetRange());
             foreach (var city in cities)

@@ -1,53 +1,44 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using Core.Infrastructure;
-using static Core.Models.GameSettingsInstaller;
+using System.Threading.Tasks;
+using System;
 
 namespace Core.Match
 {
     public class GameController : MonoBehaviour
     {
-        private ILogger Logger;
+        [SerializeField]
+        private GameObject _chooseForm;
+
         private SignalBus _signalBus;
-        private GameSettings _gameSettings;
-        private CancellationTokenSource _gameTimerSource;
 
         [Inject]
-        public void Construct(SignalBus signalBus, GameSettings settings, ILogger logger)
-        {
-            _signalBus = signalBus;
-            _gameSettings = settings;
-            Logger = logger;
-        }
+        private void Construct(SignalBus signalBus) => _signalBus = signalBus;
 
-        private void Start()
+        private void Awake()
         {
-            StartGame();
+            SceneController.SceneLoaded += OnSceneLoaded;
+            _signalBus.Subscribe<SceneLoadedSignal>(OpenChooseForm);
         }
         private void OnDestroy()
         {
-            _gameTimerSource?.Cancel();
-            _gameTimerSource?.Dispose();
+            SceneController.SceneLoaded -= OnSceneLoaded;
+            _signalBus.Unsubscribe<SceneLoadedSignal>(OpenChooseForm);
         }
-        public async void StartGame()
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene)
         {
-            _signalBus.Fire<GameStartedSignal>();
+            _signalBus.Fire(new SceneLoadedSignal { Scene = scene });
+        }
+        public async void OpenChooseForm()
+        {
+            var form = Instantiate(_chooseForm).GetComponentInChildren<UI.Forms.ChooseForm>();
+            await form.AwaitForConfirm();
 
-            try
-            {
-                _gameTimerSource = new CancellationTokenSource();
-                await Task.Delay(TimeSpan.FromSeconds(_gameSettings.GameTime), _gameTimerSource.Token);
-                _signalBus.Fire<GameApocalypsisSignal>();
-            }
-            catch (TaskCanceledException e)
-            {
-#if UNITY_EDITOR
-                Logger.Log("<b><color=yellow>Game Apocalypsis</color></b> task was <b><color=yellow>cancelled</color></b>.", LogType.Warning);
-#endif
-            }
+            await Task.Delay(TimeSpan.FromSeconds(1f));
+            form.Close();
+
+            _signalBus.Fire<GameStartedSignal>();
         }
     }
 }

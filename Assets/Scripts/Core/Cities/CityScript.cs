@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
 using TMPro;
 using Zenject;
-using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
 using DG.Tweening;
@@ -24,12 +24,11 @@ namespace Core.Cities
         [SerializeField]
         private byte _maxCapacityOfPriests;
 
+        private SignalBus _signalBus;
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
-        [SerializeField]
-        private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
-        [SerializeField]
-        private GodModel _owner;
+        private Dictionary<Player, ushort> _numberOfPriests;
+        private Player _owner;
 
         public ushort PriestsAmount
         {
@@ -43,7 +42,7 @@ namespace Core.Cities
                 return 0;
             }
         }
-        public GodModel Owner => _owner;
+        public Player Owner => _owner;
 
         public override bool Interactable
         {
@@ -56,8 +55,9 @@ namespace Core.Cities
         }
 
         [Inject]
-        public void Construct(GameSettings gameSettings)
+        private void Construct(SignalBus signalBus, GameSettings gameSettings)
         {
+            _signalBus = signalBus;
             if (gameSettings.CitiesNames.Count > 0)
             {
                 string name = gameSettings.CitiesNames.Dequeue();
@@ -68,23 +68,29 @@ namespace Core.Cities
 
         private void Awake()
         {
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             MapController.RegisterCity(this);
         }
         protected override void Start()
         {
             _currentStrategy = GetComponent<ICityStrategy>();
-
-            _numberOfPriests = new SerializableDictionaryBase<GodModel, ushort>();
-
+            _numberOfPriests = new Dictionary<Player, ushort>();
             Interactable = true;
+        }
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+        }
 
+        private void OnGameStarted()
+        {
             if (_pranaView != null)
             {
                 DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
             }
         }
 
-        public void AddPriests(GodModel owner, ushort value)
+        public void AddPriests(Player owner, ushort value)
         {
             if (!_numberOfPriests.ContainsKey(owner))
                 _numberOfPriests.Add(owner, 0);
@@ -92,7 +98,7 @@ namespace Core.Cities
             _numberOfPriests[owner] = (ushort)math.min(_numberOfPriests[owner] + value, _maxCapacityOfPriests);
             _priestsCount.text = _numberOfPriests[owner].ToString();
         }
-        public void ReducePriests(GodModel owner, ushort value)
+        public void ReducePriests(Player owner, ushort value)
         {
             if (_numberOfPriests.ContainsKey(owner))
             {

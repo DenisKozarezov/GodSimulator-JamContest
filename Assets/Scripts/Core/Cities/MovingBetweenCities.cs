@@ -82,7 +82,7 @@ namespace Core.Cities
             Vector3 position = signal.Temple.transform.position;
             float range = signal.Temple.GetRange();
 
-            _cities = _mapController
+            _cities = _mapController.Cities
                 .SelectMany(city => city != signal.Temple)
                 .ByDistance(position, range);
 

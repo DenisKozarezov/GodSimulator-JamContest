@@ -14,13 +14,12 @@ namespace Core.Cities
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
 
-        private bool _isHover;
         private float _outlineWidth;
 
         public abstract bool Interactable { get; set; }
 
         [Inject]
-        public void Contruct(SignalBus signalBus, UISettings _UISettings)
+        private void Contruct(SignalBus signalBus, UISettings _UISettings)
         {
             _signalBus = signalBus;
             _outlineWidth = _UISettings.OutlineWidth;
@@ -41,14 +40,12 @@ namespace Core.Cities
         {
             if (!Interactable) return;
 
-            _isHover = true;
             SetOutlineWidth(_outlineWidth);
         }
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (!Interactable) return;
 
-            _isHover = false;
             SetOutlineWidth(0f);
         }
     }
