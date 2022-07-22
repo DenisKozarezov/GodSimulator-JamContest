@@ -24,6 +24,7 @@ namespace Core.Cities
         [SerializeField]
         private byte _maxCapacityOfPriests;
 
+        private SignalBus _signalBus;
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
         private Dictionary<Player, ushort> _numberOfPriests;
@@ -54,8 +55,9 @@ namespace Core.Cities
         }
 
         [Inject]
-        private void Construct(GameSettings gameSettings)
+        private void Construct(SignalBus signalBus, GameSettings gameSettings)
         {
+            _signalBus = signalBus;
             if (gameSettings.CitiesNames.Count > 0)
             {
                 string name = gameSettings.CitiesNames.Dequeue();
@@ -66,16 +68,22 @@ namespace Core.Cities
 
         private void Awake()
         {
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             MapController.RegisterCity(this);
         }
         protected override void Start()
         {
             _currentStrategy = GetComponent<ICityStrategy>();
-
             _numberOfPriests = new Dictionary<Player, ushort>();
-
             Interactable = true;
+        }
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+        }
 
+        private void OnGameStarted()
+        {
             if (_pranaView != null)
             {
                 DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);

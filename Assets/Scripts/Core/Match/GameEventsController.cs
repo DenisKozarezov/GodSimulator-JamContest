@@ -2,34 +2,68 @@
 using Core.Infrastructure;
 using Core.UI;
 using static Core.Models.GameSettingsInstaller;
+using Core.Cities;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
 
 namespace Core.Match
 {
     public class GameEventsController : IInitializable, ILateDisposable
-    {        
+    {
         private readonly SignalBus _signalBus;
         private readonly MapController _mapController;
         private readonly SacrificeSettings _sacrificeSettings;
+        private readonly GameSettings _gameSettings;
         private readonly ILogger _logger;
 
-        public GameEventsController(SignalBus signalBus, MapController mapController, SacrificeSettings gameSettings, ILogger logger)
+        private CancellationTokenSource _gameTimerSource;
+
+        public GameEventsController(
+            SignalBus signalBus,
+            MapController mapController,
+            SacrificeSettings sacrificeSettings,
+            GameSettings gameSettings,
+            ILogger logger)
         {
             _signalBus = signalBus;
             _mapController = mapController;
-            _sacrificeSettings = gameSettings;
+            _sacrificeSettings = sacrificeSettings;
+            _gameSettings = gameSettings;
             _logger = logger;
         }
         void IInitializable.Initialize()
         {
             _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
+            _signalBus.Subscribe<GameStartedSignal>(SetApocalypsisTimer);
         }
         void ILateDisposable.LateDispose()
         {
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+            _signalBus.Unsubscribe<GameStartedSignal>(SetApocalypsisTimer);
         }
-        private async void OnGameStarted()
+        private void OnGameStarted()
         {
             var city = _mapController.Cities.Randomly();
+            MakeSacrificeInCity(city);
+        }
+        private async void SetApocalypsisTimer()
+        {
+            try
+            {
+                _gameTimerSource = new CancellationTokenSource();
+                await Task.Delay(TimeSpan.FromSeconds(_gameSettings.GameTime), _gameTimerSource.Token);
+                StartApocalypsis();
+            }
+            catch (TaskCanceledException e)
+            {
+#if UNITY_EDITOR
+                _logger.Log("<b><color=yellow>Game Apocalypsis</color></b> task was <b><color=yellow>cancelled</color></b>.", LogType.Warning);
+#endif
+            }
+        }
+        private async void MakeSacrificeInCity(CityScript city)
+        {
             var form = (SacrificeForm)SacrificeForm.CreateForm(city);
 
 #if UNITY_EDITOR
@@ -42,6 +76,10 @@ namespace Core.Match
 #if UNITY_EDITOR
             _logger.Log($"Player <b>{(accepted ? "<color=green>accepted" : "<color=red>denied")}</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
+        }
+        private void StartApocalypsis()
+        {
+            _signalBus.Fire<GameApocalypsisSignal>();
         }
     }
 }

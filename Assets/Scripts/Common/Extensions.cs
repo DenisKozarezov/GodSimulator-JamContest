@@ -46,37 +46,12 @@ namespace Core
                 if (city.TryGetComponent(out T value) && selector(value)) yield return value;
             }
         }
-        public static IEnumerable<CityScript> ByDistance(this IEnumerable<CityScript> cities, float3 position, float distance)
+        public static IEnumerable<T> ByDistance<T>(this IEnumerable<T> cities, float3 position, float distance) where T : MonoBehaviour
         {
             foreach (var city in cities)
             {
                 if (MathUtils.CheckDistance(city.transform.position, position, distance))
                     yield return city;
-            }
-        }
-        public static IEnumerable<T> ByDistance<T>(this IEnumerable<T> cities, float3 position, float distance)
-            where T : MonoBehaviour, ICityStrategy
-        {
-            foreach (var city in cities)
-            {
-                if (city.TryGetComponent(out T value) && MathUtils.CheckDistance(city.transform.position, position, distance))
-                    yield return value;
-            }
-        }
-        public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, Player owner)
-        {
-            foreach (var city in cities)
-            {
-                if (city.Owner.Equals(owner)) yield return city;
-            }
-        }
-        public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, Player owner)
-          where T : MonoBehaviour, ICityStrategy
-        {
-            foreach (var city in cities)
-            {
-                if (city.TryGetComponent(out T value) && value.City.Owner.Equals(owner))
-                    yield return value;
             }
         }
         public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, uint id)
@@ -91,8 +66,7 @@ namespace Core
         {
             foreach (var city in cities)
             {
-                if (city.TryGetComponent(out T value) && value.City.Owner == id)
-                    yield return value;
+                if (city.City.Owner == id) yield return city;
             }
         }
         public static T Randomly<T>(this IEnumerable<T> cities)

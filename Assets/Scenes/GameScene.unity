@@ -4496,6 +4496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f5ec9c563e1044084a5226a1766f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _chooseForm: {fileID: 2160261927364497098, guid: 9aabaabb863163646b18fd7d5d5770dc, type: 3}
 --- !u!1001 &1910163698
 PrefabInstance:
   m_ObjectHideFlags: 0

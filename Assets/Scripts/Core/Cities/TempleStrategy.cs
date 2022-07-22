@@ -42,10 +42,17 @@ namespace Core.Cities
 
         private void Start()
         {
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _city = GetComponent<CityScript>();
-            _city.AddPriests(_city.Owner, 0);
-
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
+        }
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+        }
+        private void OnGameStarted()
+        {
+            _city.AddPriests(_city.Owner, 0);
             _generatePriests = StartCoroutine(GeneratePriests());
             IncreasePercentageOfFaithfulInOtherCities();
         }
