@@ -29,12 +29,14 @@ namespace Core.UI.Forms
 
         private RectTransform _rectTransform;
         private TaskCompletionSource<bool> _taskCompletionSource = new TaskCompletionSource<bool>();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         public bool AutoSize => _autoSize;
         public float MinHeight => _minHeight;
 
         private void Awake()
         {
+            _cancellationTokenSource.Token.Register(Close);
             _okButton.onClick.AddListener(OnAccept);
             _denyButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
@@ -45,6 +47,14 @@ namespace Core.UI.Forms
             {
                 _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, MinHeight + _description.preferredHeight);
             }
+        }
+        private void OnDestroy()
+        {
+            if (!_cancellationTokenSource.IsCancellationRequested)
+            {
+                _cancellationTokenSource?.Cancel();
+            }
+            _cancellationTokenSource?.Dispose();
         }
         private void OnAccept()
         {
@@ -76,12 +86,12 @@ namespace Core.UI.Forms
         }
         public async Task<bool> AwaitForConfirm()
         {
-            return await _taskCompletionSource.Task;
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public async Task<bool> AwaitForConfirm(CancellationToken externalToken)
         {
-            externalToken.Register(Close);
-            return await Task.Run(() => _taskCompletionSource.Task, externalToken);
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
+            return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public void Close()
         {

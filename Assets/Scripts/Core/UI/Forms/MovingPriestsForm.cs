@@ -34,7 +34,7 @@ namespace Core.UI.Forms
         }
         private void OnDestroy()
         {
-            if (_cancellationTokenSource.IsCancellationRequested)
+            if (!_cancellationTokenSource.IsCancellationRequested)
             {
                 _cancellationTokenSource?.Cancel();
             }

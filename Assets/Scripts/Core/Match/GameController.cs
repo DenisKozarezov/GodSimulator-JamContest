@@ -10,7 +10,7 @@ namespace Core.Match
 {
     public class GameController : MonoBehaviour
     {
-        private ILogger Logger;
+        private ILogger _logger;
         private SignalBus _signalBus;
         private GameSettings _gameSettings;
         private CancellationTokenSource _gameTimerSource;
@@ -20,7 +20,7 @@ namespace Core.Match
         {
             _signalBus = signalBus;
             _gameSettings = settings;
-            Logger = logger;
+            _logger = logger;
         }
 
         private void Start()
@@ -45,7 +45,7 @@ namespace Core.Match
             catch (TaskCanceledException e)
             {
 #if UNITY_EDITOR
-                Logger.Log("<b><color=yellow>Game Apocalypsis</color></b> task was <b><color=yellow>cancelled</color></b>.", LogType.Warning);
+                _logger.Log("<b><color=yellow>Game Apocalypsis</color></b> task was <b><color=yellow>cancelled</color></b>.", LogType.Warning);
 #endif
             }
         }

@@ -10,14 +10,14 @@ namespace Core.Match
         private readonly SignalBus _signalBus;
         private readonly MapController _mapController;
         private readonly SacrificeSettings _sacrificeSettings;
-        private readonly ILogger Logger;
+        private readonly ILogger _logger;
 
         public GameEventsController(SignalBus signalBus, MapController mapController, SacrificeSettings gameSettings, ILogger logger)
         {
             _signalBus = signalBus;
             _mapController = mapController;
             _sacrificeSettings = gameSettings;
-            Logger = logger;
+            _logger = logger;
         }
         void IInitializable.Initialize()
         {
@@ -33,14 +33,14 @@ namespace Core.Match
             var form = (SacrificeForm)SacrificeForm.CreateForm(city);
 
 #if UNITY_EDITOR
-            form.Elapsed += () => Logger.Log($"Player <b><color=yellow>ignored</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
+            form.Elapsed += () => _logger.Log($"Player <b><color=yellow>ignored</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
 
             form.StartTimer(_sacrificeSettings.Duration);
             bool accepted = await form.AwaitForConfirm();
 
 #if UNITY_EDITOR
-            Logger.Log($"Player <b>{(accepted ? "<color=green>accepted" : "<color=red>denied")}</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
+            _logger.Log($"Player <b>{(accepted ? "<color=green>accepted" : "<color=red>denied")}</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
         }
     }

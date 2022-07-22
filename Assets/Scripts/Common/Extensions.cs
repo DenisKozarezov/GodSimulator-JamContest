@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,20 @@ namespace Core
     }
     public static class CitiesExtensions
     {
+        public static IEnumerable<CityScript> SelectMany(this IEnumerable<CityScript> cities, Func<CityScript, bool> selector)
+        {
+            foreach (var city in cities)
+            {
+                if (selector(city)) yield return city;
+            }
+        }
+        public static IEnumerable<T> SelectMany<T>(this IEnumerable<CityScript> cities, Func<T, bool> selector) where T : ICityStrategy
+        {
+            foreach (var city in cities)
+            {
+                if (city.TryGetComponent(out T value) && selector(value)) yield return value;
+            }
+        }
         public static IEnumerable<CityScript> ByDistance(this IEnumerable<CityScript> cities, float3 position, float distance)
         {
             foreach (var city in cities)
@@ -81,21 +96,7 @@ namespace Core
                     yield return value;
             }
         }
-        public static CityScript Randomly(this IEnumerable<CityScript> cities)
-        {
-            int count = cities.Count();
-            int rand = MathUtils.Random.NextInt(0, count);
-            IEnumerator<CityScript> iterator = cities.GetEnumerator();
-            iterator.MoveNext();
-            for (int i = 0; i < count; i++)
-            {
-                if (i == rand) break;
-                iterator.MoveNext();
-            }
-            return iterator.Current;
-        }
         public static T Randomly<T>(this IEnumerable<T> cities)
-          where T : MonoBehaviour, ICityStrategy
         {
             int count = cities.Count();
             int rand = MathUtils.Random.NextInt(0, count);
@@ -108,12 +109,7 @@ namespace Core
             }
             return iterator.Current;
         }
-        public static IEnumerable<CityScript> Randomly(this IEnumerable<CityScript> cities, byte count)
-        {
-            return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
-        }
         public static IEnumerable<T> Randomly<T>(this IEnumerable<T> cities, byte count)
-        where T : MonoBehaviour, ICityStrategy
         {
             return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
         }

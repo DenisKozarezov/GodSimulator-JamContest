@@ -1,8 +1,8 @@
 using UnityEngine;
 using Zenject;
 using Core.Cities;
-using Core.Input;
 using Core.Match;
+using Core.Input;
 
 namespace Core.Infrastructure
 {
@@ -10,6 +10,8 @@ namespace Core.Infrastructure
     {
         [Inject]
         private ILogger Logger;
+        [Inject]
+        private IInputSystem InputSystem;
 
         [SerializeField]
         private MapController _mapController;
@@ -31,7 +33,7 @@ namespace Core.Infrastructure
             Container.Bind<MapController>().FromInstance(_mapController).AsSingle();
             Container.BindInterfacesTo<GameEventsController>().AsSingle();
             Container.BindInterfacesTo<MovingBetweenCities>().AsSingle();
-            Container.BindInterfacesAndSelfTo<StandaloneInput>().AsSingle();
+            Container.BindInterfacesTo<IInputSystem>().AsSingle();
         }
     }
 }

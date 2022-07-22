@@ -52,7 +52,7 @@ namespace Core.Cities
 
         private void IncreasePercentageOfFaithfulInOtherCities()
         {
-            IEnumerable<NeutralStrategy> cities = _mapController
+            IEnumerable<NeutralStrategy> cities = _mapController.Cities
                 .SelectMany<NeutralStrategy>(city => city != this)
                 .ByDistance(transform.position, GetRange());
             foreach (var city in cities)

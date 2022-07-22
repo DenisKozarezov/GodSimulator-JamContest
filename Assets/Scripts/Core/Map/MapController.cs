@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
@@ -62,20 +61,7 @@ namespace Core
                 _circleCollider.enabled = false;
             });
         }
-        public IEnumerable<CityScript> SelectMany(Func<CityScript, bool> selector)
-        {
-            foreach (var city in _cities)
-            {
-                if (selector(city)) yield return city;
-            }
-        }
-        public IEnumerable<T> SelectMany<T>(Func<T, bool> selector) where T : ICityStrategy 
-        {
-            foreach (var city in _cities)
-            {
-                if (city.TryGetComponent(out T value) && selector(value)) yield return value;
-            }
-        }      
+       
         public static void RegisterCity(CityScript city)
         {
             if (!_cities.Contains(city)) _cities.AddLast(city);

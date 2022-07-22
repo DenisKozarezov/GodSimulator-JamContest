@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Core.Loading;
+using Core.Input;
 using Editor;
 
 namespace Core.Models
@@ -65,7 +67,9 @@ namespace Core.Models
 
         public override void InstallBindings()
         {
-            Container.Bind<ILogger>().FromInstance(new StandaloneLogger()).AsSingle();
+            Container.Bind<ILogger>().To<StandaloneLogger>().AsSingle();
+            Container.Bind<ILoadingProvider>().To<LoadingProvider>().AsSingle();
+            Container.Bind<IInputSystem>().To<StandaloneInput>().AsSingle();
             Container.BindInstances(_gameSettings, _sacrificeSettings, _playerSettings, _audioSettings, _UISettings);
         }     
     }

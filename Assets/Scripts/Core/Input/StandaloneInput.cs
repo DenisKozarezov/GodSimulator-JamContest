@@ -42,7 +42,7 @@ namespace Core.Input
         }
         void ITickable.Tick()
         {
-            float sign = -Mathf.Sign(_mouseWheelDelta);
+            float sign = -math.sign(_mouseWheelDelta);
             if (math.abs(_mouseWheelDelta) > 1E-2)
             {
                 _mouseWheelDelta += Time.deltaTime * sign;
