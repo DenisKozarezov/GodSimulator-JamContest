@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
+using Unity.Mathematics;
 using Zenject;
 using DG.Tweening;
 using Core.Input;
-using Unity.Mathematics;
+using Core.Infrastructure;
 
 namespace Core
 {
@@ -31,6 +32,7 @@ namespace Core
         [SerializeField]
         private RawImage _fade;
 
+        private SignalBus _signalBus;
         private IInputSystem _inputSystem;
         private float _zoomVelocity;
         private Vector3 _moveVelocity;
@@ -39,13 +41,22 @@ namespace Core
         private float Ratio => GetBounds().x / _constraintsBox.x;
 
         [Inject]
-        public void Construct(IInputSystem inputSystem) => _inputSystem = inputSystem;
+        private void Construct(SignalBus signalBus, IInputSystem inputSystem)
+        {
+            _signalBus = signalBus;
+            _inputSystem = inputSystem;
+        }
 
         private void Awake()
         {
+            _signalBus.Subscribe<SceneLoadedSignal>(OnSceneLoaded);
             _camera = GetComponent<Camera>();
             _startPosition = transform.position;
             ZoomMin = _camera.orthographicSize + _camera.orthographicSize * (1 - Ratio);
+        }
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<SceneLoadedSignal>(OnSceneLoaded);
         }
         private void Update()
         {
@@ -53,6 +64,10 @@ namespace Core
 
             UpdateMove();
             UpdateZoom();
+        }
+        private void OnSceneLoaded()
+        {
+            Fade(FadeMode.Off, 3f);
         }
 
 #if UNITY_EDITOR
@@ -128,7 +143,12 @@ namespace Core
         }
         public void Fade(FadeMode mode, float time)
         {
-            _fade.DOFade(mode == FadeMode.Off ? 1f : 0f, time).SetEase(Ease.Linear);
+            _fade.gameObject.SetActive(true);
+            float alpha = mode == FadeMode.On ? 0f : 1f;
+            _fade.color = _fade.color.WithAlpha(alpha);
+            _fade.DOFade(1 - alpha, time)
+                .SetEase(Ease.Linear)
+                .OnComplete(() => _fade.gameObject.SetActive(false));
         }
         public void Shake(float time, float strength = 1f)
         {

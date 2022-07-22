@@ -17,9 +17,11 @@ namespace Core.UI
 
     public abstract class BaseMenuState : MonoBehaviour, IState<MenuController>
     {
-        public MenuController Target { get; }
+        public MenuController Target { get; private set; }
 
-        public abstract void Enter();
-        public abstract void Exit();
+        public void Init(MenuController menuController) => Target = menuController;
+
+        public virtual void Enter() { }
+        public virtual void Exit() { }
     }
 }

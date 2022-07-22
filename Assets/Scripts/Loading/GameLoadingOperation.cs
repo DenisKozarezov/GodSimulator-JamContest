@@ -9,11 +9,6 @@ namespace Core.Loading
     {
         public string Description => "Loading game...";
 
-        public GameLoadingOperation()
-        {
-
-        }
-
         public async Task AwaitForLoad(Action<float> onLoading)
         {
             var operation = SceneManager.LoadSceneAsync(Constants.GameScene, LoadSceneMode.Additive);

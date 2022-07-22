@@ -10,7 +10,7 @@ namespace Core.Loading
 
         public LoadingProvider(ILogger logger) => _logger = logger;
 
-        private async Task<LoadingScreen> Load()
+        private async Task<LoadingScreen> LoadScreen()
         {
             var load = Resources.LoadAsync<GameObject>("Prefabs/UI/Loading/Loading Screen");
             while (!load.isDone)
@@ -22,15 +22,15 @@ namespace Core.Loading
             GameObject.DontDestroyOnLoad(obj);
             return obj.GetComponentInChildren<LoadingScreen>();
         }
-        public async void LoadAndDestroy(Queue<ILoadingOperation> operations)
+        public async Task LoadAndDestroy(Queue<ILoadingOperation> operations)
         {
-            var loadingScreen = await Load();
+            var loadingScreen = await LoadScreen();
 
 #if UNITY_EDITOR
             _logger.Log("<b><color=green>[LOADING]</color></b>: Initiating loading process...");
 #endif
 
-            await loadingScreen.LoadAndDestroy(operations);
+            await loadingScreen.LoadAndDestroyAsync(operations);
 
 #if UNITY_EDITOR
             _logger.Log("<b><color=green>[LOADING]</color></b>: Loading process has <b><color=yellow>successfully</color></b> finished.");

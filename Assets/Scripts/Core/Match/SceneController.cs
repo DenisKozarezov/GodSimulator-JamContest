@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using Zenject;
+using DG.Tweening;
 using Core.Loading;
 using Core.UI;
 
@@ -13,32 +17,43 @@ namespace Core.Match
         private AudioListener _listener;
         [SerializeField]
         private EventSystem _eventSystem;
+        [SerializeField]
+        private RawImage _vignette;
 
         private ILoadingProvider _loadingProvider;
 
-        public override void Enter() { }
-        public override void Exit() { }
+        public static event Action<Scene> SceneLoaded;
 
         [Inject]
-        public void Construct(ILoadingProvider loadingProvider)
+        private void Construct(ILoadingProvider loadingProvider)
         {
             _loadingProvider = loadingProvider;
         }
-
         void ICleanup.Cleanup()
         {
             Destroy(_listener);
             Destroy(_eventSystem.gameObject);
         }
-
-        public void LoadGameScene_UnityEditor()
+        public void SetInteractable(bool isInteractable)
         {
+            foreach (var button in FindObjectsOfType<Selectable>())
+            {
+                button.interactable = isInteractable;
+            }
+        }
+        public async void LoadGameScene_UnityEditor()
+        {
+            SetInteractable(false);
+            _vignette.gameObject.SetActive(true);
+            await _vignette.DOFade(1f, 3f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+
             var operations = new Queue<ILoadingOperation>();
             operations.Enqueue(new SceneCleanupOperation(this));
             operations.Enqueue(new GameLoadingOperation());
             operations.Enqueue(new CreatingBotsOperation());
             operations.Enqueue(new PressAnyButtonOperation());
-            _loadingProvider.LoadAndDestroy(operations);
+            await _loadingProvider.LoadAndDestroy(operations);
+            SceneLoaded?.Invoke(SceneManager.GetActiveScene());
         }
         public async void Quit_UnityEditor()
         {

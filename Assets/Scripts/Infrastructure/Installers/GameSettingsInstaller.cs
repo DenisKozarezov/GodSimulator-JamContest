@@ -67,6 +67,8 @@ namespace Core.Models
 
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
+
             Container.Bind<ILogger>().To<StandaloneLogger>().AsCached();
             Container.Bind<ILoadingProvider>().To<LoadingProvider>().AsCached();
             Container.Bind<IInputSystem>().To<StandaloneInput>().AsCached();

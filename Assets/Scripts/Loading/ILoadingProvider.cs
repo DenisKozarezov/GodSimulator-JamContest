@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Core.Loading
 {
     public interface ILoadingProvider
     {
-        void LoadAndDestroy(Queue<ILoadingOperation> operations);
+        Task LoadAndDestroy(Queue<ILoadingOperation> operations);
     }
 }

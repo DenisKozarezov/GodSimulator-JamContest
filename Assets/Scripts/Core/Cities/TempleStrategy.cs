@@ -34,7 +34,7 @@ namespace Core.Cities
         public float MinRange => _minRange;
 
         [Inject]
-        public void Construct(SignalBus signalBus, MapController mapController)
+        private void Construct(SignalBus signalBus, MapController mapController)
         {
             _signalBus = signalBus;
             _mapController = mapController;

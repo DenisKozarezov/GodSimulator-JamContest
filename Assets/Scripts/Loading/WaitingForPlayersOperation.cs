@@ -3,14 +3,9 @@ using System.Threading.Tasks;
 
 namespace Core.Loading
 {
-    public class WaitingForOthersOperation : ILoadingOperation
+    public class WaitingForPlayersOperation : ILoadingOperation
     {
-        public string Description => "Waiting for others...";
-
-        public WaitingForOthersOperation()
-        {
-
-        }
+        public string Description => "Waiting for other players...";
 
         public Task AwaitForLoad(Action<float> onLoading)
         {

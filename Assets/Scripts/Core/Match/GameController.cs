@@ -16,13 +16,17 @@ namespace Core.Match
         private CancellationTokenSource _gameTimerSource;
 
         [Inject]
-        public void Construct(SignalBus signalBus, GameSettings settings, ILogger logger)
+        private void Construct(SignalBus signalBus, GameSettings settings, ILogger logger)
         {
             _signalBus = signalBus;
             _gameSettings = settings;
             _logger = logger;
         }
 
+        private void Awake()
+        {
+            SceneController.SceneLoaded += (scene) => _signalBus.Fire(new SceneLoadedSignal { Scene = scene });
+        }
         private void Start()
         {
             StartGame();

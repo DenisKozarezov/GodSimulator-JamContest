@@ -54,7 +54,7 @@ namespace Core.Cities
         }
 
         [Inject]
-        public void Construct(GameSettings gameSettings)
+        private void Construct(GameSettings gameSettings)
         {
             if (gameSettings.CitiesNames.Count > 0)
             {

@@ -7,11 +7,6 @@ namespace Core.Loading
     {
         public string Description => "Creating bots...";
 
-        public CreatingBotsOperation()
-        {
-
-        }
-
         public async Task AwaitForLoad(Action<float> onLoading)
         {
             onLoading?.Invoke(0.1f);

@@ -27,7 +27,7 @@ namespace Core
         public IReadOnlyCollection<CityScript> Cities => _cities;
 
         [Inject]
-        public void Construct(SignalBus signalBus) => _signalBus = signalBus;
+        private void Construct(SignalBus signalBus) => _signalBus = signalBus;
 
         private void Awake()
         {

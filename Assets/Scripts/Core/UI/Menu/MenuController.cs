@@ -27,7 +27,7 @@ namespace Core.UI
         public IState<MenuController> CurrentState => _states[_currentState];
 
         [Inject]
-        public void Construct(ILogger logger, IInputSystem inputSystem)
+        private void Construct(ILogger logger, IInputSystem inputSystem)
         {
             _inputSystem = inputSystem;
             _logger = logger;
