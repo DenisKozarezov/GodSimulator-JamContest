@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using UnityEngine;
 using Unity.Mathematics;
 using Zenject;
 using Core.Models;
 using Core.Infrastructure;
+using System;
 
 namespace Core
 {
@@ -13,14 +13,16 @@ namespace Core
         public byte Percent;
     }
 
-    public class Player : IInitializable, ILateDisposable
+    public class Player : IInitializable, ILateDisposable, IEquatable<Player>
     {
-        [SerializeField]
+        private uint _id;
         private int _prana;
         private Dictionary<VirtueModel, VirtueState> _virtuesLevels = new Dictionary<VirtueModel, VirtueState>();
         private float _faithRate = 1f;
 
         private readonly SignalBus _signalBus;
+
+        public uint ID => _id;
         public int Prana => _prana;
         public float FaithRate => _faithRate;
 
@@ -83,6 +85,15 @@ namespace Core
         {
             _prana = math.max(_prana - value, 0);
         }
+        public bool Equals(Player other)
+        {
+            if (other == null) return false;
+            return _id == other._id;
+        }
 
+        public static implicit operator uint(Player player)
+        {
+            return player._id;
+        }
     }
 }

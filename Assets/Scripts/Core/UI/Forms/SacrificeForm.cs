@@ -12,7 +12,7 @@ namespace Core.UI
     [RequireComponent(typeof(RectTransform))]
     public class SacrificeForm : MonoBehaviour, IConfirmAwaiter<bool>, IClosableForm
     {
-        private const string FormPath = "Prefabs/Views/Forms/Sacrifice Form";
+        private const string FormPath = "Prefabs/UI/Forms/Sacrifice Form";
 
         [Header("References")]
         [SerializeField]

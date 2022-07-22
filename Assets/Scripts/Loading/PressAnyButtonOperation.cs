@@ -3,23 +3,16 @@ using System.Threading.Tasks;
 
 namespace Core.Loading
 {
-    public class CreatingBotsOperation : ILoadingOperation
+    public class PressAnyButtonOperation : ILoadingOperation
     {
-        public string Description => "Creating bots...";
-
-        public CreatingBotsOperation()
-        {
-
-        }
+        public string Description => "Press any button...";
 
         public async Task AwaitForLoad(Action<float> onLoading)
         {
-            onLoading?.Invoke(0.1f);
-
-            await Task.Delay(TimeSpan.FromSeconds(1f));
-            onLoading?.Invoke(0.5f);
-
-            await Task.Delay(TimeSpan.FromSeconds(1f));
+            while (!UnityEngine.Input.anyKeyDown)
+            {
+                await Task.Yield();
+            }
             onLoading?.Invoke(1f);
         }
         public void Abort()

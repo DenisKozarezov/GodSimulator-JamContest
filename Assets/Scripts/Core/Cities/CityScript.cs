@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
 using TMPro;
 using Zenject;
-using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
 using DG.Tweening;
@@ -26,10 +26,8 @@ namespace Core.Cities
 
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
-        [SerializeField]
-        private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
-        [SerializeField]
-        private GodModel _owner;
+        private Dictionary<Player, ushort> _numberOfPriests;
+        private Player _owner;
 
         public ushort PriestsAmount
         {
@@ -43,7 +41,7 @@ namespace Core.Cities
                 return 0;
             }
         }
-        public GodModel Owner => _owner;
+        public Player Owner => _owner;
 
         public override bool Interactable
         {
@@ -74,7 +72,7 @@ namespace Core.Cities
         {
             _currentStrategy = GetComponent<ICityStrategy>();
 
-            _numberOfPriests = new SerializableDictionaryBase<GodModel, ushort>();
+            _numberOfPriests = new Dictionary<Player, ushort>();
 
             Interactable = true;
 
@@ -84,7 +82,7 @@ namespace Core.Cities
             }
         }
 
-        public void AddPriests(GodModel owner, ushort value)
+        public void AddPriests(Player owner, ushort value)
         {
             if (!_numberOfPriests.ContainsKey(owner))
                 _numberOfPriests.Add(owner, 0);
@@ -92,7 +90,7 @@ namespace Core.Cities
             _numberOfPriests[owner] = (ushort)math.min(_numberOfPriests[owner] + value, _maxCapacityOfPriests);
             _priestsCount.text = _numberOfPriests[owner].ToString();
         }
-        public void ReducePriests(GodModel owner, ushort value)
+        public void ReducePriests(Player owner, ushort value)
         {
             if (_numberOfPriests.ContainsKey(owner))
             {

@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 using Core.Loading;
 using Core.UI;
 
 namespace Core.Match
 {
-    public class SceneController : BaseMenuState
+    public class SceneController : BaseMenuState, ICleanup
     {
+        [SerializeField]
+        private AudioListener _listener;
+        [SerializeField]
+        private EventSystem _eventSystem;
+
         private ILoadingProvider _loadingProvider;
 
         public override void Enter() { }
@@ -19,11 +25,19 @@ namespace Core.Match
             _loadingProvider = loadingProvider;
         }
 
+        void ICleanup.Cleanup()
+        {
+            Destroy(_listener);
+            Destroy(_eventSystem.gameObject);
+        }
+
         public void LoadGameScene_UnityEditor()
         {
             var operations = new Queue<ILoadingOperation>();
+            operations.Enqueue(new SceneCleanupOperation(this));
             operations.Enqueue(new GameLoadingOperation());
             operations.Enqueue(new CreatingBotsOperation());
+            operations.Enqueue(new PressAnyButtonOperation());
             _loadingProvider.LoadAndDestroy(operations);
         }
         public async void Quit_UnityEditor()

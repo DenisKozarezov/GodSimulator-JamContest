@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 692707719352168635}
   - component: {fileID: 6953310824936927052}
   - component: {fileID: 809769517155202337}
-  - component: {fileID: 8891482029333854180}
+  - component: {fileID: 8267012507756916306}
   m_Layer: 5
   m_Name: Loading Screen
   m_TagString: Untagged
@@ -98,7 +98,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &809769517155202337
 MonoBehaviour:
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &8891482029333854180
+--- !u!114 &8267012507756916306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,14 +132,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 716736908419881039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: eb2b6218ce3f63148b3cb1beb34eb2e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  _progressBar: {fileID: 5645555827362050051}
+  _description: {fileID: 8715881677622145054}
+  _progressBarSpeed: 0.2
 --- !u!1 &2107392428149820681
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0

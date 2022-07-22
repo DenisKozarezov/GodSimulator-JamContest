@@ -9,7 +9,7 @@ namespace Core.UI.Forms
     [RequireComponent(typeof(RectTransform))]
     public class DecisionForm : MonoBehaviour, IConfirmAwaiter<bool>, IAutoSizable, IClosableForm
     {
-        private const string FormPath = "Prefabs/Views/Forms/Decision Form";
+        private const string FormPath = "Prefabs/UI/Forms/Decision Form";
 
         [Header("References")]
         [SerializeField]

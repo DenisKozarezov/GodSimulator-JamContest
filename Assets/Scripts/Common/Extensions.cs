@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using Core.Cities;
-using Core.Models;
 
 namespace Core
 {
@@ -64,14 +63,14 @@ namespace Core
                     yield return value;
             }
         }
-        public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, GodModel owner)
+        public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, Player owner)
         {
             foreach (var city in cities)
             {
                 if (city.Owner.Equals(owner)) yield return city;
             }
         }
-        public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, GodModel owner)
+        public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, Player owner)
           where T : MonoBehaviour, ICityStrategy
         {
             foreach (var city in cities)

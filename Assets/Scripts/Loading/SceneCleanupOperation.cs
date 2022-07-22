@@ -1,24 +1,23 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Core.Loading
 {
-    public class CreatingBotsOperation : ILoadingOperation
+    public class SceneCleanupOperation : ILoadingOperation
     {
-        public string Description => "Creating bots...";
+        public string Description => "Cleaning the scene...";
 
-        public CreatingBotsOperation()
+        private readonly ICleanup _cleanup;
+
+        public SceneCleanupOperation(ICleanup cleanupScene)
         {
-
+            _cleanup = cleanupScene;
         }
 
         public async Task AwaitForLoad(Action<float> onLoading)
         {
-            onLoading?.Invoke(0.1f);
-
-            await Task.Delay(TimeSpan.FromSeconds(1f));
+            _cleanup.Cleanup();
             onLoading?.Invoke(0.5f);
-
             await Task.Delay(TimeSpan.FromSeconds(1f));
             onLoading?.Invoke(1f);
         }

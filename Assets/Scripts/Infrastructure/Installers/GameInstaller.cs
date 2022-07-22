@@ -33,7 +33,7 @@ namespace Core.Infrastructure
             Container.Bind<MapController>().FromInstance(_mapController).AsSingle();
             Container.BindInterfacesTo<GameEventsController>().AsSingle();
             Container.BindInterfacesTo<MovingBetweenCities>().AsSingle();
-            Container.BindInterfacesTo<IInputSystem>().AsSingle();
+            Container.Bind<ITickable>().To<StandaloneInput>().AsCached();
         }
     }
 }

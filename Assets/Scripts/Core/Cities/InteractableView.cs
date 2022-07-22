@@ -14,7 +14,6 @@ namespace Core.Cities
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
 
-        private bool _isHover;
         private float _outlineWidth;
 
         public abstract bool Interactable { get; set; }
@@ -41,14 +40,12 @@ namespace Core.Cities
         {
             if (!Interactable) return;
 
-            _isHover = true;
             SetOutlineWidth(_outlineWidth);
         }
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (!Interactable) return;
 
-            _isHover = false;
             SetOutlineWidth(0f);
         }
     }

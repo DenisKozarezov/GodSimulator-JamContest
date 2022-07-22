@@ -12,7 +12,7 @@ namespace Core.Loading
 
         }
 
-        public Task<float> AwaitForLoad(Action onLoad)
+        public Task AwaitForLoad(Action<float> onLoading)
         {
             throw new NotImplementedException();
         }
