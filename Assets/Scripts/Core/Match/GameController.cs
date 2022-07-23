@@ -30,6 +30,7 @@ namespace Core.Match
         {
             _signalBus.Fire(new SceneLoadedSignal { Scene = scene });
         }
+
         public async void OpenChooseForm()
         {
             var form = Instantiate(_chooseForm).GetComponentInChildren<UI.Forms.ChooseForm>();

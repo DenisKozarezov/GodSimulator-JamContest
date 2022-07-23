@@ -19,13 +19,13 @@ namespace Core.Infrastructure
             // Declare all signals
             Container.DeclareSignal<SceneLoadedSignal>();
             Container.DeclareSignal<GameStartedSignal>();
-            Container.DeclareSignal<GameApocalypsisSignal>();
+            Container.DeclareSignal<GameApocalypseSignal>();
 
 #if UNITY_EDITOR
             // Include these just to ensure BindSignal works
             Container.BindSignal<SceneLoadedSignal>().ToMethod(() => Logger.Log("SceneLoadedSignal", LogType.Signal));
             Container.BindSignal<GameStartedSignal>().ToMethod(() => Logger.Log("GameStartedSignal", LogType.Signal));
-            Container.BindSignal<GameApocalypsisSignal>().ToMethod(() => Logger.Log("GameApocalypsisSignal", LogType.Signal));
+            Container.BindSignal<GameApocalypseSignal>().ToMethod(() => Logger.Log("GameApocalypseSignal", LogType.Signal));
 #endif
 
             Container.Bind<MapController>().FromInstance(_mapController).AsSingle();

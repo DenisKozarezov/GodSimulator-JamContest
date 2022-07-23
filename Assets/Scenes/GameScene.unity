@@ -3459,13 +3459,14 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 00010204
-    _keys: 00010204
+    _keyValues: 0001020408
+    _keys: 0001020408
     _values:
     - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
     - {fileID: 2800000, guid: 2260b238db6a6d04495c777ef73b2c91, type: 3}
     - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
     - {fileID: 2800000, guid: dd226102902802244bbf007bc2c942ab, type: 3}
+    - {fileID: 2800000, guid: dee896b33b850bb4598667842de2fb3a, type: 3}
 --- !u!1 &1606235833
 GameObject:
   m_ObjectHideFlags: 0

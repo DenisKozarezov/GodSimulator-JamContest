@@ -31,7 +31,7 @@ namespace Core
 
         private void Awake()
         {
-            _signalBus.Subscribe<GameApocalypsisSignal>(OnGameApocalypsis);
+            _signalBus.Subscribe<GameApocalypseSignal>(OnGameApocalypse);
         }
         private void Start()
         {
@@ -40,10 +40,10 @@ namespace Core
         }
         private void OnDestroy()
         {
-            _signalBus.Unsubscribe<GameApocalypsisSignal>(OnGameApocalypsis);
+            _signalBus.Unsubscribe<GameApocalypseSignal>(OnGameApocalypse);
         }
 
-        private void OnGameApocalypsis()
+        private void OnGameApocalypse()
         {
             StartDissolve();
         }

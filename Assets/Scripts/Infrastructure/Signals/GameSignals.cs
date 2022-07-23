@@ -5,7 +5,7 @@ namespace Core.Infrastructure
 {
     public struct SceneLoadedSignal { public Scene Scene; }
     public struct GameStartedSignal { }
-    public struct GameApocalypsisSignal { }
+    public struct GameApocalypseSignal { }
     public struct PlayerVirtueChangedSignal
     {
         public VirtueModel Virtue;

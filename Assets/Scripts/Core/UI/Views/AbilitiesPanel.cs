@@ -18,7 +18,7 @@ namespace Core.UI
         private IReadOnlyCollection<AbilityModel> _abilities;
         private SignalBus _signalBus;
         private GameObject _abilityTooltip;
-        private AbilityView _seekingView;
+        private AbilityView _seekingAbility;
 
         [Inject]
         public void Construct(PlayerSettings playerSettings, SignalBus signalBus)
@@ -58,7 +58,7 @@ namespace Core.UI
             switch (view.Model.AbilityType)
             {
                 case AbilityType.Target:
-                    _seekingView = view;
+                    _seekingAbility = view;
                     _signalBus.Fire(new PlayerClickedOnAbilitySignal { Ability = view.Model });
                     break;
                 case AbilityType.NonTarget:
@@ -83,9 +83,16 @@ namespace Core.UI
         }
         private void OnPlayerClickedOnCity(PlayerClickedOnCitySignal signal)
         {
-            _signalBus.AbstractFire(new PlayerCastedTargetAbilitySignal { Ability = _seekingView.Model });
-            _seekingView?.StartCooldown();
-            _seekingView = null;
+            if (_seekingAbility != null)
+            {
+                _signalBus.AbstractFire(new PlayerCastedTargetAbilitySignal 
+                {
+                    Ability = _seekingAbility.Model, 
+                    Target = signal.View
+                });
+                _seekingAbility.StartCooldown();
+                _seekingAbility = null;
+            }
         }
         private RectTransform CreateTooltip(AbilityModel ability)
         {
