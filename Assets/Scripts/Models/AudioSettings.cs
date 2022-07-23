@@ -1,6 +1,6 @@
-﻿using Core.Audio;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
+using Core.Audio;
 
 namespace Core.Models
 {
@@ -17,10 +17,13 @@ namespace Core.Models
         [SerializeField, Range(0f, 1f)]
         private float _globalVolume;
         [SerializeField, Range(0f, 1f)]
-        private float _effectsVolume;
+        private float _musicVolume;
+        [SerializeField, Range(0f, 1f)]
+        private float _soundEffects;
 
         public MusicBox MusicBox => _musicBox;
         public float GlobalVolume => _globalVolume;
-        public float EffectsVolume => _effectsVolume;
+        public float MusicVolume => _musicVolume;
+        public float SoundEffects => _soundEffects;
     }
 }

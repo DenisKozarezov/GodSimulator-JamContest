@@ -1,11 +1,11 @@
-﻿using Zenject;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Zenject;
 using Core.Infrastructure;
+using Core.Cities;
 using Core.UI;
 using static Core.Models.GameSettingsInstaller;
-using Core.Cities;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
 
 namespace Core.Match
 {
@@ -39,13 +39,18 @@ namespace Core.Match
         }
         void ILateDisposable.LateDispose()
         {
+            if (!_gameTimerSource.IsCancellationRequested)
+            {
+                _gameTimerSource?.Cancel();
+            }
+            _gameTimerSource?.Dispose();
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<GameStartedSignal>(SetApocalypsisTimer);
         }
         private void OnGameStarted()
         {
             var city = _mapController.Cities.Randomly();
-            MakeSacrificeInCity(city);
+            OfferSacrificeInCity(city);
         }
         private async void SetApocalypsisTimer()
         {
@@ -62,7 +67,7 @@ namespace Core.Match
 #endif
             }
         }
-        private async void MakeSacrificeInCity(CityScript city)
+        private async void OfferSacrificeInCity(CityScript city)
         {
             var form = (SacrificeForm)SacrificeForm.CreateForm(city);
 

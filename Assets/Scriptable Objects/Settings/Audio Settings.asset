@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicBox: {fileID: 11400000, guid: b04bba0cc4c6b004db144b5f0a9d8400, type: 2}
   _audioMixer: {fileID: 24100000, guid: 5ba6ca3d330e58a4db2e07fc6f836d31, type: 2}
-  _globalVolume: 0
-  _effectsVolume: 0
+  _globalVolume: 1
+  _musicVolume: 0.7
+  _soundEffects: 0.7

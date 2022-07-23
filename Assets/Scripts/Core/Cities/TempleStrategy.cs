@@ -52,7 +52,6 @@ namespace Core.Cities
         }
         private void OnGameStarted()
         {
-            _city.AddPriests(_city.Owner, 0);
             _generatePriests = StartCoroutine(GeneratePriests());
             IncreasePercentageOfFaithfulInOtherCities();
         }
@@ -81,7 +80,7 @@ namespace Core.Cities
             while (true)
             {
                 yield return new WaitForSeconds(_priestsRate);
-                _city.AddPriests(_city.Owner, _growthOfPriests);
+                _city.AddPriests(_growthOfPriests);
             }
         }
 

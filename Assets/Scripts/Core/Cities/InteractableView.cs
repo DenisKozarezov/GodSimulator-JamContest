@@ -16,7 +16,7 @@ namespace Core.Cities
 
         private float _outlineWidth;
 
-        public abstract bool Interactable { get; set; }
+        public abstract bool Interactable { get; protected set; }
 
         [Inject]
         private void Contruct(SignalBus signalBus, UISettings _UISettings)

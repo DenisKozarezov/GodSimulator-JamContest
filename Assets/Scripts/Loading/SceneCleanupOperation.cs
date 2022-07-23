@@ -17,7 +17,7 @@ namespace Core.Loading
         public async Task AwaitForLoad(Action<float> onLoading)
         {
             _cleanup.Cleanup();
-            onLoading?.Invoke(0.5f);
+            onLoading?.Invoke(MathUtils.Random.NextFloat(0.2f, 0.9f));
             await Task.Delay(TimeSpan.FromSeconds(1f));
             onLoading?.Invoke(1f);
         }

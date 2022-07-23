@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
+using System;
 using UnityEngine;
 using Zenject;
 using Core.Infrastructure;
-using System.Threading.Tasks;
-using System;
 
 namespace Core.Match
 {

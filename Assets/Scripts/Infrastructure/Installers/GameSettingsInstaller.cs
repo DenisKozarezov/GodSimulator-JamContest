@@ -72,7 +72,12 @@ namespace Core.Models
             Container.Bind<ILogger>().To<StandaloneLogger>().AsCached();
             Container.Bind<ILoadingProvider>().To<LoadingProvider>().AsCached();
             Container.Bind<IInputSystem>().To<StandaloneInput>().AsCached();
-            Container.BindInstances(_gameSettings, _sacrificeSettings, _playerSettings, _audioSettings, _UISettings);
+
+            Container.BindInstance(_playerSettings).IfNotBound();
+            Container.BindInstance(_audioSettings).IfNotBound();
+            Container.BindInstance(_UISettings).IfNotBound();
+            Container.BindInstance(_gameSettings).IfNotBound();
+            Container.BindInstance(_sacrificeSettings).IfNotBound();
         }     
     }
 }
