@@ -16,8 +16,8 @@ namespace Core.Infrastructure
     }
     public struct PlayerVictorySignal { }
 
-    public interface IPlayerUsedAbility { AbilityModel Ability { get; } }
-    public struct PlayerUsedTargetAbilitySignal : IPlayerUsedAbility { public AbilityModel Ability { set; get; } }
-    public struct PlayerUsedNonTargetAbilitySignal : IPlayerUsedAbility { public AbilityModel Ability { set; get; } }
-    public struct PlayerUsedAreaAbilitySignal : IPlayerUsedAbility { public AbilityModel Ability { set; get; } }
+    public interface IPlayerCastedAbility { AbilityModel Ability { get; } }
+    public struct PlayerClickedOnAbilitySignal { public AbilityModel Ability; }
+    public struct PlayerCastedTargetAbilitySignal : IPlayerCastedAbility { public AbilityModel Ability { set; get; } }
+    public struct PlayerCastedNonTargetAbilitySignal : IPlayerCastedAbility { public AbilityModel Ability { set; get; } }
 }

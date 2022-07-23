@@ -18,6 +18,7 @@ namespace Core.UI
         private IReadOnlyCollection<AbilityModel> _abilities;
         private SignalBus _signalBus;
         private GameObject _abilityTooltip;
+        private AbilityView _seekingView;
 
         [Inject]
         public void Construct(PlayerSettings playerSettings, SignalBus signalBus)
@@ -28,11 +29,16 @@ namespace Core.UI
 
         private void Awake()
         {
+            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
             Clear();
         }
         private void Start()
         {
             InitializeAbilities();
+        }
+        private void OnDestroy()
+        {
+            _signalBus.Unsubscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
         }
         private void InitializeAbilities()
         {
@@ -42,23 +48,21 @@ namespace Core.UI
                 var view = prefab.GetComponentInChildren<AbilityView>();
                 var rectTransform = prefab.GetComponentInChildren<RectTransform>();
                 view.SetAbility(ability);
-                view.Execute += () => OnAbilityCasted(ability);
+                view.Execute += () => OnAbilityCasted(view);
                 view.MouseEnter += () => OnAbilityMouseEnter(rectTransform, ability);
                 view.MouseExit += OnAbilityMouseExit;
             }
         }
-        private void OnAbilityCasted(AbilityModel ability)
+        private void OnAbilityCasted(AbilityView view)
         {
-            switch (ability.AbilityType)
+            switch (view.Model.AbilityType)
             {
                 case AbilityType.Target:
-                    _signalBus.AbstractFire(new PlayerUsedTargetAbilitySignal { Ability = ability });
+                    _seekingView = view;
+                    _signalBus.Fire(new PlayerClickedOnAbilitySignal { Ability = view.Model });
                     break;
                 case AbilityType.NonTarget:
-                    _signalBus.AbstractFire(new PlayerUsedNonTargetAbilitySignal { Ability = ability });
-                    break;
-                case AbilityType.Area:
-                    _signalBus.AbstractFire(new PlayerUsedAreaAbilitySignal { Ability = ability });
+                    _signalBus.AbstractFire(new PlayerCastedNonTargetAbilitySignal { Ability = view.Model });
                     break;
             }
         }
@@ -76,6 +80,12 @@ namespace Core.UI
             {
                 Destroy(_abilityTooltip.gameObject);
             }
+        }
+        private void OnPlayerClickedOnCity(PlayerClickedOnCitySignal signal)
+        {
+            _signalBus.AbstractFire(new PlayerCastedTargetAbilitySignal { Ability = _seekingView.Model });
+            _seekingView?.StartCooldown();
+            _seekingView = null;
         }
         private RectTransform CreateTooltip(AbilityModel ability)
         {

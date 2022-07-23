@@ -10,6 +10,7 @@ namespace Core
             Target = 0x01,
             Hover = 0x02,
             Disabled = 0x04,
+            Ability = 0x08,
         }
         public enum CursorSize : byte
         {

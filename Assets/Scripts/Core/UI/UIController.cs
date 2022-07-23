@@ -31,6 +31,8 @@ namespace Core.UI
             _signalBus.Subscribe<TempleDragEndSignal>(OnTempleDragEnd);
             _signalBus.Subscribe<CityPointerEnterSignal>(OnCityPointerEnter);
             _signalBus.Subscribe<CityPointerExitSignal>(OnCityPointerExit);
+            _signalBus.Subscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
+            _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
         }
         private void OnDestroy()
         {
@@ -39,6 +41,8 @@ namespace Core.UI
             _signalBus.Unsubscribe<TempleDragEndSignal>(OnTempleDragEnd);
             _signalBus.Unsubscribe<CityPointerEnterSignal>(OnCityPointerEnter);
             _signalBus.Unsubscribe<CityPointerExitSignal>(OnCityPointerExit);
+            _signalBus.Unsubscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
+            _signalBus.Unsubscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
         }
 
         private void OnSceneLoaded()
@@ -53,7 +57,7 @@ namespace Core.UI
                 SetSelectionMode(true);
             }
         }
-        private void OnTempleDragEnd(TempleDragEndSignal signal)
+        private void OnTempleDragEnd()
         {
             SetCursor(CursorType.Default);
             SetSelectionMode(false);            
@@ -68,6 +72,16 @@ namespace Core.UI
         private void OnCityPointerExit()
         {
             if (!_selectionMode) SetCursor(CursorType.Default);
+        }
+        private void OnPlayerClickedOnAbility()
+        {
+            SetCursor(CursorType.Ability);
+            SetSelectionMode(true);
+        }
+        private void OnPlayerUsedTargetAbility()
+        {
+            SetCursor(CursorType.Default);
+            SetSelectionMode(false);
         }
 
         private void SetCursor(CursorType cursorType)
