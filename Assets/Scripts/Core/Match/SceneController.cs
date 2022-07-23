@@ -8,6 +8,7 @@ using Zenject;
 using DG.Tweening;
 using Core.Loading;
 using Core.UI;
+using Core.Models;
 
 namespace Core.Match
 {
@@ -18,15 +19,17 @@ namespace Core.Match
         [SerializeField]
         private EventSystem _eventSystem;
         [SerializeField]
-        private RawImage _vignette;
+        private RawImage _fade;
 
+        private UISettings _settings;
         private ILoadingProvider _loadingProvider;
 
         public static event Action<Scene> SceneLoaded;
 
         [Inject]
-        private void Construct(ILoadingProvider loadingProvider)
+        private void Construct(UISettings UISettings, ILoadingProvider loadingProvider)
         {
+            _settings = UISettings;
             _loadingProvider = loadingProvider;
         }
         void ICleanup.Cleanup()
@@ -44,8 +47,14 @@ namespace Core.Match
         public async void LoadGameScene_UnityEditor()
         {
             SetInteractable(false);
-            _vignette.gameObject.SetActive(true);
-            await _vignette.DOFade(1f, 3f).SetEase(Ease.Linear).AsyncWaitForCompletion();
+
+            if (_fade != null && _settings.AutoFadeWhenSceneTransition)
+            {
+                _fade.gameObject.SetActive(true);
+                await _fade.DOFade(1f, _settings.FadeDuration).SetEase(Ease.Linear).AsyncWaitForCompletion();
+            }
+
+            Cursor.visible = false;
 
             var operations = new Queue<ILoadingOperation>();
             operations.Enqueue(new SceneCleanupOperation(this));

@@ -1816,7 +1816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _listener: {fileID: 519420029}
   _eventSystem: {fileID: 1528827724}
-  _vignette: {fileID: 67538250}
+  _fade: {fileID: 67538250}
 --- !u!1 &1860617172
 GameObject:
   m_ObjectHideFlags: 0

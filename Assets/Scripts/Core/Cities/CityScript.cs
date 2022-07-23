@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
@@ -7,6 +6,7 @@ using TMPro;
 using Zenject;
 using Core.Infrastructure;
 using Core.Models;
+using Core.UI;
 using DG.Tweening;
 using static Core.Models.GameSettingsInstaller;
 
@@ -22,32 +22,20 @@ namespace Core.Cities
         [SerializeField]
         private PranaView _pranaView;
         [SerializeField]
-        private byte _maxCapacityOfPriests;
+        private ushort _maxCapacityOfPriests;
 
-        private SignalBus _signalBus;
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
-        private Dictionary<Player, ushort> _numberOfPriests;
+        private ushort _priestsAmount;
         private Player _owner;
 
-        public ushort PriestsAmount
-        {
-            get
-            {
-                if (_owner == null) return 0;
-                if (_numberOfPriests.TryGetValue(_owner, out ushort amount))
-                {
-                    return amount;
-                }
-                return 0;
-            }
-        }
+        public ushort PriestsAmount => _priestsAmount;
         public Player Owner => _owner;
 
         public override bool Interactable
         {
             get => _interactable;
-            set
+            protected set
             {
                 _interactable = value;
                 if (_currentStrategy != null) _currentStrategy.Interactable = value;
@@ -55,9 +43,8 @@ namespace Core.Cities
         }
 
         [Inject]
-        private void Construct(SignalBus signalBus, GameSettings gameSettings)
+        private void Construct(GameSettings gameSettings)
         {
-            _signalBus = signalBus;
             if (gameSettings.CitiesNames.Count > 0)
             {
                 string name = gameSettings.CitiesNames.Dequeue();
@@ -68,18 +55,17 @@ namespace Core.Cities
 
         private void Awake()
         {
-            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
+            SignalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             MapController.RegisterCity(this);
         }
         protected override void Start()
         {
             _currentStrategy = GetComponent<ICityStrategy>();
-            _numberOfPriests = new Dictionary<Player, ushort>();
             Interactable = true;
         }
         private void OnDestroy()
         {
-            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+            SignalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
         }
 
         private void OnGameStarted()
@@ -90,28 +76,20 @@ namespace Core.Cities
             }
         }
 
-        public void AddPriests(Player owner, ushort value)
+        public void AddPriests(ushort value)
         {
-            if (!_numberOfPriests.ContainsKey(owner))
-                _numberOfPriests.Add(owner, 0);
-
-            _numberOfPriests[owner] = (ushort)math.min(_numberOfPriests[owner] + value, _maxCapacityOfPriests);
-            _priestsCount.text = _numberOfPriests[owner].ToString();
+            _priestsAmount = (ushort)math.min(_priestsAmount + value, _maxCapacityOfPriests);
+            _priestsCount.text = _priestsAmount.ToString();
         }
-        public void ReducePriests(Player owner, ushort value)
+        public void ReducePriests(ushort value)
         {
-            if (_numberOfPriests.ContainsKey(owner))
-            {
-                _numberOfPriests[owner] = (ushort)math.max(_numberOfPriests[owner] - value, 0);
-                _priestsCount.text = _numberOfPriests[owner].ToString();
-            }
+            _priestsAmount = (ushort)math.max(_priestsAmount - value, 0);
+            _priestsCount.text = _priestsAmount.ToString();
         }
         public void ClearPriests()
         {
-            foreach (var priests in _numberOfPriests)
-            {
-                ReducePriests(priests.Key, priests.Value);
-            }
+            _priestsAmount = 0;
+            _priestsCount.text = _priestsAmount.ToString();
         }
         public void BuildTemple(VirtueModel virtue)
         {

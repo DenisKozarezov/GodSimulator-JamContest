@@ -10,6 +10,8 @@ namespace Core.Infrastructure
             Container.DeclareSignal<SelectionModeChangedSignal>();
             Container.DeclareSignal<TempleDragBeginSignal>();
             Container.DeclareSignal<TempleDragEndSignal>();
+            Container.DeclareSignal<CityPointerEnterSignal>();
+            Container.DeclareSignal<CityPointerExitSignal>();
         }
     }
 }

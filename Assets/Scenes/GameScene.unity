@@ -585,38 +585,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
   m_PrefabInstance: {fileID: 1656868980}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &177720878
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 177720879}
-  m_Layer: 5
-  m_Name: '[UI]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &177720879
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177720878}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 716385324}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217311732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1513,7 @@ GameObject:
   - component: {fileID: 716385326}
   - component: {fileID: 716385325}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: '[UI]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1566,8 +1534,8 @@ RectTransform:
   - {fileID: 924201922}
   - {fileID: 2097151450}
   - {fileID: 819893434}
-  m_Father: {fileID: 177720879}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1633,7 +1601,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_TargetDisplay: 0
 --- !u!1001 &722760140
 PrefabInstance:
@@ -3491,11 +3459,13 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 0001
-    _keys: 0001
+    _keyValues: 00010204
+    _keys: 00010204
     _values:
-    - {fileID: 2800000, guid: 2ce5c55e85304b819a1826ecbc839aa5, type: 3}
-    - {fileID: 2800000, guid: 83abe34dd431f1c45a00ff04c3c12a35, type: 3}
+    - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
+    - {fileID: 2800000, guid: 2260b238db6a6d04495c777ef73b2c91, type: 3}
+    - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
+    - {fileID: 2800000, guid: dd226102902802244bbf007bc2c942ab, type: 3}
 --- !u!1 &1606235833
 GameObject:
   m_ObjectHideFlags: 0

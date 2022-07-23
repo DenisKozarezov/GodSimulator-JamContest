@@ -47,6 +47,7 @@ namespace Core.Cities
 
         public void AddNewGodForFaithfull(Player god)
         {
+            if (god == null) return;
             if (!_percentageOfFaithful.ContainsKey(god))
             {
                 _percentageOfFaithful.Add(god, 0);

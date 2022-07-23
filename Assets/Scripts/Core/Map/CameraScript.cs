@@ -6,6 +6,7 @@ using Zenject;
 using DG.Tweening;
 using Core.Input;
 using Core.Infrastructure;
+using Core.Models;
 
 namespace Core
 {
@@ -33,23 +34,27 @@ namespace Core
         private RawImage _fade;
 
         private SignalBus _signalBus;
+        private UISettings _settings;
         private IInputSystem _inputSystem;
         private float _zoomVelocity;
         private Vector3 _moveVelocity;
         private Vector2 _startPosition;
+        private bool _enabled;
 
         private float Ratio => GetBounds().x / _constraintsBox.x;
 
         [Inject]
-        private void Construct(SignalBus signalBus, IInputSystem inputSystem)
+        private void Construct(SignalBus signalBus, UISettings UISettings, IInputSystem inputSystem)
         {
             _signalBus = signalBus;
+            _settings = UISettings;
             _inputSystem = inputSystem;
         }
 
         private void Awake()
         {
             _signalBus.Subscribe<SceneLoadedSignal>(OnSceneLoaded);
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _camera = GetComponent<Camera>();
             _startPosition = transform.position;
             ZoomMin = _camera.orthographicSize + _camera.orthographicSize * (1 - Ratio);
@@ -57,17 +62,25 @@ namespace Core
         private void OnDestroy()
         {
             _signalBus.Unsubscribe<SceneLoadedSignal>(OnSceneLoaded);
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
         }
         private void Update()
         {
-            if (_inputSystem == null) return;
+            if (!_enabled || _inputSystem == null) return;
 
             UpdateMove();
             UpdateZoom();
         }
         private void OnSceneLoaded()
         {
-            Fade(FadeMode.Off, 3f);
+            if (_fade != null && _settings.AutoFadeWhenGameStart)
+            {
+                Fade(FadeMode.Off, _settings.FadeDuration);
+            }
+        }
+        private void OnGameStarted()
+        {
+            _enabled = true;
         }
 
 #if UNITY_EDITOR

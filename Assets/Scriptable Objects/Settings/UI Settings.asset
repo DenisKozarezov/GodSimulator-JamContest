@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: UI Settings
   m_EditorClassIdentifier: 
   _outlineWidth: 8
+  _cursorSize: 2
+  _cursorMode: 1
+  _autoFadeWhenGameStart: 1
+  _autoFadeWhenSceneTransition: 1
+  _fadeDuration: 2

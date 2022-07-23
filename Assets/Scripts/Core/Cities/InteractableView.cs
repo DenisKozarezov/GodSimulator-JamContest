@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject; 
 using Core.Models;
+using Core.Infrastructure;
 
 namespace Core.Cities
 {
@@ -16,7 +17,7 @@ namespace Core.Cities
 
         private float _outlineWidth;
 
-        public abstract bool Interactable { get; set; }
+        public abstract bool Interactable { get; protected set; }
 
         [Inject]
         private void Contruct(SignalBus signalBus, UISettings _UISettings)
@@ -41,12 +42,14 @@ namespace Core.Cities
             if (!Interactable) return;
 
             SetOutlineWidth(_outlineWidth);
+            SignalBus.Fire(new CityPointerEnterSignal { View = this });
         }
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (!Interactable) return;
 
             SetOutlineWidth(0f);
+            SignalBus.Fire<CityPointerExitSignal>();
         }
     }
 }

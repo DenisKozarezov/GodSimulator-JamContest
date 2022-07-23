@@ -377,7 +377,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 49
   m_TargetDisplay: 0
 --- !u!114 &3948634269661457748
 MonoBehaviour:
@@ -637,7 +637,6 @@ MonoBehaviour:
   _noButton: {fileID: 2548574052910380392}
   _pranaView: {fileID: 908143634214656273}
   _icon: {fileID: 6926440766765728045}
-  _elapsedColor: {r: 1, g: 0.68301886, b: 0.68301886, a: 0.39607844}
   _offsetY: 1
 --- !u!1 &7292153308016850481
 GameObject:

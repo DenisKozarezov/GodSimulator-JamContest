@@ -9,10 +9,10 @@ namespace Core.Loading
 
         public async Task AwaitForLoad(Action<float> onLoading)
         {
-            onLoading?.Invoke(0.1f);
+            onLoading?.Invoke(MathUtils.Random.NextFloat(0.1f, 0.4f));
 
             await Task.Delay(TimeSpan.FromSeconds(1f));
-            onLoading?.Invoke(0.5f);
+            onLoading?.Invoke(MathUtils.Random.NextFloat(0.4f, 0.8f));
 
             await Task.Delay(TimeSpan.FromSeconds(1f));
             onLoading?.Invoke(1f);

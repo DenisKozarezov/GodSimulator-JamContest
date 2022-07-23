@@ -18,10 +18,10 @@ namespace Core.Cities
         private Circle _radius;
         private IEnumerable<CityScript> _cities;
 
-        private const string RadiusPrefabPath = "Prefabs/Views/Solid Circle";
+        private const string RadiusPrefabPath = "Prefabs/UI/Solid Circle";
         private const string LinePrefabPath = "Prefabs/Cities/Animated Dotted Line";
-        private const string IconPrefabPath = "Prefabs/Views/Moving Priests Icon";
-        private const string FormPrefab = "Prefabs/Views/Forms/Moving Priests Form";
+        private const string IconPrefabPath = "Prefabs/UI/Moving Priests Icon";
+        private const string FormPrefab = "Prefabs/UI/Forms/Moving Priests Form";
 
         public MovingBetweenCities(SignalBus signalBus, MapController mapController)
         {
@@ -116,14 +116,14 @@ namespace Core.Cities
             Vector2 startPos = signal.Temple.transform.position;
             Vector2 endPos = signal.Target.transform.position;
 
-            signal.Temple.City.ReducePriests(signal.Temple.City.Owner, signal.PriestsAmount);
+            signal.Temple.City.ReducePriests(signal.PriestsAmount);
 
             CreateAnimatedDottedLine(startPos, endPos, signal.Duration);
             var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
             icon.SetAmount(signal.PriestsAmount);
 
             await Task.Delay(TimeSpan.FromSeconds(signal.Duration));
-            signal.Target.AddPriests(signal.Temple.City.Owner, signal.PriestsAmount);
+            signal.Target.AddPriests(signal.PriestsAmount);
         }
         private void SelectCities(IEnumerable<CityScript> cities)
         {
