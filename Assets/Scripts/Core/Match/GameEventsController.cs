@@ -39,10 +39,7 @@ namespace Core.Match
         }
         void ILateDisposable.LateDispose()
         {
-            if (!_gameTimerSource.IsCancellationRequested)
-            {
-                _gameTimerSource?.Cancel();
-            }
+            _gameTimerSource?.Cancel();
             _gameTimerSource?.Dispose();
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<GameStartedSignal>(SetApocalypsisTimer);

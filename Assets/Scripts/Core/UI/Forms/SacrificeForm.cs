@@ -47,10 +47,7 @@ namespace Core.UI
         }
         private void OnDestroy()
         {
-            if (!_cancellationTokenSource.IsCancellationRequested)
-            {
-                _cancellationTokenSource?.Cancel();
-            }
+            _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
         }
         private void OnAccept()

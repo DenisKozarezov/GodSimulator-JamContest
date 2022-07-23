@@ -54,6 +54,8 @@ namespace Core.Match
                 await _fade.DOFade(1f, _settings.FadeDuration).SetEase(Ease.Linear).AsyncWaitForCompletion();
             }
 
+            Cursor.visible = false;
+
             var operations = new Queue<ILoadingOperation>();
             operations.Enqueue(new SceneCleanupOperation(this));
             operations.Enqueue(new GameLoadingOperation());

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
@@ -7,6 +6,7 @@ using TMPro;
 using Zenject;
 using Core.Infrastructure;
 using Core.Models;
+using Core.UI;
 using DG.Tweening;
 using static Core.Models.GameSettingsInstaller;
 
@@ -24,7 +24,6 @@ namespace Core.Cities
         [SerializeField]
         private ushort _maxCapacityOfPriests;
 
-        private SignalBus _signalBus;
         private bool _interactable = true;
         private ICityStrategy _currentStrategy;
         private ushort _priestsAmount;
@@ -44,9 +43,8 @@ namespace Core.Cities
         }
 
         [Inject]
-        private void Construct(SignalBus signalBus, GameSettings gameSettings)
+        private void Construct(GameSettings gameSettings)
         {
-            _signalBus = signalBus;
             if (gameSettings.CitiesNames.Count > 0)
             {
                 string name = gameSettings.CitiesNames.Dequeue();
@@ -57,7 +55,7 @@ namespace Core.Cities
 
         private void Awake()
         {
-            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
+            SignalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             MapController.RegisterCity(this);
         }
         protected override void Start()
@@ -67,7 +65,7 @@ namespace Core.Cities
         }
         private void OnDestroy()
         {
-            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+            SignalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
         }
 
         private void OnGameStarted()

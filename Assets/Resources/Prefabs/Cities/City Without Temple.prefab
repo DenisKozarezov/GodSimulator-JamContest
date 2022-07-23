@@ -464,33 +464,6 @@ MonoBehaviour:
   _priestsCount: {fileID: 1262665518991861463}
   _pranaView: {fileID: 0}
   _maxCapacityOfPriests: 10
-  _numberOfPriests:
-    reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
-      isExpanded: 0
-      label:
-        m_Text: Keys
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
-      elementDisplayType: 0
-      elementNameProperty: 
-      elementNameOverride: 
-      elementIcon: {fileID: 0}
-    reqReferences: {fileID: 0}
-    isExpanded: 0
-    _keyValues: []
-    _keys: []
-    _values: 
-  _invader: {fileID: 0}
 --- !u!114 &8464830092923366608
 MonoBehaviour:
   m_ObjectHideFlags: 0
