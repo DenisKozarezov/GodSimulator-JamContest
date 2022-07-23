@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Zenject;
 using Core.Models;
 using Core.Infrastructure;
-using System;
 
 namespace Core
 {
@@ -37,7 +37,7 @@ namespace Core
 
         void IInitializable.Initialize()
         {
-            _signalBus.Subscribe<IPlayerUsedAbility>(OnAbilityCasted);
+            _signalBus.Subscribe<IPlayerCastedAbility>(OnAbilityCasted);
 
             ResetVirtues();
             foreach (var virtue in _virtuesLevels.Keys)
@@ -47,9 +47,9 @@ namespace Core
         }
         void ILateDisposable.LateDispose()
         {
-            _signalBus.Unsubscribe<IPlayerUsedAbility>(OnAbilityCasted);
+            _signalBus.Unsubscribe<IPlayerCastedAbility>(OnAbilityCasted);
         }
-        private void OnAbilityCasted(IPlayerUsedAbility ability)
+        private void OnAbilityCasted(IPlayerCastedAbility ability)
         {
             AddVirtueValue(ability.Ability.Virtue, ability.Ability.VirtueCost);
         }

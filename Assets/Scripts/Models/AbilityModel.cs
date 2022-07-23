@@ -8,7 +8,6 @@ namespace Core.Models
     {
         NonTarget = 0x00,
         Target = 0x01,
-        Area = 0x02,
     }
 
     [Flags]

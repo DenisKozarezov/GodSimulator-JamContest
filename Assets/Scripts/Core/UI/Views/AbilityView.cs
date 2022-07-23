@@ -17,9 +17,11 @@ namespace Core.UI
         [SerializeField]
         private TextMeshProUGUI _cooldownText;
 
-        private bool _ready = true;
-        private float _timer;
         private AbilityModel _model;
+        private bool _ready = true;
+        private float _cooldown;
+
+        public AbilityModel Model => _model;
 
         public event Action Execute;
         public event Action MouseEnter;
@@ -30,6 +32,7 @@ namespace Core.UI
             _model = model;
             _button.image.sprite = model.Icon;
             _cooldownImage.sprite = model.Icon;
+            _cooldown = model.Cooldown;
         }
 
         private void Start()
@@ -46,24 +49,21 @@ namespace Core.UI
             if (!_ready) return;
 
             Execute?.Invoke();
-
-            StartCooldown(_model.Cooldown);
         }    
         private void SetTimer(float time)
         {
-            _timer = time;
             _cooldownText.text = Math.Round(time, 1).ToString();
         }
-        private void StartCooldown(float cooldown)
+        public void StartCooldown()
         {
-            if (cooldown < 0f) throw new ArgumentOutOfRangeException();
+            if (_cooldown < 0f) throw new ArgumentOutOfRangeException();
 
             _ready = false;
             _cooldownText.gameObject.SetActive(true);
 
             _cooldownImage.fillAmount = 0f;
-            _cooldownImage.DOFillAmount(1f, cooldown);
-            DOTween.To(() => _timer = cooldown, x=> SetTimer(x), 0f, cooldown)
+            _cooldownImage.DOFillAmount(1f, _cooldown);
+            DOTween.To(() => _cooldown, x => SetTimer(x), 0f, _cooldown)
             .OnComplete(() =>
             {
                 _ready = true;
