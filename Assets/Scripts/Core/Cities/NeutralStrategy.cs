@@ -13,7 +13,7 @@ namespace Core.Cities
         [SerializeField, Min(0f)]
         private float _growthOfFaith;
 
-        private Dictionary<GodModel, float> _percentageOfFaithful = new Dictionary<GodModel, float>();
+        private Dictionary<Player, float> _percentageOfFaithful = new Dictionary<Player, float>();
         private CityScript _city;
         private float _timer;
         private bool _rating;
@@ -46,7 +46,7 @@ namespace Core.Cities
             }
         }
 
-        public void AddNewGodForFaithfull(GodModel god)
+        public void AddNewGodForFaithfull(Player god)
         {
             if (!_percentageOfFaithful.ContainsKey(god))
             {

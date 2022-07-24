@@ -13,6 +13,7 @@ namespace Core.Cities
         IBeginDragHandler, IEndDragHandler, IEquatable<TempleStrategy>
     {
         [Header("Temple")]
+        private byte _priceInPrana;
         [SerializeField, Min(0f)]
         private float _minRange;
         [SerializeField, Min(0f)]
@@ -81,6 +82,11 @@ namespace Core.Cities
         {
             if (_rangeDecorator == null) return _minRange;
             return _rangeDecorator.GetRange();
+        }
+        private void OnDestroy()
+        {
+            //здесь нужно вернуть прану игроку, который владел городом
+            _city.NumberOfPriests[_city.Invader] = 0;
         }
 
         private IEnumerator GeneratePriests()

@@ -27,12 +27,12 @@ namespace Core.Cities
         [SerializeField]
         private byte _maxCapacityOfPriests;
         [SerializeField]
-        private SerializableDictionaryBase<GodModel, ushort> _numberOfPriests;
+        private SerializableDictionaryBase<Player, ushort> _numberOfPriests;
         [SerializeField]
-        private GodModel _invader;
+        private Player _invader;
 
         public ICityStrategy CurrentStrategy => _currentStrategy;
-        public SerializableDictionaryBase<GodModel, ushort> NumberOfPriests => _numberOfPriests;
+        public SerializableDictionaryBase<Player, ushort> NumberOfPriests => _numberOfPriests;
         public ushort PriestsAmount
         {
             get
@@ -45,7 +45,7 @@ namespace Core.Cities
                 return 0;
             }
         }
-        public GodModel Invader => _invader;
+        public Player Invader => _invader;
 
         public override bool Interactable
         {
@@ -72,7 +72,7 @@ namespace Core.Cities
         {
             _currentStrategy = GetComponent<ICityStrategy>();
 
-            _numberOfPriests = new SerializableDictionaryBase<GodModel, ushort>();
+            _numberOfPriests = new SerializableDictionaryBase<Player, ushort>();
 
             Interactable = true;
 
@@ -83,7 +83,7 @@ namespace Core.Cities
             MapController.RegisterCity(this);
         }
 
-        public void AddPriests(GodModel god, ushort value)
+        public void AddPriests(Player god, ushort value)
         {
             if (!_numberOfPriests.ContainsKey(god))
                 _numberOfPriests.Add(god, 0);
@@ -91,7 +91,7 @@ namespace Core.Cities
             _numberOfPriests[god] = (ushort)math.min(_numberOfPriests[god] + value, _maxCapacityOfPriests);
             _priestsCount.text = _numberOfPriests[god].ToString();
         }
-        public void ReducePriests(GodModel god, ushort value)
+        public void ReducePriests(Player god, ushort value)
         {
             if (_numberOfPriests.ContainsKey(god))
             {
@@ -108,9 +108,17 @@ namespace Core.Cities
         }
         public void BuildTemple(VirtueModel virtue)
         {
+            Destroy(GetComponent<ICityStrategy>() as UnityEngine.Object);
             TempleStrategy temple = gameObject.AddComponent<TempleStrategy>();
             temple.SetVirtue(virtue);
             _currentStrategy = temple;
+        }
+        public void DestroyCity()
+        {
+            Destroy(GetComponent<ICityStrategy>() as UnityEngine.Object);
+            DestroyedStrategy destroyedCity = gameObject.AddComponent<DestroyedStrategy>();
+            _currentStrategy = destroyedCity;
+            ClearPriests();
         }
 
         public override void OnPointerClick(PointerEventData eventData)
