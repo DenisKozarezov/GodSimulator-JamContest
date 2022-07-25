@@ -15,18 +15,18 @@ namespace Core
 
     public class Player : IInitializable, ILateDisposable, IEquatable<Player>
     {
-        private uint _id;
         private int _prana;
         private Dictionary<VirtueModel, VirtueState> _virtuesLevels = new Dictionary<VirtueModel, VirtueState>();
         private float _faithRate = 1f;
 
-        private readonly SignalBus _signalBus;
+        private SignalBus _signalBus;
 
-        public uint ID => _id;
+        public uint ID;
         public int Prana => _prana;
         public float FaithRate => _faithRate;
 
-        public Player(SignalBus signalBus, PlayerSettings _playerSettings)
+        [Inject]
+        public void Construct(SignalBus signalBus, PlayerSettings _playerSettings)
         {
             _signalBus = signalBus;
             foreach (var virtue in _playerSettings.Virtues)
@@ -51,7 +51,14 @@ namespace Core
         }
         private void OnAbilityCasted(IPlayerCastedAbility ability)
         {
-            AddVirtueValue(ability.Ability.Virtue, ability.Ability.VirtueCost);
+            foreach (var virtue in ability.Ability.VirtuesInfluencer.BuffedVirtues)
+            {
+                AddVirtueValue(virtue.Virtue, virtue.Value);
+            }
+            foreach (var virtue in ability.Ability.VirtuesInfluencer.DebuffedVirtues)
+            {
+                ReduceVirtueValue(virtue.Virtue, virtue.Value);
+            }
         }
 
         public void AddVirtueValue(VirtueModel virtue, byte value)
@@ -88,12 +95,12 @@ namespace Core
         public bool Equals(Player other)
         {
             if (other == null) return false;
-            return _id == other._id;
+            return ID == other.ID;
         }
 
         public static implicit operator uint(Player player)
         {
-            return player._id;
+            return player.ID;
         }
     }
 }

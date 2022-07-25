@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
@@ -48,6 +49,14 @@ namespace Core
             if (hits == 0) return Vector3.zero;
             
             return raycastHits[0].point;
+        }
+        public static Lazy<IEnumerable<T>> CreateLazyArray<T>(string path) where T : UnityEngine.Object
+        {
+            return new Lazy<IEnumerable<T>>(() => UnityEngine.Resources.LoadAll<T>(path));
+        }
+        public static Lazy<IEnumerable<T>> CreateLazyArray<T>(IEnumerable<T> collection)
+        {
+            return new Lazy<IEnumerable<T>>(() => collection);
         }
     }
     public static class MathUtils

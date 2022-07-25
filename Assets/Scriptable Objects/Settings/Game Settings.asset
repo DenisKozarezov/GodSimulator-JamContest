@@ -16,7 +16,7 @@ MonoBehaviour:
   _audioSettings: {fileID: 11400000, guid: 58dc9916ed1233b45a30ed78be8b5857, type: 2}
   _UISettings: {fileID: 11400000, guid: 5610eba59854db74a928c893d3b035df, type: 2}
   _gameSettings:
-    _gameTime: 100
+    _gameTime: 20
     _virtueLevels: 4
     _enableFogOfWar: 0
     _citiesNames: "Athens\nThessaloniki\nPatras\nLarissa\nHeraklion\nVolos\nTrikala\nSerres\nAlexandroupoli\nXanthi\nKaterini\nKalamata\nKavala\nKomotini\nRhodes\nVeria\nKarditsa\nSykies\nAno

@@ -19,18 +19,19 @@ namespace Core.Loading
 
         private Tweener _tweener;
 
-        public async Task LoadAndDestroyAsync(Queue<ILoadingOperation> operations)
+        public async Task LoadAndDestroyAsync(Queue<LazyLoadingOperation> operations)
         {
             foreach (var operation in operations)
             {
+                ILoadingOperation value = operation.Value;
+
                 ResetFill();
-                _description.text = operation.Description;
-                await operation.AwaitForLoad(OnProgress);
+                _description.text = value.Description;
+                await value.AwaitForLoad(OnProgress);
                 await Task.Delay(TimeSpan.FromSeconds(1f));
             }
             Destroy(gameObject);
         }
-
         private void OnProgress(float value)
         {
             _tweener?.Kill();

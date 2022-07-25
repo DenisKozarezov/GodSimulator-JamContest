@@ -5,6 +5,7 @@ using Zenject;
 using Core.Loading;
 using Core.Input;
 using Editor;
+using Core.Match;
 
 namespace Core.Models
 {
@@ -77,7 +78,7 @@ namespace Core.Models
             Container.BindInstance(_audioSettings).IfNotBound();
             Container.BindInstance(_UISettings).IfNotBound();
             Container.BindInstance(_gameSettings).IfNotBound();
-            Container.BindInstance(_sacrificeSettings).IfNotBound();
-        }     
+            Container.BindInstance(_sacrificeSettings).IfNotBound();         
+        }
     }
 }

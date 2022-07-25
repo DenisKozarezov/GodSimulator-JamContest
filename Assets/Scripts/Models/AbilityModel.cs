@@ -32,18 +32,14 @@ namespace Core.Models
         [Space, SerializeField, ObjectPicker]
         private string _effectPrefab;
 
-        [Header("Virtue")]
-        [SerializeField]
-        private VirtueModel _virtue;
-        [SerializeField]
-        private byte _virtueCost;        
-   
+        [Space, SerializeField]
+        private VirtuesInfluenceBuilder _virtuesInfluencer;
+
         public AbilityType AbilityType => _abilityType;
         public AbilityUsage AbilityUsage => _abilityUsage;
         public float Cooldown => _cooldown;
         public Sprite Icon => _icon;
         public string EffectPrefab => _effectPrefab;
-        public VirtueModel Virtue => _virtue;
-        public byte VirtueCost => _virtueCost;   
+        public VirtuesInfluenceBuilder VirtuesInfluencer => _virtuesInfluencer;
     }
 }

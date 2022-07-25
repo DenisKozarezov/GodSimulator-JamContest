@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -56,11 +57,15 @@ namespace Core.Match
 
             Cursor.visible = false;
 
-            var operations = new Queue<ILoadingOperation>();
-            operations.Enqueue(new SceneCleanupOperation(this));
-            operations.Enqueue(new GameLoadingOperation());
-            operations.Enqueue(new CreatingBotsOperation());
-            operations.Enqueue(new PressAnyButtonOperation());
+            var operations = new Queue<LazyLoadingOperation>();
+            Func<ILoadingOperation> sceneCleanup = () => new SceneCleanupOperation(this);
+            Func<ILoadingOperation> gameLoad = () => new GameLoadingOperation();
+            Func<ILoadingOperation> creatingBots = () => new CreatingBotsOperation { Count = 3 };
+            Func<ILoadingOperation> pressAnyButton = () => new PressAnyButtonOperation();
+            operations.Enqueue(sceneCleanup);
+            operations.Enqueue(gameLoad);
+            operations.Enqueue(creatingBots);
+            operations.Enqueue(pressAnyButton);
             await _loadingProvider.LoadAndDestroy(operations);
             SceneLoaded?.Invoke(SceneManager.GetActiveScene());
         }
