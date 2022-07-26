@@ -12,7 +12,7 @@ namespace Core
             Disabled = 0x04,
             Ability = 0x08,
         }
-        public enum CursorSize : byte
+        enum CursorSize : byte
         {
             _16x16 = 0x00,
             _32x32 = 0x01,

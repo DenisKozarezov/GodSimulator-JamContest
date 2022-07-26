@@ -101,7 +101,7 @@ namespace Core.UI
             tooltip.Name = ability.DisplayName;
             tooltip.Cooldown = ability.Cooldown;
             tooltip.Description = ability.Description;
-            tooltip.VirtueIcon.sprite = ability.Virtue.Icon;
+            tooltip.VirtueIcon.sprite = ability.Icon;
             tooltip.AbilityType = ability.AbilityType;
             return tooltip.GetComponentInChildren<RectTransform>();
         }

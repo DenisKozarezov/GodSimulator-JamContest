@@ -10,7 +10,8 @@ namespace Core.Cities
         IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField]
-        private SpriteRenderer _spriteRenderer;     
+        private SpriteRenderer _spriteRenderer;  
+        private Material _material;
 
         private SignalBus _signalBus;
         protected SignalBus SignalBus => _signalBus;
@@ -26,14 +27,18 @@ namespace Core.Cities
             _outlineWidth = _UISettings.OutlineWidth;
         }
 
+        protected virtual void Awake()
+        {
+            _material = _spriteRenderer.material;
+        }
         protected abstract void Start();
         private void SetOutlineWidth(float width)
         {
-            _spriteRenderer.material.SetFloat("_OutlineWidth", width);
+            _material.SetFloat("_OutlineWidth", width);
         }
         private void SetColor(Color color)
         {
-            _spriteRenderer.material.SetColor("_Color", color);
+            _material.SetColor("_Color", color);
         }
 
         public abstract void OnPointerClick(PointerEventData eventData);

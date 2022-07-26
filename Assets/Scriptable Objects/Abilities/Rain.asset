@@ -20,5 +20,10 @@ MonoBehaviour:
   _cooldown: 5
   _icon: {fileID: 21300000, guid: fa942d2665c254d4f8ca2dc624ec64d5, type: 3}
   _effectPrefab: 
-  _virtue: {fileID: 11400000, guid: bff83f49cc1482a4ca50d408af96b4b3, type: 2}
-  _virtueCost: 13
+  _virtuesInfluencer:
+    _buffedVirtues:
+    - Virtue: {fileID: 11400000, guid: bff83f49cc1482a4ca50d408af96b4b3, type: 2}
+      Value: 15
+    _debuffedVirtues:
+    - Virtue: {fileID: 11400000, guid: 2e4e2de2f7649e647ac78419a9f521be, type: 2}
+      Value: 9

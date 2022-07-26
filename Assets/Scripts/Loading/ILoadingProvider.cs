@@ -5,6 +5,6 @@ namespace Core.Loading
 {
     public interface ILoadingProvider
     {
-        Task LoadAndDestroy(Queue<ILoadingOperation> operations);
+        Task LoadAndDestroy(Queue<LazyLoadingOperation> operations);
     }
 }

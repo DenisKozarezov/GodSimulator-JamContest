@@ -6,5 +6,6 @@ namespace Core.Cities
     {
         CityScript City { get; }
         bool Interactable { set; get; }
+        void Disable();
     }
 }

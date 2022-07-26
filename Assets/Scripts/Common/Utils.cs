@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Unity.Mathematics;
@@ -49,16 +50,27 @@ namespace Core
             
             return raycastHits[0].point;
         }
+        public static Lazy<IEnumerable<T>> CreateLazyArray<T>(string path) where T : UnityEngine.Object
+        {
+            return new Lazy<IEnumerable<T>>(() => UnityEngine.Resources.LoadAll<T>(path));
+        }
+        public static Lazy<IEnumerable<T>> CreateLazyArray<T>(IEnumerable<T> collection)
+        {
+            return new Lazy<IEnumerable<T>>(() => collection);
+        }
     }
     public static class MathUtils
     {
-        private static Unity.Mathematics.Random _random;
-        public static Unity.Mathematics.Random Random => _random;
-        static MathUtils()
+        public static Unity.Mathematics.Random Random
         {
-            _random = new Unity.Mathematics.Random();
-            _random.InitState(unchecked((uint)DateTime.Now.Ticks));
+            get
+            {
+                var random = new Unity.Mathematics.Random();
+                random.InitState(unchecked((uint)DateTime.Now.Ticks));
+                return random;
+            }
         }
+
         public static float Distance(float2 first, float2 second)
         {
             return math.distance(first, second);

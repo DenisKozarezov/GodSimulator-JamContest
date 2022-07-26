@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace Core.Loading
             GameObject.DontDestroyOnLoad(obj);
             return obj.GetComponentInChildren<LoadingScreen>();
         }
-        public async Task LoadAndDestroy(Queue<ILoadingOperation> operations)
+        public async Task LoadAndDestroy(Queue<LazyLoadingOperation> operations)
         {
             var loadingScreen = await LoadScreen();
 

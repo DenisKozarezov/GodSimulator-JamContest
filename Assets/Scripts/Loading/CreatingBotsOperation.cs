@@ -5,6 +5,7 @@ namespace Core.Loading
 {
     public class CreatingBotsOperation : ILoadingOperation
     {
+        public byte Count;
         public string Description => "Creating bots...";
 
         public async Task AwaitForLoad(Action<float> onLoading)

@@ -5,6 +5,7 @@ using Zenject;
 using Core.Loading;
 using Core.Input;
 using Editor;
+using Core.Match;
 
 namespace Core.Models
 {
@@ -51,7 +52,7 @@ namespace Core.Models
         [Serializable]
         public class SacrificeSettings
         {
-            [SerializeField, MinMaxSlider(0f, 200f)]
+            [SerializeField, MinMaxSlider(0f, 90f)]
             private Vector2Int _appearenceInterval;
             [SerializeField, Min(0f)]
             private float _duration;
@@ -77,7 +78,7 @@ namespace Core.Models
             Container.BindInstance(_audioSettings).IfNotBound();
             Container.BindInstance(_UISettings).IfNotBound();
             Container.BindInstance(_gameSettings).IfNotBound();
-            Container.BindInstance(_sacrificeSettings).IfNotBound();
-        }     
+            Container.BindInstance(_sacrificeSettings).IfNotBound();         
+        }
     }
 }

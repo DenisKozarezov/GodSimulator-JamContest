@@ -18,11 +18,10 @@ namespace Core
         [SerializeField, Min(0f)]
         private float _dissolveDuration;
 
+        private SignalBus _signalBus;
         private float _colliderStartRadius;
         private Material _material;
-
-        private SignalBus _signalBus;
-        private static LinkedList<CityScript> _cities = new LinkedList<CityScript>();
+        private static List<CityScript> _cities = new List<CityScript>();
 
         public IReadOnlyCollection<CityScript> Cities => _cities;
 
@@ -64,11 +63,20 @@ namespace Core
        
         public static void RegisterCity(CityScript city)
         {
-            if (!_cities.Contains(city)) _cities.AddLast(city);
+            if (!_cities.Contains(city)) _cities.Add(city);
         }
         public static void UnregisterCity(CityScript city)
         {
             _cities.Remove(city);
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            CityScript city = collision.GetComponent<CityScript>();
+            if (city != null)
+            {
+                city.DestroyCity();
+            }
         }
     }
 }
