@@ -16,10 +16,6 @@ namespace Core.Match
     public class SceneController : BaseMenuState, ICleanup
     {
         [SerializeField]
-        private AudioListener _listener;
-        [SerializeField]
-        private EventSystem _eventSystem;
-        [SerializeField]
         private RawImage _fade;
 
         private UISettings _settings;
@@ -35,8 +31,14 @@ namespace Core.Match
         }
         void ICleanup.Cleanup()
         {
-            Destroy(_listener);
-            Destroy(_eventSystem.gameObject);
+            foreach (var listener in FindObjectsOfType<AudioListener>())
+            {
+                Destroy(listener.gameObject);
+            }
+            foreach (var system in FindObjectsOfType<EventSystem>())
+            {
+                Destroy(system.gameObject);
+            }
         }
         public void SetInteractable(bool isInteractable)
         {

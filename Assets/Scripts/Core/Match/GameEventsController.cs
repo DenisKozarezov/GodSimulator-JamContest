@@ -7,7 +7,7 @@ using Zenject;
 using Core.Infrastructure;
 using Core.Cities;
 using Core.UI;
-using static Core.Models.GameSettingsInstaller;
+using Core.Models;
 
 namespace Core.Match
 {
@@ -19,8 +19,10 @@ namespace Core.Match
         private GameSettings _gameSettings;
         private ILogger _logger;
 
-        private CancellationTokenSource _gameTimerSource;
-        private CancellationTokenSource _sacrificeSource;
+        private Lazy<SacrificeModel[]> _sacrifices;
+
+        private CancellationTokenSource _gameTimerSource = new CancellationTokenSource();
+        private CancellationTokenSource _sacrificeSource = new CancellationTokenSource();
 
         [Inject]
         private void Construct(
@@ -35,6 +37,10 @@ namespace Core.Match
             _sacrificeSettings = sacrificeSettings;
             _gameSettings = gameSettings;
             _logger = logger;
+        }
+        private void Awake()
+        {
+            _sacrifices = Utils.CreateLazyArray<SacrificeModel>("Scriptable Objects/Sacrifices");
         }
         private void Start()
         {
@@ -55,7 +61,10 @@ namespace Core.Match
 
         private void OnGameStarted()
         {
-            StartCoroutine(SacrificeCoroutine());
+            if (_sacrificeSettings.EnableSacrifices)
+            {
+                StartCoroutine(SacrificeCoroutine());
+            }
         }
         private void OnPlayerCastedAbility(PlayerCastedTargetAbilitySignal signal)
         {
@@ -84,7 +93,6 @@ namespace Core.Match
         {
             try
             {
-                _gameTimerSource = new CancellationTokenSource();
                 await Task.Delay(TimeSpan.FromSeconds(_gameSettings.GameTime), _gameTimerSource.Token);
                 StartApocalypse();
             }
@@ -97,15 +105,21 @@ namespace Core.Match
         }
         private async void OfferSacrificeInCity(CityScript city)
         {
-            var form = (SacrificeForm)SacrificeForm.CreateForm(city);
+            float probability = MathUtils.Random.NextFloat();
+            if (probability > _sacrificeSettings.Probability) return;
+
+            // Get random sacrifice
+            int rand = MathUtils.Random.NextInt(0, _sacrifices.Value.Length - 1);
+            SacrificeModel sacrifice = _sacrifices.Value[rand];
+            
+            var form = (SacrificeForm)SacrificeForm.CreateForm(sacrifice, city);
 
 #if UNITY_EDITOR
             _logger.Log($"<b><color=yellow>Sacrifice Offer</color></b> in <b><color=yellow>{city.name}</color></b>.", LogType.Game);
             form.Elapsed += () => _logger.Log($"Player <b><color=yellow>ignored</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
 
-            // If city is destroyed, abort the sacrifice offer
-            _sacrificeSource = new CancellationTokenSource();
+            // If city was destroyed, abort the sacrifice offer
             city.Destroyed += OnCityDestroyedWhileSarifice;
 
             // Wait for player's decision
@@ -127,8 +141,11 @@ namespace Core.Match
             {
                 float time = MathUtils.Random.NextFloat(_sacrificeSettings.AppearenceInterval.x, _sacrificeSettings.AppearenceInterval.y);
                 yield return new WaitForSecondsRealtime(time);
-                CityScript city = _mapController.Cities.Randomly();
-                OfferSacrificeInCity(city);
+                CityScript city = _mapController.Cities
+                    .SelectMany(city => city.PriestsAmount >= _sacrificeSettings.SacrificeThreshold)
+                    .Randomly();
+                
+                if (city != null) OfferSacrificeInCity(city);
             }
         }
     }

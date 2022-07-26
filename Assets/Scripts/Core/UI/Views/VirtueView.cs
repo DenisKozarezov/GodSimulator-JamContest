@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Mathematics;
 using Zenject;
-using static Core.Models.GameSettingsInstaller;
+using Core.Models;
 
 namespace Core.UI
 {

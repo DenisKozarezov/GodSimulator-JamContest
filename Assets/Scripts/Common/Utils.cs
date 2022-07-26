@@ -50,9 +50,13 @@ namespace Core
             
             return raycastHits[0].point;
         }
-        public static Lazy<IEnumerable<T>> CreateLazyArray<T>(string path) where T : UnityEngine.Object
+        public static Lazy<T[]> CreateLazyArray<T>(string path) where T : UnityEngine.Object
         {
-            return new Lazy<IEnumerable<T>>(() => UnityEngine.Resources.LoadAll<T>(path));
+            return new Lazy<T[]>(() => UnityEngine.Resources.LoadAll<T>(path));
+        }
+        public static Lazy<T[]> CreateLazyArray<T>(T[] array)
+        {
+            return new Lazy<T[]>(() => array);
         }
         public static Lazy<IEnumerable<T>> CreateLazyArray<T>(IEnumerable<T> collection)
         {
