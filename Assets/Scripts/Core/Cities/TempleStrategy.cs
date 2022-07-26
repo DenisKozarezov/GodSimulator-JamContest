@@ -50,6 +50,11 @@ namespace Core.Cities
         {
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
         }
+        void ICityStrategy.Disable()
+        {
+            if (_generatePriests != null) StopCoroutine(_generatePriests);
+        }
+
         private void OnGameStarted()
         {
             _generatePriests = StartCoroutine(GeneratePriests());

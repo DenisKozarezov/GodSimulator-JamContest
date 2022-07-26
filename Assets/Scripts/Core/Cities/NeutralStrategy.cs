@@ -44,6 +44,10 @@ namespace Core.Cities
                 _timer = _faithRate;
             }
         }
+        void ICityStrategy.Disable()
+        {
+          
+        }
 
         public void AddNewGodForFaithfull(Player god)
         {

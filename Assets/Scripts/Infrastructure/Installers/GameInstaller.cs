@@ -1,7 +1,6 @@
 using UnityEngine;
 using Zenject;
 using Core.Cities;
-using Core.Match;
 using Core.Input;
 
 namespace Core.Infrastructure
@@ -29,8 +28,6 @@ namespace Core.Infrastructure
 #endif
 
             Container.Bind<MapController>().FromInstance(_mapController).AsSingle();
-            Container.Bind<GameController>().AsSingle();
-            Container.Bind<GameEventsController>().AsSingle();
             Container.BindInterfacesTo<MovingBetweenCities>().AsSingle();
             Container.Bind<ITickable>().To<StandaloneInput>().AsCached();
         }

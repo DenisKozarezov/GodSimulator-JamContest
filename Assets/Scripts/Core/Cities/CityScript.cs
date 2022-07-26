@@ -54,8 +54,9 @@ namespace Core.Cities
             }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             SignalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             MapController.RegisterCity(this);
         }
@@ -67,6 +68,11 @@ namespace Core.Cities
         private void OnDestroy()
         {
             SignalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+        }
+        private void Disable()
+        {
+            Interactable = false;
+            _currentStrategy?.Disable();
         }
 
         private void OnGameStarted()
@@ -102,8 +108,8 @@ namespace Core.Cities
         {
             if (_destroyed) return;
 
-            Interactable = false;
             _destroyed = true;
+            Disable();
             MapController.UnregisterCity(this);
             Destroyed?.Invoke();
         }

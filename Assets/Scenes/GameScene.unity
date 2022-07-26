@@ -677,8 +677,9 @@ GameObject:
   - component: {fileID: 264517338}
   - component: {fileID: 264517339}
   - component: {fileID: 264517341}
+  - component: {fileID: 264517342}
   m_Layer: 0
-  m_Name: Map Dissolve
+  m_Name: Map Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,7 +692,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264517337}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
@@ -768,6 +769,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 9.12
+--- !u!114 &264517342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264517337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c8b04fdf62d7247a604f65b8921580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 264517339}
+  _circleCollider: {fileID: 264517341}
+  _dissolveDuration: 20
 --- !u!4 &321045629 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6145673674520924020, guid: 906c3c2d4d640b849874a947175e553c, type: 3}
@@ -804,8 +820,6 @@ Transform:
   - {fileID: 1850049593}
   - {fileID: 1904033319}
   - {fileID: 1568987162}
-  - {fileID: 354472620}
-  - {fileID: 1612328801}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -814,53 +828,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
   m_PrefabInstance: {fileID: 22260450}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &354472619
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 354472620}
-  - component: {fileID: 354472621}
-  m_Layer: 2
-  m_Name: Map Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &354472620
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354472619}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 334563913}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &354472621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354472619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c8b04fdf62d7247a604f65b8921580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 264517339}
-  _circleCollider: {fileID: 264517341}
-  _dissolveDuration: 20
 --- !u!4 &355612043 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8727482233820667380, guid: 41b45a6fa6aa5304e9ab2111f2ba58cd, type: 3}
@@ -3573,51 +3540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fb338188740a4429608d02450956ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapController: {fileID: 354472621}
---- !u!1 &1612328800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1612328801}
-  - component: {fileID: 1612328802}
-  m_Layer: 2
-  m_Name: Events Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1612328801
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612328800}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 334563913}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1612328802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1612328800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 728708f0e73cfc74dbd57e8b0557db32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _mapController: {fileID: 264517342}
 --- !u!1001 &1635213810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4477,6 +4400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1904033319}
   - component: {fileID: 1904033320}
+  - component: {fileID: 1904033321}
   m_Layer: 2
   m_Name: Game Controller
   m_TagString: GameController
@@ -4512,6 +4436,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chooseForm: {fileID: 2160261927364497098, guid: 9aabaabb863163646b18fd7d5d5770dc, type: 3}
+--- !u!114 &1904033321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904033318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728708f0e73cfc74dbd57e8b0557db32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1910163698
 PrefabInstance:
   m_ObjectHideFlags: 0
