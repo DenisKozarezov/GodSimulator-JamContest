@@ -36,7 +36,6 @@ namespace Core.UI.Forms
 
         private void Awake()
         {
-            _cancellationTokenSource.Token.Register(Close);
             _okButton.onClick.AddListener(OnAccept);
             _denyButton.onClick.AddListener(OnDenied);
             _rectTransform = GetComponent<RectTransform>();
@@ -83,11 +82,13 @@ namespace Core.UI.Forms
         }
         public async Task<bool> AwaitForConfirm()
         {
+            _cancellationTokenSource.Token.Register(Close);
             return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public async Task<bool> AwaitForConfirm(CancellationToken externalToken)
         {
             _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, externalToken);
+            _cancellationTokenSource.Token.Register(Close);
             return await Task.Run(() => _taskCompletionSource.Task, _cancellationTokenSource.Token);
         }
         public void Close()

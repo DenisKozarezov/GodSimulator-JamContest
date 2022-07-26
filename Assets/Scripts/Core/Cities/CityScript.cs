@@ -25,13 +25,13 @@ namespace Core.Cities
         private ushort _maxCapacityOfPriests;
 
         private bool _interactable = true;
+        private bool _destroyed;
         private ICityStrategy _currentStrategy;
         private ushort _priestsAmount;
         private Player _owner;
 
         public ushort PriestsAmount => _priestsAmount;
         public Player Owner => _owner;
-
         public override bool Interactable
         {
             get => _interactable;
@@ -41,6 +41,7 @@ namespace Core.Cities
                 if (_currentStrategy != null) _currentStrategy.Interactable = value;
             }
         }
+        public event Action Destroyed;
 
         [Inject]
         private void Construct(GameSettings gameSettings)
@@ -96,6 +97,15 @@ namespace Core.Cities
             TempleStrategy temple = gameObject.AddComponent<TempleStrategy>();
             temple.SetVirtue(virtue);
             _currentStrategy = temple;
+        }
+        public void DestroyCity()
+        {
+            if (_destroyed) return;
+
+            Interactable = false;
+            _destroyed = true;
+            MapController.UnregisterCity(this);
+            Destroyed?.Invoke();
         }
 
         public override void OnPointerClick(PointerEventData eventData)

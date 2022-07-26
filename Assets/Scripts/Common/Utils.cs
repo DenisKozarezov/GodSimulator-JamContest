@@ -61,13 +61,16 @@ namespace Core
     }
     public static class MathUtils
     {
-        private static Unity.Mathematics.Random _random;
-        public static Unity.Mathematics.Random Random => _random;
-        static MathUtils()
+        public static Unity.Mathematics.Random Random
         {
-            _random = new Unity.Mathematics.Random();
-            _random.InitState(unchecked((uint)DateTime.Now.Ticks));
+            get
+            {
+                var random = new Unity.Mathematics.Random();
+                random.InitState(unchecked((uint)DateTime.Now.Ticks));
+                return random;
+            }
         }
+
         public static float Distance(float2 first, float2 second)
         {
             return math.distance(first, second);

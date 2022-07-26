@@ -52,7 +52,7 @@ namespace Core.Models
         [Serializable]
         public class SacrificeSettings
         {
-            [SerializeField, MinMaxSlider(0f, 200f)]
+            [SerializeField, MinMaxSlider(0f, 90f)]
             private Vector2Int _appearenceInterval;
             [SerializeField, Min(0f)]
             private float _duration;

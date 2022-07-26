@@ -22,7 +22,7 @@ MonoBehaviour:
     _citiesNames: "Athens\nThessaloniki\nPatras\nLarissa\nHeraklion\nVolos\nTrikala\nSerres\nAlexandroupoli\nXanthi\nKaterini\nKalamata\nKavala\nKomotini\nRhodes\nVeria\nKarditsa\nSykies\nAno
       Liosia\nDrobeta\nPorolissum\nResculum\nTurda\nMehadia\nConstan\u021Ba\nLivias\nJerash\nRaphana\nCapitolias"
   _sacrificeSettings:
-    _appearenceInterval: {x: 45, y: 90}
+    _appearenceInterval: {x: 30, y: 75}
     _duration: 15
     _probability: 0.75
     _enabledSacrifices:
