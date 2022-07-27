@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Core.UI.Forms;
 using Core.Cities;
+using Core.Models;
 using DG.Tweening;
 
 namespace Core.UI
@@ -33,6 +34,10 @@ namespace Core.UI
 
         public event Action Elapsed;
 
+        private void SetModel(SacrificeModel model)
+        {
+            _icon.sprite = model.Icon;
+        }
         private void Awake()
         {
             _okButton.onClick.AddListener(OnAccept);
@@ -62,10 +67,11 @@ namespace Core.UI
 
         void IConfirmAwaiter<bool>.SetDescription(string description) { }
         void IConfirmAwaiter<bool>.SetLabel(string label) { }
-        public static IConfirmAwaiter<bool> CreateForm(CityScript target)
+        public static IConfirmAwaiter<bool> CreateForm(SacrificeModel sacrifice, CityScript target)
         {
             var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
             var form = obj.GetComponentInChildren<SacrificeForm>();
+            form.SetModel(sacrifice);
             form._attachedCity = target;
             return form;
         }

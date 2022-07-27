@@ -4,6 +4,7 @@ Shader "Core/Animated Dotted Line"
     {
         _MainTex("Texture", 2D) = "white" {}
         _Speed("Speed", Range(0, 20)) = 10
+        _Color("Color", Color) = (1,1,1,1)
         [MaterialToggle] PixelSnap("Pixel Snap", Float) = 0
     }
     SubShader
@@ -47,6 +48,7 @@ Shader "Core/Animated Dotted Line"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             half _Speed;
+            float4 _Color;
 
             v2f vert (appdata v)
             {
@@ -64,6 +66,7 @@ Shader "Core/Animated Dotted Line"
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col.rgba *= col.a;
+                col.rgb *= _Color.rgb;
                 return col;
             }
             ENDCG

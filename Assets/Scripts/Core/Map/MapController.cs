@@ -8,6 +8,7 @@ using Core.Cities;
 
 namespace Core
 {
+    [RequireComponent(typeof(Collider2D))]
     public class MapController : MonoBehaviour
     {
         [Header("Dissolve")]
@@ -21,7 +22,7 @@ namespace Core
         private SignalBus _signalBus;
         private float _colliderStartRadius;
         private Material _material;
-        private static List<CityScript> _cities = new List<CityScript>();
+        private static LinkedList<CityScript> _cities = new LinkedList<CityScript>();
 
         public IReadOnlyCollection<CityScript> Cities => _cities;
 
@@ -63,7 +64,7 @@ namespace Core
        
         public static void RegisterCity(CityScript city)
         {
-            if (!_cities.Contains(city)) _cities.Add(city);
+            if (!_cities.Contains(city)) _cities.AddLast(city);
         }
         public static void UnregisterCity(CityScript city)
         {

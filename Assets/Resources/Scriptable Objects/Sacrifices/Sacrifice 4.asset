@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c352843f78f58e24da4508dd58e90d8a, type: 3}
-  m_Name: Love
+  m_Script: {fileID: 11500000, guid: 02cf8745d31e123438f31b6c47c57374, type: 3}
+  m_Name: Sacrifice 4
   m_EditorClassIdentifier: 
-  _id: 0
-  _displayName: Love
+  _id: 3
+  _displayName: Sacrifice 4
   _description: 
-  _icon: {fileID: 21300000, guid: b950b6e519639fa4b8080b123d600fce, type: 3}
-  _virtueActions: []
+  _icon: {fileID: 21300006, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+  _virtuesInfluencer:
+    _buffedVirtues: []
+    _debuffedVirtues: []

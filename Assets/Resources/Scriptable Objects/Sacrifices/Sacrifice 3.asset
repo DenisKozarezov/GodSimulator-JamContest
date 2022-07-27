@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02cf8745d31e123438f31b6c47c57374, type: 3}
-  m_Name: People Sacrifice
+  m_Name: Sacrifice 3
   m_EditorClassIdentifier: 
-  _id: 0
-  _displayName: People Sacrifice
+  _id: 2
+  _displayName: Sacrifice 3
   _description: 
   _icon: {fileID: 21300018, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
   _virtuesInfluencer:

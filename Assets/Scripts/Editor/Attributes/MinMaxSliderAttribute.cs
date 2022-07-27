@@ -38,7 +38,7 @@ namespace Editor
 
             var rangeAttribute = (MinMaxSliderAttribute)attribute;
 
-            EditorGUI.LabelField(position, new GUIContent(property.displayName));
+            EditorGUI.LabelField(position, new GUIContent(property.displayName, property.tooltip));
 
             position.x = EditorGUIUtility.labelWidth + 5f;
             position.height = EditorGUIUtility.singleLineHeight;

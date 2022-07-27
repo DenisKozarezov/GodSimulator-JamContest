@@ -16,16 +16,14 @@ namespace Core.Match
     public class SceneController : BaseMenuState, ICleanup
     {
         [SerializeField]
-        private AudioListener _listener;
-        [SerializeField]
-        private EventSystem _eventSystem;
-        [SerializeField]
         private RawImage _fade;
 
         private UISettings _settings;
         private ILoadingProvider _loadingProvider;
 
         public static event Action<Scene> SceneLoaded;
+
+        public string SceneName => Constants.Scenes.MainMenu;
 
         [Inject]
         private void Construct(UISettings UISettings, ILoadingProvider loadingProvider)
@@ -35,8 +33,14 @@ namespace Core.Match
         }
         void ICleanup.Cleanup()
         {
-            Destroy(_listener);
-            Destroy(_eventSystem.gameObject);
+            foreach (var listener in FindObjectsOfType<AudioListener>())
+            {
+                Destroy(listener.gameObject);
+            }
+            foreach (var system in FindObjectsOfType<EventSystem>())
+            {
+                Destroy(system.gameObject);
+            }
         }
         public void SetInteractable(bool isInteractable)
         {
@@ -59,7 +63,7 @@ namespace Core.Match
 
             var operations = new Queue<LazyLoadingOperation>();
             Func<ILoadingOperation> sceneCleanup = () => new SceneCleanupOperation(this);
-            Func<ILoadingOperation> gameLoad = () => new GameLoadingOperation();
+            Func<ILoadingOperation> gameLoad = () => new GameLoadingOperation(this);
             Func<ILoadingOperation> creatingBots = () => new CreatingBotsOperation { Count = 3 };
             Func<ILoadingOperation> pressAnyButton = () => new PressAnyButtonOperation();
             operations.Enqueue(sceneCleanup);

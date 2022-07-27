@@ -8,7 +8,6 @@ using Core.Infrastructure;
 using Core.Models;
 using Core.UI;
 using DG.Tweening;
-using static Core.Models.GameSettingsInstaller;
 
 namespace Core.Cities
 {
