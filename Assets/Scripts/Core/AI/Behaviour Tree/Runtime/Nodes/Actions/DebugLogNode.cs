@@ -4,11 +4,12 @@ namespace Core.AI.BehaviourTree.Nodes.Actions
 {
     internal class DebugLogNode : ActionNode
     {
-        public string Message;
+        [SerializeField]
+        private string _message;
 
         protected override NodeState OnUpdate()
         {
-            Debug.Log(Message);
+            Debug.Log(_message);
             return NodeState.Success;
         }
     }

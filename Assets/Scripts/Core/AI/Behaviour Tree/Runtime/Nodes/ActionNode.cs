@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core.AI.BehaviourTree.Nodes.Actions
 {
-    internal abstract class ActionNode : Node
+    public abstract class ActionNode : Node
     {
         protected override void OnStart() { }
         protected override void OnStop() { }
@@ -12,5 +12,7 @@ namespace Core.AI.BehaviourTree.Nodes.Actions
         {
             return Enumerable.Empty<Node>();
         }
+        public override void AddChild(Node node) { }
+        public override void RemoveChild(Node node) { }
     }
 }

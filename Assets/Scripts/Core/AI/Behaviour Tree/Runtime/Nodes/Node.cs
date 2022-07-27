@@ -15,11 +15,13 @@ namespace Core.AI.BehaviourTree.Nodes
 
         private bool _started;
         private NodeState _state = NodeState.Running;
-        
-        public string Name;
-        public string Guid;
-        public Vector2 Position;
         public NodeState State => _state;
+
+#if UNITY_EDITOR
+        [HideInInspector] public string Name;
+        [HideInInspector] public string Guid;
+        [HideInInspector] public Vector2 Position;
+#endif
 
         public NodeState Update()
         {
@@ -42,7 +44,12 @@ namespace Core.AI.BehaviourTree.Nodes
         protected abstract void OnStop();
         protected abstract NodeState OnUpdate();
         public abstract IEnumerable<Node> GetChildren();
-
+        public abstract void AddChild(Node node);
+        public abstract void RemoveChild(Node node);
+        public virtual Node Clone()
+        {
+            return Instantiate(this);
+        }
         public bool Equals(Node other)
         {
             if (other == null) return false;

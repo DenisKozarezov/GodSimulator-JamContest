@@ -32,16 +32,20 @@ namespace Core.AI.BehaviourTree.Editor
 
             _behaviourView = root.Q<BehaviourTreeView>();
             _inspectorView = root.Q<InspectorView>();
-
+            _behaviourView.OnNodeSelected += OnNodeSelectionChanged;
             OnSelectionChange();
         }
         private void OnSelectionChange()
         {
             BehaviourTree tree = Selection.activeObject as BehaviourTree;
-            if (tree)
+            if (tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
             {
                 _behaviourView.PopulateView(tree);
             }
+        }
+        private void OnNodeSelectionChanged(NodeView nodeView)
+        {
+            _inspectorView.UpdateSelection(nodeView);
         }
     }
 }

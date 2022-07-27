@@ -10,22 +10,29 @@ using UnityEditor;
 
 namespace Core.AI.BehaviourTree
 {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(menuName = "Configuration/AI/Create Behaviour Tree")]
     public class BehaviourTree : ScriptableObject
     {
-        private Node _rootNode;
         private NodeState _currentState = NodeState.Running;
 
+        [HideInInspector]
+        public Node RootNode;
         [HideInInspector]
         public List<Node> Nodes = new List<Node>();
 
         internal NodeState Update()
         {
-            if (_rootNode.State == NodeState.Running)
+            if (RootNode.State == NodeState.Running)
             {
-                _currentState = _rootNode.Update();
+                _currentState = RootNode.Update();
             }
             return _currentState;
+        }        
+        public BehaviourTree Clone()
+        {
+            BehaviourTree clone = Instantiate(this);
+            clone.RootNode = clone.RootNode.Clone();
+            return clone;
         }
 
 #if UNITY_EDITOR
@@ -45,7 +52,6 @@ namespace Core.AI.BehaviourTree
             node.Name = type.Name;
             node.Guid = GUID.Generate().ToString();
             Nodes.Add(node);
-
             AddNodeToTree(node);
             return node;
         }
@@ -53,6 +59,8 @@ namespace Core.AI.BehaviourTree
         {
             Nodes.Remove(node);
             RemoveNodeFromTree(node);
+            
+            if (node is RootNode) RootNode = null;
         }
 #endif
     }

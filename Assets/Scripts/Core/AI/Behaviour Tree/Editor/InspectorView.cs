@@ -4,10 +4,18 @@ namespace Core.AI.BehaviourTree.Editor
 {
     internal class InspectorView : VisualElement
     {
-        public new class UxmlFactory : UxmlFactory<InspectorView, InspectorView.UxmlTraits> { }
-        public InspectorView()
-        {
+        private UnityEditor.Editor _editor;
 
+        public new class UxmlFactory : UxmlFactory<InspectorView, InspectorView.UxmlTraits> { }
+
+        internal void UpdateSelection(NodeView nodeView)
+        {
+            Clear();
+
+            UnityEngine.Object.DestroyImmediate(_editor);
+            _editor = UnityEditor.Editor.CreateEditor(nodeView.Node);
+            IMGUIContainer container = new IMGUIContainer(() => _editor.OnInspectorGUI());
+            Add(container);
         }
     }
 }

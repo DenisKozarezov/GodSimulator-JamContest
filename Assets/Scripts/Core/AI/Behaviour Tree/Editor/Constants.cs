@@ -4,6 +4,8 @@ namespace Core.AI.BehaviourTree.Editor
     {
         private const string AssemblyPath = "Assets\\Scripts\\Core\\AI\\Behaviour Tree\\Editor\\";
         public const string WindowTitle = "Behaviour Tree Editor";
+        public const string InputPort = "IN";
+        public const string OutputPort = "OUT";
         public static string UXMLPath => string.Concat(AssemblyPath, "BehaviourTreeEditor.uxml");
         public static string USSPath => string.Concat(AssemblyPath, "BehaviourTreeEditor.uss");
     }

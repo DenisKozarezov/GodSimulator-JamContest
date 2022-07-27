@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6430876813233457564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9beef6f539b58b4cb0e13fffa3b33bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: SequencerNode
+  Guid: a7871c08089423841a094c6f84a13378
+  Position: {x: 351, y: -38.399994}
+--- !u!114 &-6352984504554412576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de1e4a946f4cc641b96a47f8d17761e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: WaitNode
+  Guid: c3f4ff38bec255242b39a6ed76d4dc61
+  Position: {x: 625.8, y: -38.399994}
+  _duration: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,9 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1701dc2ae1b706498122f8f075ec665, type: 3}
   m_Name: Behaviour Tree
   m_EditorClassIdentifier: 
+  RootNode: {fileID: 4314634952843648559}
   Nodes:
-  - {fileID: 4853855920562738211}
---- !u!114 &4853855920562738211
+  - {fileID: 4314634952843648559}
+  - {fileID: -6430876813233457564}
+  - {fileID: -6352984504554412576}
+--- !u!114 &4314634952843648559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,8 +57,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8ffad21f5851254a823b7d17cfd3a74, type: 3}
+  m_Script: {fileID: 11500000, guid: 5db9eddf3e3ec8b42ba3e871470c8b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: RepeatNode
-  Guid: 7f27cadd05d3065418b245cac24a925d
+  Name: RootNode
+  Guid: be52a6a5f24ce404ab27709e71f5f294
+  Position: {x: 0, y: 0}

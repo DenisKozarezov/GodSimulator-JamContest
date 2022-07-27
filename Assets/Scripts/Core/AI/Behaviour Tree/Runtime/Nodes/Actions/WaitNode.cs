@@ -4,6 +4,7 @@ namespace Core.AI.BehaviourTree.Nodes.Actions
 {
     internal class WaitNode : ActionNode
     {
+        [SerializeField, Min(0f)]
         private float _duration;
         private float _startTime;
 
