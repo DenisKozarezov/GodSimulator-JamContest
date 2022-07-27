@@ -8,6 +8,7 @@ using Core.Cities;
 
 namespace Core
 {
+    [RequireComponent(typeof(Collider2D))]
     public class MapController : MonoBehaviour
     {
         [Header("Dissolve")]

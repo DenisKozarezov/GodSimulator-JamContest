@@ -2,6 +2,7 @@
 {
     public interface ICleanup
     {
+        string SceneName { get; }
         void Cleanup();
     }
 }

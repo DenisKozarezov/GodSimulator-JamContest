@@ -23,6 +23,8 @@ namespace Core.Match
 
         public static event Action<Scene> SceneLoaded;
 
+        public string SceneName => Constants.Scenes.MainMenu;
+
         [Inject]
         private void Construct(UISettings UISettings, ILoadingProvider loadingProvider)
         {
@@ -61,7 +63,7 @@ namespace Core.Match
 
             var operations = new Queue<LazyLoadingOperation>();
             Func<ILoadingOperation> sceneCleanup = () => new SceneCleanupOperation(this);
-            Func<ILoadingOperation> gameLoad = () => new GameLoadingOperation();
+            Func<ILoadingOperation> gameLoad = () => new GameLoadingOperation(this);
             Func<ILoadingOperation> creatingBots = () => new CreatingBotsOperation { Count = 3 };
             Func<ILoadingOperation> pressAnyButton = () => new PressAnyButtonOperation();
             operations.Enqueue(sceneCleanup);

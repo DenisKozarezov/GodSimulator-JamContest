@@ -6,6 +6,7 @@ namespace Core.UI
     public class AnimatedDottedLine : MonoBehaviour
     {      
         private LineRenderer _renderer;
+        private Material _material;
         private Vector2 _startPosition;
         private Vector2 _endPosition;
 
@@ -27,10 +28,15 @@ namespace Core.UI
                 _renderer.SetPosition(1, value);
             }
         }
+        public Color Color
+        {
+            set => _material.SetColor("_Color", value);
+        }
 
         private void Awake()
         {
             _renderer = GetComponent<LineRenderer>();
+            _material = _renderer.material;
             _renderer.positionCount = 2;
             _renderer.useWorldSpace = true;
         }       

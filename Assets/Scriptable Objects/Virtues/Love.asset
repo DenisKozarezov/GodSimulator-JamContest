@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _displayName: Love
+  _description: 
   _icon: {fileID: 21300000, guid: b950b6e519639fa4b8080b123d600fce, type: 3}
   _virtueActions: []

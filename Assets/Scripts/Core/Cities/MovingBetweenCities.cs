@@ -19,7 +19,7 @@ namespace Core.Cities
         private IEnumerable<CityScript> _cities;
 
         private const string RadiusPrefabPath = "Prefabs/UI/Solid Circle";
-        private const string LinePrefabPath = "Prefabs/Cities/Animated Dotted Line";
+        private const string LinePrefabPath = "Prefabs/UI/Animated Dotted Line";
         private const string IconPrefabPath = "Prefabs/UI/Moving Priests Icon";
         private const string FormPrefab = "Prefabs/UI/Forms/Moving Priests Form";
 

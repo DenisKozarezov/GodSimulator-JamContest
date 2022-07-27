@@ -36,15 +36,15 @@ namespace Core.Models
     [Serializable]
     public class SacrificeSettings
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Enable or disable a sacrifice offering in a match.")]
         private bool _enableSacrifices;
-        [SerializeField, MinMaxSlider(0f, 90f), Tooltip("The time period of sacrifice offering.")]
+        [SerializeField, MinMaxSlider(0f, 90f), Tooltip("The interval of a sacrifice offering appearence in cities.")]
         private Vector2Int _appearenceInterval;
-        [SerializeField, Tooltip("The minimum required number of priests for sacrifice offering.")]
+        [SerializeField, Tooltip("The minimum number of priests required for a sacrifice offering.")]
         private ushort _sacrificeThreshold;
-        [SerializeField, Min(0f), Tooltip("Duration of sacrifice offering.")]
+        [SerializeField, Min(0f), Tooltip("The duration of a sacrifice offering. Players can accept or deny it (otherwise it will be ignored).")]
         private float _duration;
-        [SerializeField, Range(0f, 1f), Tooltip("The probability of sacrifice offering in cities.")]
+        [SerializeField, Range(0f, 1f), Tooltip("The probability of a sacrifice offering in cities.")]
         private float _probability;
         public bool EnableSacrifices => _enableSacrifices;
         public Vector2Int AppearenceInterval => _appearenceInterval;
