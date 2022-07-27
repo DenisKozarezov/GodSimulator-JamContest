@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Assertions;
 using Zenject; 
 using Core.Models;
 using Core.Infrastructure;
@@ -30,6 +31,10 @@ namespace Core.Cities
         protected virtual void Awake()
         {
             _material = _spriteRenderer.material;
+
+#if UNITY_EDITOR
+            Assert.IsNotNull(_spriteRenderer);
+#endif
         }
         protected abstract void Start();
         private void SetOutlineWidth(float width)

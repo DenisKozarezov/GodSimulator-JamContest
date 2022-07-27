@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -13,9 +12,6 @@ namespace Core.Match
         private GameObject _chooseForm;
 
         private SignalBus _signalBus;
-        private LinkedList<Player> _players = new LinkedList<Player>();
-
-        public IReadOnlyCollection<Player> Players => _players;
 
         [Inject]
         private void Construct(SignalBus signalBus) => _signalBus = signalBus;
@@ -44,13 +40,6 @@ namespace Core.Match
             form.Close();
 
             _signalBus.Fire<GameStartedSignal>();
-        }
-        public void AddPlayer(Player newPlayer)
-        {
-            if (!_players.Contains(newPlayer))
-            {
-                _players.AddLast(newPlayer);
-            }
         }
     }
 }
