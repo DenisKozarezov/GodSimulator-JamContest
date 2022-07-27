@@ -24,8 +24,6 @@ namespace Core.Infrastructure
             Container.BindSignal<PlayerClickedOnCitySignal>().ToMethod((x) => Logger.Log($"Player clicked on <b><color=yellow>{x.View}</color></b>.", LogType.Game));
             Container.BindSignal<IPlayerCastedAbility>().ToMethod((x) => Logger.Log($"Player used <b><color=yellow>{x.Ability.DisplayName}</color></b> ability.", LogType.Game));
 #endif
-
-            Container.BindInterfacesAndSelfTo<Player>().AsCached();
         }
     }
 }
