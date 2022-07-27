@@ -1,6 +1,6 @@
 namespace Core.AI.BehaviourTree.Nodes.Decorators
 {
-    public class RepeatNode : DecoratorNode
+    internal class RepeatNode : DecoratorNode
     {
         protected override NodeState OnUpdate()
         {

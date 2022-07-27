@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.AI.BehaviourTree.Nodes
 {
-    public abstract class Node : ScriptableObject
+    public abstract class Node : ScriptableObject, IEquatable<Node>
     {
         public enum NodeState : byte
         {
@@ -14,6 +15,10 @@ namespace Core.AI.BehaviourTree.Nodes
 
         private bool _started;
         private NodeState _state = NodeState.Running;
+        
+        public string Name;
+        public string Guid;
+        public Vector2 Position;
         public NodeState State => _state;
 
         public NodeState Update()
@@ -37,5 +42,11 @@ namespace Core.AI.BehaviourTree.Nodes
         protected abstract void OnStop();
         protected abstract NodeState OnUpdate();
         public abstract IEnumerable<Node> GetChildren();
+
+        public bool Equals(Node other)
+        {
+            if (other == null) return false;
+            return Guid.Equals(other.Guid);
+        }
     }
 }

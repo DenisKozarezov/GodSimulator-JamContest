@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.AI.BehaviourTree.Nodes.Actions
 {
-    public class DebugLogNode : ActionNode
+    internal class DebugLogNode : ActionNode
     {
         public string Message;
 

@@ -2,7 +2,7 @@
 
 namespace Core.AI.BehaviourTree.Nodes.Composites
 {
-    public abstract class CompositeNode : Node
+    internal abstract class CompositeNode : Node
     {
         protected List<Node> Children = new List<Node>();
 

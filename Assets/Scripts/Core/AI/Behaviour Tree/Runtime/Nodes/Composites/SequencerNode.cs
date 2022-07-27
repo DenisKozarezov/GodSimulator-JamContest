@@ -1,6 +1,6 @@
 namespace Core.AI.BehaviourTree.Nodes.Composites
 {
-    public class SequencerNode : CompositeNode
+    internal class SequencerNode : CompositeNode
     {
         private int _currentIndex;
         private bool AllChildrenEnumerated => _currentIndex == Children.Count;

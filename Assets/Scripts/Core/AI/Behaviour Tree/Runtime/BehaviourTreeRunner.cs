@@ -1,9 +1,8 @@
-using Core.AI.BehaviourTree.Nodes;
 using UnityEngine;
 
 namespace Core.AI.BehaviourTree
 {
-    public class BehaviourTreeRunner : MonoBehaviour
+    internal class BehaviourTreeRunner : MonoBehaviour
     {
         private BehaviourTree _tree;
 

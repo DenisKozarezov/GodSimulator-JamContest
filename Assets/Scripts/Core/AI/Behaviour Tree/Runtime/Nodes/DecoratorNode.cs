@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Core.AI.BehaviourTree.Nodes.Decorators
 {
-    public abstract class DecoratorNode : Node
+    internal abstract class DecoratorNode : Node
     {
         protected Node Child;
 
