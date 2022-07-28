@@ -2,20 +2,15 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
 {
     internal class SequencerNode : CompositeNode
     {
-        private int _currentIndex;
-        private bool AllChildrenEnumerated => _currentIndex == Children.Count;
-
-        protected override void OnStart()
-        {
-            _currentIndex = 0;
-        }
         protected override NodeState OnUpdate()
         {
-            Node child = Children[_currentIndex];
-            switch (child.State)
+            Node child = Children[CurrentIndex];
+
+            NodeState state = child.Update();
+            switch (state)
             {
-                case NodeState.Success: _currentIndex++; break;
-                default: return child.State;
+                case NodeState.Success: CurrentIndex++; break;
+                default: return state;
             }
             return AllChildrenEnumerated ? NodeState.Success : NodeState.Running;
         }

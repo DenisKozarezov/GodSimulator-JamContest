@@ -1,6 +1,7 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor;
+using UnityEditor.Callbacks;
 
 namespace Core.AI.BehaviourTree.Editor
 {
@@ -14,6 +15,16 @@ namespace Core.AI.BehaviourTree.Editor
         {
             BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
             wnd.titleContent = new GUIContent(Constants.WindowTitle);
+        }
+        [OnOpenAsset]
+        public static bool OnOpenAsset(int instanceID, int line)
+        {
+            if (Selection.activeObject is BehaviourTree)
+            {
+                OpenWindow();
+                return true;
+            }
+            return false;
         }
 
         private void CreateGUI()
@@ -37,6 +48,17 @@ namespace Core.AI.BehaviourTree.Editor
         }
         private void OnSelectionChange()
         {
+            // Runtime Game Objects clicking
+            if (EditorApplication.isPlaying && Selection.activeGameObject)
+            {
+                BehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>();
+                if (runner)
+                {
+                    _behaviourView.PopulateView(runner.BehaviourTree);
+                }
+            }
+
+            // Editor Scriptable Objects clicking
             BehaviourTree tree = Selection.activeObject as BehaviourTree;
             if (tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
             {

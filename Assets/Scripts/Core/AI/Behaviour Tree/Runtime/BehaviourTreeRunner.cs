@@ -2,19 +2,23 @@ using UnityEngine;
 
 namespace Core.AI.BehaviourTree
 {
-    internal class BehaviourTreeRunner : MonoBehaviour
+    public class BehaviourTreeRunner : MonoBehaviour
     {
-        private BehaviourTree _tree;
+        [SerializeField]
+        private BehaviourTree _behaviourTree;
+        public BehaviourTree BehaviourTree => _behaviourTree;
 
+        private void Awake()
+        {
+            _behaviourTree = _behaviourTree.Clone();           
+        }
         private void Start()
         {
-            _tree = ScriptableObject.CreateInstance<BehaviourTree>();
-
-           
+            _behaviourTree.Simulate();
         }
         private void Update()
         {
-            _tree.Update();
+            _behaviourTree.Update();
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Core.AI.BehaviourTree.Nodes
 {
+    [Serializable]
     public abstract class Node : ScriptableObject, IEquatable<Node>
     {
         public enum NodeState : byte
@@ -18,9 +19,9 @@ namespace Core.AI.BehaviourTree.Nodes
         public NodeState State => _state;
 
 #if UNITY_EDITOR
-        [HideInInspector] public string Name;
-        [HideInInspector] public string Guid;
-        [HideInInspector] public Vector2 Position;
+        [SerializeField, HideInInspector] public string Name;
+        [SerializeField, HideInInspector] public string Guid;
+        [SerializeField, HideInInspector] public Vector2 Position;
 #endif
 
         public NodeState Update()
@@ -43,9 +44,6 @@ namespace Core.AI.BehaviourTree.Nodes
         protected abstract void OnStart();
         protected abstract void OnStop();
         protected abstract NodeState OnUpdate();
-        public abstract IEnumerable<Node> GetChildren();
-        public abstract void AddChild(Node node);
-        public abstract void RemoveChild(Node node);
         public virtual Node Clone()
         {
             return Instantiate(this);
@@ -55,5 +53,11 @@ namespace Core.AI.BehaviourTree.Nodes
             if (other == null) return false;
             return Guid.Equals(other.Guid);
         }
+
+#if UNITY_EDITOR
+        public abstract IEnumerable<Node> GetChildren();
+        public abstract void AddChild(Node node);
+        public abstract void RemoveChild(Node node);
+#endif
     }
 }

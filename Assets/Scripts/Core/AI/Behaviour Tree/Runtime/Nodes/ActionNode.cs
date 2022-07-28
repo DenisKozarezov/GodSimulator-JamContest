@@ -8,11 +8,14 @@ namespace Core.AI.BehaviourTree.Nodes.Actions
         protected override void OnStart() { }
         protected override void OnStop() { }
         protected override abstract NodeState OnUpdate();
-        public override IEnumerable<Node> GetChildren()
+
+#if UNITY_EDITOR
+        public sealed override IEnumerable<Node> GetChildren()
         {
             return Enumerable.Empty<Node>();
         }
-        public override void AddChild(Node node) { }
-        public override void RemoveChild(Node node) { }
+        public sealed override void AddChild(Node node) { }
+        public sealed override void RemoveChild(Node node) { }
+#endif
     }
 }

@@ -7,7 +7,7 @@ namespace Core.AI.BehaviourTree.Nodes
         protected override NodeState OnUpdate()
         {
             if (Child == null) 
-                return NodeState.Running;
+                return NodeState.Success;
             else 
                 return Child.Update();
         }

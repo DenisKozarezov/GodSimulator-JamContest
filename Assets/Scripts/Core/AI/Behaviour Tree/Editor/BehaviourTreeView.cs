@@ -25,6 +25,13 @@ namespace Core.AI.BehaviourTree.Editor
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(Constants.USSPath);
             styleSheets.Add(styleSheet);
+
+            Undo.undoRedoPerformed += OnUndoRedo;
+        }
+        private void OnUndoRedo()
+        {
+            PopulateView(_tree);
+            AssetDatabase.SaveAssets();
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
@@ -44,6 +51,8 @@ namespace Core.AI.BehaviourTree.Editor
         }
         internal void PopulateView(BehaviourTree tree)
         {
+            if (tree == null) return;
+
             _tree = tree;
             graphViewChanged -= OnGraphViewChanged;
             DeleteElements(graphElements);
@@ -55,11 +64,18 @@ namespace Core.AI.BehaviourTree.Editor
                 SaveTree(_tree);
             }
 
-            // Create Node Views
-            tree.Nodes.ForEach(node => CreateNodeView(node));
+            try
+            {
+                // Create Node Views
+                tree.Nodes.ForEach(node => CreateNodeView(node));
 
-            // Create Node Edges
-            tree.Nodes.ForEach(node => CreateNodeEdge(node));
+                // Create Node Edges
+                tree.Nodes.ForEach(node => CreateNodeEdge(node));
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogException(e);
+            }
         }
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
         {
@@ -117,7 +133,7 @@ namespace Core.AI.BehaviourTree.Editor
         {
             if (node == null) return;
 
-            NodeView nodeView = new NodeView(node);
+            NodeView nodeView = new NodeView(node, _tree.TreeOrientation);
             nodeView.OnNodeSelected += OnNodeSelected;
             AddElement(nodeView);
         }

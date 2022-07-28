@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6430876813233457564
+--- !u!114 &-4887500104804774049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,9 +13,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: SequencerNode
-  Guid: a7871c08089423841a094c6f84a13378
-  Position: {x: 351, y: -38.399994}
---- !u!114 &-6352984504554412576
+  Guid: cc1451d39ba0fe2448ca31c31e728473
+  Position: {x: 254, y: 0}
+  Children:
+  - {fileID: 2335117225169747804}
+  - {fileID: 3294175085456351703}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1701dc2ae1b706498122f8f075ec665, type: 3}
+  m_Name: New Behaviour Tree
+  m_EditorClassIdentifier: 
+  RootNode: {fileID: 5600117611440180215}
+  Nodes:
+  - {fileID: 5600117611440180215}
+  - {fileID: -4887500104804774049}
+  - {fileID: 2335117225169747804}
+  - {fileID: 3294175085456351703}
+  _treeOrientation: 0
+--- !u!114 &2335117225169747804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28,10 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: WaitNode
-  Guid: c3f4ff38bec255242b39a6ed76d4dc61
-  Position: {x: 625.8, y: -38.399994}
-  _duration: 0
---- !u!114 &11400000
+  Guid: b4be62aa6f3b4ca408ccedb0e886d0c7
+  Position: {x: 484, y: -127}
+  _duration: 1
+--- !u!114 &3294175085456351703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,15 +62,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1701dc2ae1b706498122f8f075ec665, type: 3}
-  m_Name: Behaviour Tree
+  m_Script: {fileID: 11500000, guid: da85797ba19fc57499ced20ca0a67095, type: 3}
+  m_Name: 
   m_EditorClassIdentifier: 
-  RootNode: {fileID: 4314634952843648559}
-  Nodes:
-  - {fileID: 4314634952843648559}
-  - {fileID: -6430876813233457564}
-  - {fileID: -6352984504554412576}
---- !u!114 &4314634952843648559
+  Name: DebugLogNode
+  Guid: 5e6c894c416210d43911449fe95dd85c
+  Position: {x: 484, y: 76.79999}
+  _message: 
+--- !u!114 &5600117611440180215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,5 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: RootNode
-  Guid: be52a6a5f24ce404ab27709e71f5f294
+  Guid: 3763ec2c9f2f37741a881c85ae83000e
   Position: {x: 0, y: 0}
+  Child: {fileID: -4887500104804774049}
