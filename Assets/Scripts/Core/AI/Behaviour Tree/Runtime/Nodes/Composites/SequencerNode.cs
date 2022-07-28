@@ -4,8 +4,9 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
     {
         protected override NodeState OnUpdate()
         {
-            Node child = Children[CurrentIndex];
+            if (Children.Count == 0) return NodeState.Failure;
 
+            Node child = Children[CurrentIndex];
             NodeState state = child.Update();
             switch (state)
             {

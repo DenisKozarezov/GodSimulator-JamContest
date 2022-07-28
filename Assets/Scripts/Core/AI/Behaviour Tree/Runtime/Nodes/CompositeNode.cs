@@ -46,6 +46,10 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
             Children.Remove(node);
             UnityEditor.EditorUtility.SetDirty(this);
         }
+        public void SortChildren(System.Comparison<Node> comparer)
+        {
+            Children?.Sort(comparer);
+        }
 #endif
     }
 }

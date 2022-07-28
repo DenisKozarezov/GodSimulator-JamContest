@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7086258321848333135
+--- !u!114 &-8031727069803836985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da85797ba19fc57499ced20ca0a67095, type: 3}
+  m_Script: {fileID: 11500000, guid: 38459aa2220990948850c68872adddec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Guid: d55e4f70a97481048bbbf5df4677d616
-  Name: Debug Log
-  Position: {x: 618.4, y: 93.52963}
-  _message: Thread 2
+  Guid: c8a6d4333e6c9d647975d889d5554427
+  Name: Random Selector
+  Position: {x: 0, y: 0}
+  Children: []
 --- !u!114 &-7036099159143566520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,7 +31,23 @@ MonoBehaviour:
   Guid: a558f47bcb5dc2b4a8f35d1c8bb626e1
   Name: Repeat
   Position: {x: 140, y: 0}
-  Child: {fileID: 681690735083715919}
+  Child: {fileID: -3402919163140702966}
+--- !u!114 &-4993814223353533685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da85797ba19fc57499ced20ca0a67095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Guid: ac46bf418b6505c41877887131e57e2a
+  Name: Debug Log
+  Position: {x: 590.4, y: 171.2}
+  _message: Thread 2
 --- !u!114 &-3402919163140702966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,7 +63,10 @@ MonoBehaviour:
   Guid: 2f92492d0c58e154db1f8a0a86406986
   Name: Parallel For
   Position: {x: 354.12, y: 0}
-  Children: []
+  Children:
+  - {fileID: 3744729257762749974}
+  - {fileID: 5251485675494368666}
+  - {fileID: -4993814223353533685}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,28 +84,13 @@ MonoBehaviour:
   - {fileID: 4918371416905022796}
   - {fileID: -7036099159143566520}
   - {fileID: -3402919163140702966}
-  - {fileID: 5074072519911920448}
-  - {fileID: -7086258321848333135}
   - {fileID: 681690735083715919}
-  - {fileID: 155356428861422978}
+  - {fileID: 3744729257762749974}
+  - {fileID: 5251485675494368666}
+  - {fileID: -4993814223353533685}
+  - {fileID: -8031727069803836985}
   _treeOrientation: 0
   _enableRuntimeEdit: 0
---- !u!114 &155356428861422978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de1e4a946f4cc641b96a47f8d17761e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Guid: 9a093a49b488b864db72aff975071d13
-  Name: Wait For Seconds
-  Position: {x: 0, y: 0}
-  _duration: 0
 --- !u!114 &681690735083715919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,10 +105,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: f661eb20bd9dcd7489dc592c47e53532
   Name: Sequencer
-  Position: {x: 354.40005, y: 111.55002}
-  Children:
-  - {fileID: 5074072519911920448}
-  - {fileID: -7086258321848333135}
+  Position: {x: 354.4, y: 153.20001}
+  Children: []
+--- !u!114 &3744729257762749974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da85797ba19fc57499ced20ca0a67095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Guid: c4e64cf5b4a64c148947db1f3c8edf66
+  Name: Debug Log
+  Position: {x: 590.4, y: -76.80003}
+  _message: Thread 1
 --- !u!114 &4918371416905022796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +139,7 @@ MonoBehaviour:
   Name: Root
   Position: {x: 0, y: 0}
   Child: {fileID: -7036099159143566520}
---- !u!114 &5074072519911920448
+--- !u!114 &5251485675494368666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +148,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da85797ba19fc57499ced20ca0a67095, type: 3}
+  m_Script: {fileID: 11500000, guid: 2de1e4a946f4cc641b96a47f8d17761e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Guid: 8b9694e63042fd644ac2dbb119df6c0b
-  Name: Debug Log
-  Position: {x: 618.59326, y: -76.80002}
-  _message: Thread 1
+  Guid: 548e2abab7c420b48909837a3690e990
+  Name: Wait For Seconds
+  Position: {x: 590.4, y: 38.399994}
+  _duration: 5

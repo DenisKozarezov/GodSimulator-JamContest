@@ -70,6 +70,12 @@ namespace Core.AI.BehaviourTree.Editor
             {
                 OnEdgesToCreate(ref graphViewChange);
             }
+
+            if (graphViewChange.movedElements != null)
+            {
+                OnElementsMoved(ref graphViewChange);
+            }
+
             return graphViewChange;
         }
         private void OnElementsToRemove(ref GraphViewChange graphViewChange)
@@ -91,7 +97,7 @@ namespace Core.AI.BehaviourTree.Editor
                 }
             });
         }
-        private GraphViewChange OnEdgesToCreate(ref GraphViewChange graphViewChange)
+        private void OnEdgesToCreate(ref GraphViewChange graphViewChange)
         {
             graphViewChange.edgesToCreate.ForEach(edge =>
             {
@@ -99,7 +105,14 @@ namespace Core.AI.BehaviourTree.Editor
                 NodeView childView = edge.input.node as NodeView;
                 parentView.Node.AddChild(childView.Node);
             });
-            return graphViewChange;
+        }
+        private void OnElementsMoved(ref GraphViewChange graphViewChange)
+        {
+            graphViewChange.movedElements.ForEach(node =>
+            {
+                NodeView view = node as NodeView;
+                view.SortChildren();
+            });
         }
 
         private NodeView FindNodeView(Node node)

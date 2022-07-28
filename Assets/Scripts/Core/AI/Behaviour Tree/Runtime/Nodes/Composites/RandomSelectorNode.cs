@@ -4,11 +4,15 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
 {
     internal class RandomSelectorNode : CompositeNode
     {
+        private Unity.Mathematics.Random _random;
+        protected override void OnStart()
+        {
+            _random = new Unity.Mathematics.Random();
+            _random.InitState(unchecked((uint)DateTime.Now.Ticks));
+        }
         protected override NodeState OnUpdate()
         {
-            var random = new Unity.Mathematics.Random();
-            random.InitState(unchecked((uint)DateTime.Now.Ticks));
-            int rand = random.NextInt(0, Children.Count - 1);
+            int rand = _random.NextInt(0, Children.Count);
             return Children[rand].Update();
         }
     }

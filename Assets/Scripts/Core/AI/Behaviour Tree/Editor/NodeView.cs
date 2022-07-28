@@ -74,5 +74,24 @@ namespace Core.AI.BehaviourTree.Editor
             base.OnSelected();
             OnNodeSelected?.Invoke(this);
         }
+        internal void SortChildren()
+        {
+            if (Node as CompositeNode is var node)
+            {
+                node?.SortChildren(
+                    _orientation == Orientation.Horizontal 
+                    ? SortByVerticalPosition 
+                    : SortByHorizontalPosition);
+            }
+        }
+
+        private int SortByHorizontalPosition(Node left, Node right)
+        {
+            return left.Position.x < right.Position.x ? -1 : 1;
+        }
+        private int SortByVerticalPosition(Node left, Node right)
+        {
+            return left.Position.y < right.Position.y ? -1 : 1;
+        }
     }
 }

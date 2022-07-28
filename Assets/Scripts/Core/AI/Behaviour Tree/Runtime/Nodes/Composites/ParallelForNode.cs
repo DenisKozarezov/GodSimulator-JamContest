@@ -6,9 +6,7 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
         {
             for (int i = 0; i < Children.Count; i++)
             {
-                Node child = Children[i];
-
-                NodeState state = child.Update();
+                NodeState state = Children[i].Update();
                 if (state == NodeState.Failure) return NodeState.Failure;
                 CurrentIndex = i;
             }

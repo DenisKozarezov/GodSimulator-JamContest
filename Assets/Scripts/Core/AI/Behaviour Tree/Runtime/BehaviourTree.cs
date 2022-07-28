@@ -94,12 +94,12 @@ namespace Core.AI.BehaviourTree
             }
             return name;
         }
-        private void AddNodeToTree(Node node)
+        private void AddObjectToAsset(Node node)
         {
             AssetDatabase.AddObjectToAsset(node, this);
             AssetDatabase.SaveAssets();
         }
-        private void RemoveNodeFromTree(Node node)
+        private void RemoveObjectFromAsset(Node node)
         {
             Undo.DestroyObjectImmediate(node);
             AssetDatabase.SaveAssets();
@@ -114,14 +114,14 @@ namespace Core.AI.BehaviourTree
             Nodes.Add(node);
             Undo.RegisterCreatedObjectUndo(node, "Create Node (Behaviour Tree)");
             
-            AddNodeToTree(node);
+            AddObjectToAsset(node);
             return node;
         }
         public void RemoveNode(Node node)
         {
             Undo.RecordObject(this, "Remove Node (Behaviour Tree)");
             Nodes.Remove(node);
-            RemoveNodeFromTree(node);
+            RemoveObjectFromAsset(node);
             
             if (node is RootNode) RootNode = null;
         }
