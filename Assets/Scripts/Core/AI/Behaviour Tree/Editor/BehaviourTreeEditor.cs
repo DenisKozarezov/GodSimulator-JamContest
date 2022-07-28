@@ -26,6 +26,21 @@ namespace Core.AI.BehaviourTree.Editor
             }
             return false;
         }
+        private void OnEnable()
+        {
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+        private void OnDisable()
+        {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.EnteredEditMode || state == PlayModeStateChange.EnteredPlayMode)
+            {
+                OnSelectionChange();
+            }
+        }
 
         private void CreateGUI()
         {
@@ -51,8 +66,8 @@ namespace Core.AI.BehaviourTree.Editor
             // Runtime Game Objects clicking
             if (EditorApplication.isPlaying && Selection.activeGameObject)
             {
-                BehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>();
-                if (runner)
+                IBehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<IBehaviourTreeRunner>();
+                if (runner != null)
                 {
                     _behaviourView.PopulateView(runner.BehaviourTree);
                 }

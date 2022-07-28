@@ -4,7 +4,7 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
     {
         protected override NodeState OnUpdate()
         {
-            for (var i = CurrentIndex; i < Children.Count; i++)
+            for (int i = CurrentIndex; i < Children.Count; i++)
             {
                 Node child = Children[CurrentIndex];
 

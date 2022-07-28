@@ -1,12 +1,15 @@
+using Core.AI.BehaviourTree;
+
 namespace Core.AI
 {
-    public class BotComponent
+    public class BotComponent : AIBehaviourAgent
     {
-        private AIBehaviourAgent _agent;
+        private BehaviourPattern _behaviourPattern;
+        public BehaviourPattern BehaviourPattern => _behaviourPattern;
 
         public BotComponent()
         {
-            _agent = new AIBehaviourAgent();
+            
         }
     }
 }

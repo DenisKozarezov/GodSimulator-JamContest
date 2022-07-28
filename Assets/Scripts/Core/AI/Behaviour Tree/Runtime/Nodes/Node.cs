@@ -17,14 +17,10 @@ namespace Core.AI.BehaviourTree.Nodes
         private bool _started;
         private NodeState _state = NodeState.Running;
         public NodeState State => _state;
-
-#if UNITY_EDITOR
-        [SerializeField, HideInInspector] public string Name;
+        internal AIBehaviourAgent Agent;
         [SerializeField, HideInInspector] public string Guid;
-        [SerializeField, HideInInspector] public Vector2 Position;
-#endif
 
-        public NodeState Update()
+        internal NodeState Update()
         {
             if (!_started)
             {
@@ -55,6 +51,8 @@ namespace Core.AI.BehaviourTree.Nodes
         }
 
 #if UNITY_EDITOR
+        [SerializeField, HideInInspector] public string Name;
+        [SerializeField, HideInInspector] public Vector2 Position;
         public abstract IEnumerable<Node> GetChildren();
         public abstract void AddChild(Node node);
         public abstract void RemoveChild(Node node);

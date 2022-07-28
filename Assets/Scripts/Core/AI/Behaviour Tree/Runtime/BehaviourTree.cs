@@ -24,7 +24,18 @@ namespace Core.AI.BehaviourTree
         [SerializeField, HideInInspector]
         public List<Node> Nodes = new List<Node>();
 
-        internal NodeState Update()
+        private void Traverse(Node node, Action<Node> action)
+        {
+            if (node != null)
+            {
+                action?.Invoke(node);
+                foreach (Node child in node.GetChildren())
+                {
+                    Traverse(child, action);
+                }
+            }
+        }
+        public NodeState Update()
         {
             if (!_simulate) return NodeState.Success;
 
@@ -42,10 +53,19 @@ namespace Core.AI.BehaviourTree
         {
             _simulate = false;
         }
+        public void BindAgent(AIBehaviourAgent agent)
+        {
+            Traverse(RootNode, (node) => node.Agent = agent);
+        }
         public BehaviourTree Clone()
         {
             BehaviourTree clone = Instantiate(this);
             clone.RootNode = clone.RootNode.Clone();
+            clone.Nodes = new List<Node>();
+            Traverse(clone.RootNode, (node) =>
+            {
+                clone.Nodes.Add(node);
+            });
             return clone;
         }
 
@@ -53,8 +73,27 @@ namespace Core.AI.BehaviourTree
         [Header("Tree Settings")]
         [SerializeField]
         private Orientation _treeOrientation;
+        [SerializeField]
+        private bool _enableRuntimeEdit;
         public Orientation TreeOrientation => _treeOrientation;
+        public bool EnableRuntimeEdit => _enableRuntimeEdit;
 
+        public static string ParseTypeToName(Type type)
+        {
+            string name = type.Name.Substring(0, type.Name.IndexOf("Node"));
+            int length = name.Length;
+            int i = 0;
+            while (i < length - 1)
+            {
+                if (char.IsUpper(name[i + 1]))
+                {
+                    name = name.Insert(i + 1, " ");
+                    i++;
+                }
+                i++;
+            }
+            return name;
+        }
         private void AddNodeToTree(Node node)
         {
             AssetDatabase.AddObjectToAsset(node, this);
@@ -68,7 +107,7 @@ namespace Core.AI.BehaviourTree
         public Node CreateNode(Type type)
         {
             Node node = ScriptableObject.CreateInstance(type) as Node;
-            node.Name = type.Name;
+            node.Name = ParseTypeToName(type);
             node.Guid = GUID.Generate().ToString();
 
             Undo.RecordObject(this, "Create Node (Behaviour Tree)");
@@ -78,7 +117,7 @@ namespace Core.AI.BehaviourTree
             AddNodeToTree(node);
             return node;
         }
-        public void DeleteNode(Node node)
+        public void RemoveNode(Node node)
         {
             Undo.RecordObject(this, "Remove Node (Behaviour Tree)");
             Nodes.Remove(node);

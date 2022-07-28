@@ -4,7 +4,11 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
+using Core.AI.BehaviourTree.Nodes.Actions;
+using Core.AI.BehaviourTree.Nodes.Composites;
+using Core.AI.BehaviourTree.Nodes.Decorators;
 using Node = Core.AI.BehaviourTree.Nodes.Node;
+using Core.AI.BehaviourTree.Nodes.Conditions;
 
 namespace Core.AI.BehaviourTree.Editor
 {
@@ -36,11 +40,10 @@ namespace Core.AI.BehaviourTree.Editor
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            var types = TypeCache.GetTypesDerivedFrom<Node>();
-            foreach (var type in types)
-            {
-                evt.menu.AppendAction($"[{type.BaseType.Name}] {type.Name}", (action) => CreateNode(type));
-            }
+            BuildNodesCategory<ActionNode>(evt.menu, "Actions");
+            BuildNodesCategory<ConditionNode>(evt.menu, "Conditions");
+            BuildNodesCategory<CompositeNode>(evt.menu, "Composites");
+            BuildNodesCategory<DecoratorNode>(evt.menu, "Decorators");
         }
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
@@ -49,32 +52,11 @@ namespace Core.AI.BehaviourTree.Editor
                 endPort.node != startPort.node
             ).ToList();
         }
-        internal void PopulateView(BehaviourTree tree)
+        private void BuildNodesCategory<T>(DropdownMenu menu ,string categoryName) where T : Node
         {
-            if (tree == null) return;
-
-            _tree = tree;
-            graphViewChanged -= OnGraphViewChanged;
-            DeleteElements(graphElements);
-            graphViewChanged += OnGraphViewChanged;
-
-            if (_tree.RootNode == null)
+            foreach (var type in TypeCache.GetTypesDerivedFrom<T>())
             {
-                _tree.RootNode = _tree.CreateNode(typeof(Nodes.RootNode));
-                SaveTree(_tree);
-            }
-
-            try
-            {
-                // Create Node Views
-                tree.Nodes.ForEach(node => CreateNodeView(node));
-
-                // Create Node Edges
-                tree.Nodes.ForEach(node => CreateNodeEdge(node));
-            }
-            catch (Exception e)
-            {
-                UnityEngine.Debug.LogException(e);
+                menu.AppendAction($"[{categoryName}]/{BehaviourTree.ParseTypeToName(type)}", (action) => CreateNode(type));
             }
         }
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
@@ -97,7 +79,7 @@ namespace Core.AI.BehaviourTree.Editor
                 NodeView view = element as NodeView;
                 if (view != null)
                 {
-                    _tree.DeleteNode(view.Node);
+                    _tree.RemoveNode(view.Node);
                 }
 
                 Edge edge = element as Edge;
@@ -154,6 +136,34 @@ namespace Core.AI.BehaviourTree.Editor
         {
             EditorUtility.SetDirty(tree);
             AssetDatabase.SaveAssets();
+        }
+        internal void PopulateView(BehaviourTree tree)
+        {
+            if (tree == null) return;
+
+            _tree = tree;
+            graphViewChanged -= OnGraphViewChanged;
+            DeleteElements(graphElements);
+            graphViewChanged += OnGraphViewChanged;
+
+            if (_tree.RootNode == null)
+            {
+                _tree.RootNode = _tree.CreateNode(typeof(Nodes.RootNode));
+                SaveTree(_tree);
+            }
+
+            try
+            {
+                // Create Node Views
+                tree.Nodes.ForEach(node => CreateNodeView(node));
+
+                // Create Node Edges
+                tree.Nodes.ForEach(node => CreateNodeEdge(node));
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogException(e);
+            }
         }
     }
 }

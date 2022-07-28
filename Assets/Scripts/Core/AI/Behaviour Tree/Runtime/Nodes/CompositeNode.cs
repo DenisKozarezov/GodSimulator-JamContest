@@ -20,7 +20,7 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
         public override Node Clone()
         {
             CompositeNode clone = Instantiate(this);
-            clone.Children = this.Children.ConvertAll(c => c.Clone());
+            clone.Children = Children.ConvertAll(c => c.Clone());
             return clone;
         }
 
