@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Mathematics;
 
-namespace Core.Cities
+namespace Core.UI
 {
     public class PranaUIView : MonoBehaviour
     {
