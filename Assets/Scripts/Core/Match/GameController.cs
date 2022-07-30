@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -56,13 +55,6 @@ namespace Core.Match
             await Task.Delay(TimeSpan.FromSeconds(1f));
 
             _signalBus.Fire<GameStartedSignal>();
-        }
-        public void AddPlayer(Player newPlayer)
-        {
-            if (!_players.Contains(newPlayer))
-            {
-                _players.AddLast(newPlayer);
-            }
         }
     }
 }
