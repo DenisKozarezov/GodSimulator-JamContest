@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Unity.Mathematics;
 using Zenject;
 using DG.Tweening;
@@ -32,6 +33,11 @@ namespace Core
         private void Awake()
         {
             _signalBus.Subscribe<GameApocalypseSignal>(OnGameApocalypse);
+
+#if UNITY_EDITOR
+            Assert.IsNotNull(_spriteRenderer);
+            Assert.IsNotNull(_circleCollider);
+#endif
         }
         private void Start()
         {

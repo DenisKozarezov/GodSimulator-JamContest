@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Assertions;
 using Unity.Mathematics;
 using TMPro;
 using Zenject;
@@ -59,6 +60,12 @@ namespace Core.Cities
         {
             base.Awake();
             MapController.RegisterCity(this);
+
+#if UNITY_EDITOR
+            Assert.IsNotNull(_name);
+            Assert.IsNotNull(_priestsCount);
+            Assert.IsNotNull(_pranaView);
+#endif
         }
         protected override void Start()
         {
