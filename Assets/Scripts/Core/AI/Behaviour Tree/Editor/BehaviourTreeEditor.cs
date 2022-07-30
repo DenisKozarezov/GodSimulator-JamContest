@@ -34,14 +34,6 @@ namespace Core.AI.BehaviourTree.Editor
         {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
-        private void OnPlayModeStateChanged(PlayModeStateChange state)
-        {
-            if (state == PlayModeStateChange.EnteredEditMode || state == PlayModeStateChange.EnteredPlayMode)
-            {
-                OnSelectionChange();
-            }
-        }
-
         private void CreateGUI()
         {
             // Each editor window contains a root VisualElement object
@@ -57,32 +49,54 @@ namespace Core.AI.BehaviourTree.Editor
             root.styleSheets.Add(styleSheet);
 
             _behaviourView = root.Q<BehaviourTreeView>();
-            _inspectorView = root.Q<InspectorView>();
+            _inspectorView = root.Q<InspectorView>();         
             _behaviourView.OnNodeSelected += OnNodeSelectionChanged;
             OnSelectionChange();
         }
         private void OnSelectionChange()
         {
+            BehaviourTree tree = null;
+
             // Runtime Game Objects clicking
             if (EditorApplication.isPlaying && Selection.activeGameObject)
             {
                 IBehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<IBehaviourTreeRunner>();
-                if (runner != null)
-                {
-                    _behaviourView.PopulateView(runner.BehaviourTree);
-                }
+                if (runner != null) tree = runner.BehaviourTree;
             }
 
             // Editor Scriptable Objects clicking
-            BehaviourTree tree = Selection.activeObject as BehaviourTree;
-            if (tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
+            BehaviourTree SO = Selection.activeObject as BehaviourTree;
+            if (SO && AssetDatabase.CanOpenAssetInEditor(SO.GetInstanceID()))
             {
-                _behaviourView.PopulateView(tree);
+                tree = SO;
+            }
+
+            // Open tree in editor. Disable it in runtime if needed
+            if (tree)
+            {
+                _behaviourView?.PopulateView(tree);
+                if (EditorApplication.isPlaying) _behaviourView?.SetEnabled(true & _behaviourView.EnableRuntimeEdit);
+            }
+        }
+        private void OnInspectorUpdate()
+        {
+            _behaviourView?.UpdateNodesState();
+        }
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            switch (state)
+            {
+                case PlayModeStateChange.EnteredEditMode: case PlayModeStateChange.EnteredPlayMode:                 
+                    OnSelectionChange();
+                    break;
+                case PlayModeStateChange.ExitingPlayMode:
+                    _behaviourView?.SetEnabled(true);
+                    break;
             }
         }
         private void OnNodeSelectionChanged(NodeView nodeView)
         {
-            _inspectorView.UpdateSelection(nodeView);
+            _inspectorView?.UpdateSelection(nodeView);
         }
     }
 }

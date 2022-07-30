@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Core.AI.BehaviourTree.Nodes.Actions;
+using Core.AI.BehaviourTree.Nodes.Conditions;
 using Core.AI.BehaviourTree.Nodes.Composites;
 using Core.AI.BehaviourTree.Nodes.Decorators;
 using Node = Core.AI.BehaviourTree.Nodes.Node;
-using Core.AI.BehaviourTree.Nodes.Conditions;
 
 namespace Core.AI.BehaviourTree.Editor
 {
     internal class BehaviourTreeView : GraphView
     {
         private BehaviourTree _tree;
+        private IManipulator _selectionDragger;
+        private IManipulator _rectangleSelector;
+        private string NodeStyle
+        {
+            get
+            {
+                if (_tree == null) return Constants.DefaultNodeViewPath;
+                return _tree.TreeOrientation == Orientation.Horizontal ? Constants.HorizontalNodeViewPath : Constants.VerticalNodeViewPath;
+            }
+        }
+        internal bool EnableRuntimeEdit => _tree.EnableRuntimeEdit;
         internal event Action<NodeView> OnNodeSelected;
 
         public new class UxmlFactory : UxmlFactory<BehaviourTreeView, GraphView.UxmlTraits> { }
@@ -24,39 +36,36 @@ namespace Core.AI.BehaviourTree.Editor
             Insert(0, new GridBackground());
             this.AddManipulator(new ContentZoomer());
             this.AddManipulator(new ContentDragger());
-            this.AddManipulator(new SelectionDragger());
-            this.AddManipulator(new RectangleSelector());
+            SetEnabled(true);
 
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(Constants.USSPath);
             styleSheets.Add(styleSheet);
 
             Undo.undoRedoPerformed += OnUndoRedo;
         }
-        private void OnUndoRedo()
-        {
-            PopulateView(_tree);
-            AssetDatabase.SaveAssets();
-        }
 
-        public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
-        {
-            BuildNodesCategory<ActionNode>(evt.menu, "Actions");
-            BuildNodesCategory<ConditionNode>(evt.menu, "Conditions");
-            BuildNodesCategory<CompositeNode>(evt.menu, "Composites");
-            BuildNodesCategory<DecoratorNode>(evt.menu, "Decorators");
-        }
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             return ports.Where(endPort =>
                 endPort.direction != startPort.direction &&
-                endPort.node != startPort.node
-            ).ToList();
+                endPort.node != startPort.node).ToList();
         }
-        private void BuildNodesCategory<T>(DropdownMenu menu ,string categoryName) where T : Node
+        public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
+        {
+            BuildNodesCategory<ActionNode>(evt, "Actions");
+            BuildNodesCategory<ConditionNode>(evt, "Conditions");
+            BuildNodesCategory<CompositeNode>(evt, "Composites");
+            BuildNodesCategory<DecoratorNode>(evt, "Decorators");
+        }
+        private void BuildNodesCategory<T>(ContextualMenuPopulateEvent evt, string categoryName) where T : Node
         {
             foreach (var type in TypeCache.GetTypesDerivedFrom<T>())
             {
-                menu.AppendAction($"[{categoryName}]/{BehaviourTree.ParseTypeToName(type)}", (action) => CreateNode(type));
+                evt.menu.AppendAction($"[{categoryName}]/{BehaviourTree.ParseTypeToName(type)}", (action) =>
+                {
+                    Vector2 mouseScreenPosition = evt.localMousePosition;
+                    CreateNode(type, ref mouseScreenPosition);
+                });            
             }
         }
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
@@ -77,6 +86,11 @@ namespace Core.AI.BehaviourTree.Editor
             }
 
             return graphViewChange;
+        }
+        private void OnUndoRedo()
+        {
+            PopulateView(_tree);
+            AssetDatabase.SaveAssets();
         }
         private void OnElementsToRemove(ref GraphViewChange graphViewChange)
         {
@@ -119,16 +133,17 @@ namespace Core.AI.BehaviourTree.Editor
         {
             return GetNodeByGuid(node.Guid) as NodeView;
         }
-        private void CreateNode(Type type)
+        private void CreateNode(Type type, ref Vector2 position)
         {
             Node node = _tree.CreateNode(type);
-            CreateNodeView(node);
+            CreateNodeView(node, ref position);
         }
-        private void CreateNodeView(Node node)
+        private void CreateNodeView(Node node) => CreateNodeView(node, ref node.Position);
+        private void CreateNodeView(Node node, ref Vector2 position)
         {
             if (node == null) return;
-
-            NodeView nodeView = new NodeView(node, _tree.TreeOrientation);
+            NodeView nodeView = new NodeView(node, _tree.TreeOrientation, NodeStyle);
+            nodeView.SetPosition(new Rect(position, nodeView.contentRect.size));
             nodeView.OnNodeSelected += OnNodeSelected;
             AddElement(nodeView);
         }
@@ -149,6 +164,31 @@ namespace Core.AI.BehaviourTree.Editor
         {
             EditorUtility.SetDirty(tree);
             AssetDatabase.SaveAssets();
+        }
+        internal new void SetEnabled(bool isRuntime)
+        {
+            if (!isRuntime)
+            {
+                this.RemoveManipulator(_selectionDragger);
+                this.RemoveManipulator(_rectangleSelector);
+                _selectionDragger = null;
+                _rectangleSelector = null;
+            }
+            else
+            {
+                _selectionDragger = new SelectionDragger();
+                this.AddManipulator(_selectionDragger);
+                _rectangleSelector = new RectangleSelector();
+                this.AddManipulator(_rectangleSelector);
+            }
+        }
+        internal void UpdateNodesState()
+        {
+            nodes.ForEach(node =>
+            {
+                NodeView view = node as NodeView;
+                view.UpdateState();
+            });
         }
         internal void PopulateView(BehaviourTree tree)
         {
@@ -175,7 +215,7 @@ namespace Core.AI.BehaviourTree.Editor
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogException(e);
+                Debug.LogException(e);
             }
         }
     }

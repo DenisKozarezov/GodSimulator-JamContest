@@ -16,6 +16,7 @@ namespace Core.AI.BehaviourTree.Nodes
 
         private bool _started;
         private NodeState _state = NodeState.Running;
+        public bool Started => _started;
         public NodeState State => _state;
         internal AIBehaviourAgent Agent;
         [SerializeField, HideInInspector] public string Guid;

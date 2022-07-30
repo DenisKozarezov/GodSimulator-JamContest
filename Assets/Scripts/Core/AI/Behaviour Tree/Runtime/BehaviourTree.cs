@@ -96,7 +96,10 @@ namespace Core.AI.BehaviourTree
         }
         private void AddObjectToAsset(Node node)
         {
-            AssetDatabase.AddObjectToAsset(node, this);
+            if (!Application.isPlaying)
+            {
+                AssetDatabase.AddObjectToAsset(node, this);
+            }
             AssetDatabase.SaveAssets();
         }
         private void RemoveObjectFromAsset(Node node)

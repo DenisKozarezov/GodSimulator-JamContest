@@ -16,7 +16,7 @@ namespace Core.AI.BehaviourTree.Editor
             _editor = UnityEditor.Editor.CreateEditor(nodeView.Node);
             IMGUIContainer container = new IMGUIContainer(() =>
             {
-                if (_editor.target) _editor.OnInspectorGUI();
+                if (_editor.target) _editor?.OnInspectorGUI();
             });
             Add(container);
         }

@@ -6,11 +6,10 @@ namespace Core.AI.BehaviourTree.Nodes.Conditions
 {
     public abstract class ConditionNode : Node
     {
-        protected Func<bool> Condition;
-
         protected override void OnStart() { }
         protected override void OnStop() { }
         protected override abstract NodeState OnUpdate();
+        protected abstract bool Condition();
         public override Node Clone()
         {
             return Instantiate(this);
