@@ -14,6 +14,11 @@ namespace Core.Infrastructure
         public ushort PriestsAmount;
         public float Duration;
     }
+    public struct PlayerSelectingStartCitySignal { }
+    public struct PlayerSelectedStartCitySignal 
+    {
+        public CityScript View;
+    }
     public struct PlayerVictorySignal { }
 
     public interface IPlayerCastedAbility { AbilityModel Ability { get; } }

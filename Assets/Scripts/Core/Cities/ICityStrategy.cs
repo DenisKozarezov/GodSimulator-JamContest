@@ -1,4 +1,5 @@
 using System;
+using Zenject;
 
 namespace Core.Cities
 {
@@ -8,4 +9,6 @@ namespace Core.Cities
         bool Interactable { set; get; }
         void Disable();
     }
+
+    public class CityStrategyFactory : PlaceholderFactory<TempleStrategy> { }
 }

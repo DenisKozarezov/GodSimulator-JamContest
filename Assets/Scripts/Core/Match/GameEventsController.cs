@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Core.Infrastructure;
 using Core.Cities;
 using Core.UI;
 using Core.Models;
-using System.Linq;
 
 namespace Core.Match
 {
@@ -20,8 +21,10 @@ namespace Core.Match
         private GameSettings _gameSettings;
         private ILogger _logger;
 
+        private IEnumerable<CityScript> _cities;
         private Lazy<SacrificeModel[]> _sacrifices;
 
+        private TaskCompletionSource<CityScript> _selectStartCitySource;
         private CancellationTokenSource _gameTimerSource = new CancellationTokenSource();
         private CancellationTokenSource _sacrificeSource = new CancellationTokenSource();
 
@@ -48,6 +51,7 @@ namespace Core.Match
             _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Subscribe<GameStartedSignal>(SetApocalypseTimer);
             _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
+            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
         }
         private void OnDestroy()
         {
@@ -58,6 +62,7 @@ namespace Core.Match
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<GameStartedSignal>(SetApocalypseTimer);
             _signalBus.Unsubscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
+            _signalBus.Unsubscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
         }
 
         private void OnGameStarted()
@@ -80,6 +85,17 @@ namespace Core.Match
             }
             var effect = GameObject.Instantiate(prefab, signal.Target.transform.position, Quaternion.identity);
         }
+        private void OnPlayerClickedOnCity(PlayerClickedOnCitySignal signal)
+        {
+            if (_selectStartCitySource != null && _cities.Contains(signal.View))
+            {
+#if UNITY_EDITOR
+                _logger.Log($"Player selected started city <b><color=yellow>{signal.View.name}</color></b>.", LogType.Game);
+#endif
+                _selectStartCitySource.SetResult(signal.View);
+                _selectStartCitySource = null;
+            }
+        }
         private void OnCityDestroyedWhileSarifice()
         {
             _sacrificeSource?.Cancel();
@@ -90,6 +106,10 @@ namespace Core.Match
 #endif
         }
         
+        private void StartApocalypse()
+        {
+            _signalBus.Fire<GameApocalypseSignal>();
+        }
         private async void SetApocalypseTimer()
         {
             try
@@ -132,10 +152,6 @@ namespace Core.Match
             _logger.Log($"Player <b>{(accepted ? "<color=green>accepted" : "<color=red>denied")}</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
         }
-        private void StartApocalypse()
-        {
-            _signalBus.Fire<GameApocalypseSignal>();
-        }
         private IEnumerator SacrificeCoroutine()
         {
             while (true)
@@ -148,6 +164,30 @@ namespace Core.Match
                 
                 if (city != null) OfferSacrificeInCity(city);
             }
+        }
+        public async Task<CityScript> WaitForStartCitySelection()
+        {
+            // Select cities on the outer rim
+            _cities = _mapController.Cities.Jarvis();
+            foreach (CityScript city in _cities)
+            {
+                city.Interactable = true;
+                city.Select(true);
+            }
+
+            // Wait for selection
+            _signalBus.Fire<PlayerSelectingStartCitySignal>();
+            _selectStartCitySource = new TaskCompletionSource<CityScript>();
+            CityScript result = await Task.Run(() => _selectStartCitySource.Task, _gameTimerSource.Token);
+            _signalBus.Fire(new PlayerSelectedStartCitySignal { View = result });
+
+            // Make all others cities interactable
+            foreach (CityScript city in _cities)
+            {
+                city.Select(false);
+            }
+            _mapController.SetAllCitiesInteractable(true);
+            return result;
         }
     }
 }

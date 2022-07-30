@@ -12,6 +12,8 @@ namespace Core.Infrastructure
             Container.DeclareSignal<PlayerVictorySignal>();
             Container.DeclareSignal<PlayerVirtueChangedSignal>();
             Container.DeclareSignal<PlayerMovingPriestsSignal>();
+            Container.DeclareSignal<PlayerSelectingStartCitySignal>();
+            Container.DeclareSignal<PlayerSelectedStartCitySignal>();
             Container.DeclareSignal<PlayerClickedOnAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerCastedTargetAbilitySignal>();
             Container.DeclareSignalWithInterfaces<PlayerCastedNonTargetAbilitySignal>();

@@ -17,12 +17,15 @@ namespace Core.Models
         private int _virtueLevels;
         [SerializeField]
         private bool _enableFogOfWar;
+        [SerializeField]
+        private bool _randomStartCitySelect;
         [SerializeField, TextArea(minLines: 10, maxLines: 20)]
         private string _citiesNames;
         private Queue<string> _names;
         public int GameTime => _gameTime;
         public int VirtueLevels => _virtueLevels;
         public bool EnableFogOfWar => _enableFogOfWar;
+        public bool RandomStartCitySelect => _randomStartCitySelect;
         public Queue<string> CitiesNames
         {
             get

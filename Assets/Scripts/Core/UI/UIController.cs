@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using TMPro;
 using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
@@ -8,6 +9,8 @@ namespace Core.UI
 { 
     public class UIController : MonoBehaviour
     {
+        [SerializeField]
+        private TextMeshProUGUI _selectStartCityLabel;
         [SerializeField]
         private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
         private bool _selectionMode;
@@ -33,6 +36,7 @@ namespace Core.UI
             _signalBus.Subscribe<CityPointerExitSignal>(OnCityPointerExit);
             _signalBus.Subscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
             _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
+            _signalBus.Subscribe<PlayerSelectedStartCitySignal>(OnPlayerSelectedStartCity);
         }
         private void OnDestroy()
         {
@@ -43,11 +47,16 @@ namespace Core.UI
             _signalBus.Unsubscribe<CityPointerExitSignal>(OnCityPointerExit);
             _signalBus.Unsubscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
             _signalBus.Unsubscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
+            _signalBus.Unsubscribe<PlayerSelectedStartCitySignal>(OnPlayerSelectedStartCity);
         }
 
         private void OnSceneLoaded()
         {
             Cursor.visible = true;
+        }
+        private void OnPlayerSelectedStartCity()
+        {
+            Destroy(_selectStartCityLabel.gameObject);
         }
         private void OnTempleDragBegin(TempleDragBeginSignal signal)
         {
