@@ -15,11 +15,9 @@ namespace Core.Cities
         private Material _material;
 
         private SignalBus _signalBus;
-        protected SignalBus SignalBus => _signalBus;
-
         private float _outlineWidth;
-
-        public abstract bool Interactable { get; protected set; }
+        protected SignalBus SignalBus => _signalBus;
+        public abstract bool Interactable { get; set; }
 
         [Inject]
         private void Contruct(SignalBus signalBus, UISettings _UISettings)
@@ -45,20 +43,21 @@ namespace Core.Cities
         {
             _material.SetColor("_Color", color);
         }
+        public void Select(bool isSelected) => SetOutlineWidth(isSelected ? _outlineWidth : 0f);
 
         public abstract void OnPointerClick(PointerEventData eventData);
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (!Interactable) return;
 
-            SetOutlineWidth(_outlineWidth);
+            Select(true);
             SignalBus.Fire(new CityPointerEnterSignal { View = this });
         }
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (!Interactable) return;
 
-            SetOutlineWidth(0f);
+            Select(false);
             SignalBus.Fire<CityPointerExitSignal>();
         }
     }

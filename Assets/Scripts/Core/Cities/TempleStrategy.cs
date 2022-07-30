@@ -13,11 +13,11 @@ namespace Core.Cities
     {
         [Header("Temple")]
         [SerializeField, Min(0f)]
-        private float _minRange;
+        private float _minRange = 3f;
         [SerializeField, Min(0f)]
-        private float _priestsRate;
+        private float _priestsRate = 10f;
         [SerializeField]
-        private byte _growthOfPriests;
+        private byte _growthOfPriests = 1;
 
         private SignalBus _signalBus;
         private MapController _mapController;
@@ -33,8 +33,7 @@ namespace Core.Cities
         public VirtueModel Virtue => _virtue;
         public float MinRange => _minRange;
 
-        [Inject]
-        private void Construct(SignalBus signalBus, MapController mapController)
+        public void Construct(SignalBus signalBus, MapController mapController)
         {
             _signalBus = signalBus;
             _mapController = mapController;
@@ -42,6 +41,12 @@ namespace Core.Cities
 
         private void Start()
         {
+            if (!GetComponent<EventTrigger>())
+            {
+                var trigger = gameObject.AddComponent<EventTrigger>();
+                trigger.triggers.Add(new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag });
+                trigger.triggers.Add(new EventTrigger.Entry { eventID = EventTriggerType.EndDrag });
+            }
             _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _city = GetComponent<CityScript>();
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);

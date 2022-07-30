@@ -67,6 +67,13 @@ namespace Core
                 _circleCollider.enabled = false;
             });
         }
+        public void SetAllCitiesInteractable(bool isInteractable)
+        {
+            foreach (CityScript city in _cities)
+            {
+                city.Interactable = isInteractable;
+            }
+        }    
        
         public static void RegisterCity(CityScript city)
         {

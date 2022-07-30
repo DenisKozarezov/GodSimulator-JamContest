@@ -22,6 +22,7 @@ namespace Core.UI.Forms
         {
             _readyButton.interactable = false;
             _taskCompletionSource.SetResult(null);
+            Close();
         }
 
         void IConfirmAwaiter<VirtueModel>.SetDescription(string description) { }
@@ -32,7 +33,8 @@ namespace Core.UI.Forms
         }
         public async Task<VirtueModel> AwaitForConfirm(CancellationToken externalToken)
         {
-            return await _taskCompletionSource.Task;
+            externalToken.Register(Close);
+            return await Task.Run(() => _taskCompletionSource.Task, externalToken);
         }
         public void Close()
         {

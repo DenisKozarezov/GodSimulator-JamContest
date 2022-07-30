@@ -54,7 +54,7 @@ namespace Core
         private void Awake()
         {
             _signalBus.Subscribe<SceneLoadedSignal>(OnSceneLoaded);
-            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
+            _signalBus.Subscribe<PlayerSelectingStartCitySignal>(OnPlayerSelectingStartCity);
             _camera = GetComponent<Camera>();
             _startPosition = transform.position;
             ZoomMin = _camera.orthographicSize + _camera.orthographicSize * (1 - Ratio);
@@ -62,7 +62,7 @@ namespace Core
         private void OnDestroy()
         {
             _signalBus.Unsubscribe<SceneLoadedSignal>(OnSceneLoaded);
-            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+            _signalBus.Unsubscribe<PlayerSelectingStartCitySignal>(OnPlayerSelectingStartCity);
         }
         private void Update()
         {
@@ -78,7 +78,7 @@ namespace Core
                 Fade(FadeMode.Off, _settings.FadeDuration);
             }
         }
-        private void OnGameStarted()
+        private void OnPlayerSelectingStartCity()
         {
             _enabled = true;
         }

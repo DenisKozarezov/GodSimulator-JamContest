@@ -19,6 +19,7 @@ MonoBehaviour:
     _gameTime: 300
     _virtueLevels: 4
     _enableFogOfWar: 0
+    _randomStartCitySelect: 0
     _citiesNames: "Athens\nThessaloniki\nPatras\nLarissa\nHeraklion\nVolos\nTrikala\nSerres\nAlexandroupoli\nXanthi\nKaterini\nKalamata\nKavala\nKomotini\nRhodes\nVeria\nKarditsa\nSykies\nAno
       Liosia\nDrobeta\nPorolissum\nResculum\nTurda\nMehadia\nConstan\u021Ba\nLivias\nJerash\nRaphana\nCapitolias"
   _sacrificeSettings:

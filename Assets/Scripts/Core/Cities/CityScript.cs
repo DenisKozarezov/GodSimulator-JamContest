@@ -29,13 +29,14 @@ namespace Core.Cities
         private ICityStrategy _currentStrategy;
         private ushort _priestsAmount;
         private Player _owner;
+        private MapController _mapController;
 
         public ushort PriestsAmount => _priestsAmount;
         public Player Owner => _owner;
         public override bool Interactable
         {
             get => _interactable;
-            protected set
+            set
             {
                 _interactable = value;
                 if (_currentStrategy != null) _currentStrategy.Interactable = value;
@@ -44,8 +45,9 @@ namespace Core.Cities
         public event Action Destroyed;
 
         [Inject]
-        private void Construct(GameSettings gameSettings)
+        private void Construct(GameSettings gameSettings, MapController mapControlller)
         {
+            _mapController = mapControlller;
             if (gameSettings.CitiesNames.Count > 0)
             {
                 string name = gameSettings.CitiesNames.Dequeue();
@@ -57,7 +59,6 @@ namespace Core.Cities
         protected override void Awake()
         {
             base.Awake();
-            SignalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             MapController.RegisterCity(this);
 
 #if UNITY_EDITOR
@@ -69,24 +70,22 @@ namespace Core.Cities
         protected override void Start()
         {
             _currentStrategy = GetComponent<ICityStrategy>();
-            Interactable = true;
-        }
-        private void OnDestroy()
-        {
-            SignalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+            Interactable = false;
         }
         private void Disable()
         {
             Interactable = false;
             _currentStrategy?.Disable();
         }
-
-        private void OnGameStarted()
+        private T SwitchStrategy<T>() where T : MonoBehaviour, ICityStrategy
         {
-            if (_pranaView != null)
+            foreach (MonoBehaviour strategy in GetComponents<ICityStrategy>())
             {
-                DOTween.To(() => 0f, (x) => _pranaView.SetFillAmount(x), 1f, 15f).SetEase(Ease.Linear);
+                Destroy(strategy);
             }
+            T newStrategy = gameObject.AddComponent<T>();
+            newStrategy.Interactable = _interactable;
+            return newStrategy;
         }
 
         public void AddPriests(ushort value)
@@ -106,7 +105,8 @@ namespace Core.Cities
         }
         public void BuildTemple(VirtueModel virtue)
         {
-            TempleStrategy temple = gameObject.AddComponent<TempleStrategy>();
+            TempleStrategy temple = SwitchStrategy<TempleStrategy>();
+            temple.Construct(SignalBus, _mapController);
             temple.SetVirtue(virtue);
             _currentStrategy = temple;
         }
@@ -118,6 +118,11 @@ namespace Core.Cities
             Disable();
             MapController.UnregisterCity(this);
             Destroyed?.Invoke();
+        }
+        public void SetOwner(Player owner)
+        {
+            if (owner == null) return;
+            _owner = owner;
         }
 
         public override void OnPointerClick(PointerEventData eventData)
