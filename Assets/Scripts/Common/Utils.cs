@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -74,7 +75,20 @@ namespace Core
                 return random;
             }
         }
-
+        public static int Orientation(float2 point1, float2 point2, float2 point3)
+        {
+            float det = (point2.x - point1.x) * (point3.y - point1.y) - (point3.x - point1.x) * (point2.y - point1.y);
+            if (det > 0) return -1;
+            if (det < 0) return 1;
+            return 0;
+        }
+        public static int Orientation(float3 point1, float3 point2, float3 point3)
+        {
+            float det = (point2.x - point1.x) * (point3.y - point1.y) - (point3.x - point1.x) * (point2.y - point1.y);
+            if (det > 0) return -1;
+            if (det < 0) return 1;
+            return 0;
+        }
         public static float Distance(float2 first, float2 second)
         {
             return math.distance(first, second);
@@ -98,6 +112,66 @@ namespace Core
         public static bool CheckDistance(float3 first, float3 second, float distance)
         {
             return DistanceSqr(first, second) <= math.pow(distance, 2);
+        }
+        public static IEnumerable<float2> Jarvis(this IEnumerable<float2> array)
+        {
+            if (array.Count() <= 2) yield break;
+
+            float2 leftest = array.OrderBy(x => x.x).First();
+            float2 current = leftest;
+            float2 endPoint;
+            bool skipped = false;
+            do
+            {
+                yield return current;
+                endPoint = leftest;
+
+                foreach (float2 city in array)
+                {
+                    if (!skipped)
+                    {
+                        skipped = true;
+                        continue;
+                    }
+
+                    if (current.Equals(endPoint) || (Orientation(current, endPoint, city) == -1))
+                    {
+                        endPoint = city;
+                    }
+                }
+                current = endPoint;
+            }
+            while (!endPoint.Equals(leftest));
+        }
+        public static IEnumerable<float3> Jarvis(this IEnumerable<float3> array)
+        {
+            if (array.Count() <= 2) yield break;
+
+            float3 leftest = array.OrderBy(x => x.x).First();
+            float3 current = leftest;
+            float3 endPoint;
+            bool skipped = false;
+            do
+            {
+                yield return current;
+                endPoint = leftest;
+
+                foreach (float3 city in array)
+                {
+                    if (!skipped)
+                    {
+                        skipped = true;
+                        continue;
+                    }
+
+                    if (current.Equals(endPoint) || (Orientation(current, endPoint, city) == -1))
+                    {
+                        endPoint = city;
+                    }
+                }
+                current = endPoint;
+            }
+            while (!endPoint.Equals(leftest));
         }
     }
 }

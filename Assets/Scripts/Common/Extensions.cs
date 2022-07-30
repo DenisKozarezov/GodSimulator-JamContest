@@ -86,5 +86,66 @@ namespace Core
         {
             return cities.OrderBy(x => MathUtils.Random.NextInt()).Take(count);
         }
+        public static IEnumerable<CityScript> Jarvis(this IEnumerable<CityScript> cities)
+        {
+            if (cities.Count() <= 2) yield break;
+
+            CityScript leftest = cities.OrderBy(x => x.transform.position.x).First(); 
+            CityScript current = leftest;
+            CityScript endPoint;
+            bool skipped = false;
+            do
+            {
+                yield return current;
+                endPoint = leftest;
+
+                foreach (CityScript city in cities)
+                {
+                    if (!skipped)
+                    {
+                        skipped = true;
+                        continue;
+                    }
+
+                    if (current.Equals(endPoint) || (MathUtils.Orientation(current.transform.position, endPoint.transform.position, city.transform.position) == -1))
+                    {
+                        endPoint = city;
+                    }
+                }
+                current = endPoint;
+            }
+            while (!endPoint.Equals(leftest));
+        }
+        public static IEnumerable<T> Jarvis<T>(this IEnumerable<T> cities) 
+            where T : MonoBehaviour, ICityStrategy
+        {
+            if (cities.Count() <= 2) yield break;
+
+            T leftest = cities.OrderBy(x => x.transform.position.x).First();
+            T current = leftest;
+            T endPoint;
+            bool skipped = false;
+            do
+            {
+                yield return current;
+                endPoint = leftest;
+
+                foreach (T city in cities)
+                {
+                    if (!skipped)
+                    {
+                        skipped = true;
+                        continue;
+                    }
+
+                    if (current.Equals(endPoint) || (MathUtils.Orientation(current.transform.position, endPoint.transform.position, city.transform.position) == -1))
+                    {
+                        endPoint = city;
+                    }
+                }
+                current = endPoint;
+            }
+            while (!endPoint.Equals(leftest));
+        }
     }
 }

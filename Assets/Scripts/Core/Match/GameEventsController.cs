@@ -8,6 +8,7 @@ using Core.Infrastructure;
 using Core.Cities;
 using Core.UI;
 using Core.Models;
+using System.Linq;
 
 namespace Core.Match
 {
