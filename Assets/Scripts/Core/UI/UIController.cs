@@ -10,6 +10,8 @@ namespace Core.UI
     public class UIController : MonoBehaviour
     {
         [SerializeField]
+        private Animator _playerView;
+        [SerializeField]
         private TextMeshProUGUI _selectStartCityLabel;
         [SerializeField]
         private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
@@ -57,6 +59,7 @@ namespace Core.UI
         private void OnPlayerSelectedStartCity()
         {
             Destroy(_selectStartCityLabel.gameObject);
+            ShowUI(true);
         }
         private void OnTempleDragBegin(TempleDragBeginSignal signal)
         {
@@ -100,6 +103,10 @@ namespace Core.UI
         private void SetSelectionMode(bool isSelected)
         {
             _selectionMode = isSelected;
+        }
+        private void ShowUI(bool isShown)
+        {
+            _playerView?.SetTrigger(isShown ? "Enter" : "Exit");
         }
     }
 }

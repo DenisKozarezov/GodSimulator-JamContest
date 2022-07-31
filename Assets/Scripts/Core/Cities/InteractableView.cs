@@ -48,16 +48,12 @@ namespace Core.Cities
         public abstract void OnPointerClick(PointerEventData eventData);
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            if (!Interactable) return;
-
-            Select(true);
+            if (Interactable) Select(true);
             SignalBus.Fire(new CityPointerEnterSignal { View = this });
         }
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            if (!Interactable) return;
-
-            Select(false);
+            if (Interactable) Select(false);
             SignalBus.Fire<CityPointerExitSignal>();
         }
     }
