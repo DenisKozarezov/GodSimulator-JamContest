@@ -3,7 +3,6 @@ using Zenject;
 using Core.Cities;
 using Core.Input;
 using Core.Match;
-using System;
 
 namespace Core.Infrastructure
 {
