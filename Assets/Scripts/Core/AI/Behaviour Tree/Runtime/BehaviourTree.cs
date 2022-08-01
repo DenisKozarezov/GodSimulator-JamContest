@@ -22,7 +22,8 @@ namespace Core.AI.BehaviourTree
         [SerializeField, HideInInspector]
         public Node RootNode;
         [SerializeField, HideInInspector]
-        public List<Node> Nodes = new List<Node>();
+        private List<Node> _nodes = new List<Node>();
+        public IReadOnlyList<Node> Nodes => _nodes;
 
         private void Traverse(Node node, Action<Node> action)
         {
@@ -61,10 +62,10 @@ namespace Core.AI.BehaviourTree
         {
             BehaviourTree clone = Instantiate(this);
             clone.RootNode = clone.RootNode.Clone();
-            clone.Nodes = new List<Node>();
+            clone._nodes = new List<Node>();
             Traverse(clone.RootNode, (node) =>
             {
-                clone.Nodes.Add(node);
+                clone._nodes.Add(node);
             });
             return clone;
         }
@@ -114,7 +115,7 @@ namespace Core.AI.BehaviourTree
             node.Guid = GUID.Generate().ToString();
 
             Undo.RecordObject(this, "Create Node (Behaviour Tree)");
-            Nodes.Add(node);
+            _nodes.Add(node);
             Undo.RegisterCreatedObjectUndo(node, "Create Node (Behaviour Tree)");
             
             AddObjectToAsset(node);
@@ -123,7 +124,7 @@ namespace Core.AI.BehaviourTree
         public void RemoveNode(Node node)
         {
             Undo.RecordObject(this, "Remove Node (Behaviour Tree)");
-            Nodes.Remove(node);
+            _nodes.Remove(node);
             RemoveObjectFromAsset(node);
             
             if (node is RootNode) RootNode = null;

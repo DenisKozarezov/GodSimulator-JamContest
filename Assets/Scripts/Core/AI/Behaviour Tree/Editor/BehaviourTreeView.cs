@@ -48,7 +48,8 @@ namespace Core.AI.BehaviourTree.Editor
         {
             return ports.Where(endPort =>
                 endPort.direction != startPort.direction &&
-                endPort.node != startPort.node).ToList();
+                !endPort.node.Equals(startPort.node) &&
+                endPort.portType.Equals(startPort.portType)).ToList();
         }
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
@@ -208,10 +209,10 @@ namespace Core.AI.BehaviourTree.Editor
             try
             {
                 // Create Node Views
-                tree.Nodes.ForEach(node => CreateNodeView(node));
+                foreach (var node in tree.Nodes) CreateNodeView(node);
 
                 // Create Node Edges
-                tree.Nodes.ForEach(node => CreateNodeEdge(node));
+                foreach (var node in tree.Nodes) CreateNodeEdge(node);
             }
             catch (Exception e)
             {

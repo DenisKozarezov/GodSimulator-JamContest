@@ -119,3 +119,7 @@
     transition-timing-function: ease-out;
     transition-duration: 0.3s;
 }
+
+.edge {
+    background-color: rgba(255, 35, 35, 255);
+}

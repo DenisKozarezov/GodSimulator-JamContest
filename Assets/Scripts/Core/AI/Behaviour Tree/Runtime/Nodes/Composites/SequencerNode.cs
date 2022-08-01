@@ -10,8 +10,8 @@ namespace Core.AI.BehaviourTree.Nodes.Composites
             NodeState state = child.Update();
             switch (state)
             {
+                case NodeState.Failure: return NodeState.Failure;
                 case NodeState.Success: CurrentIndex++; break;
-                default: return state;
             }
             return AllChildrenEnumerated ? NodeState.Success : NodeState.Running;
         }

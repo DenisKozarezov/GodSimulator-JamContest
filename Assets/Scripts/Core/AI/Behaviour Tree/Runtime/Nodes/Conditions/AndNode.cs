@@ -1,13 +1,13 @@
 ﻿namespace Core.AI.BehaviourTree.Nodes.Conditions
 {
-    internal class WaitUntilNode : ConditionNode
+    internal class AndNode : ConditionNode
     {
-        [Input] public int Hello;
-        [Output] public int Hello1;
-
+        [Input] bool A;
+        [Input] bool B;
+        [Output] bool Result;
         protected override bool Condition()
         {
-            return true;
+            return A & B;
         }
         protected override NodeState OnUpdate()
         {

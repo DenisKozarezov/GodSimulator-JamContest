@@ -1,6 +1,6 @@
-﻿namespace Core.AI.BehaviourTree.Nodes.Decorators
+﻿namespace Core.AI.BehaviourTree.Nodes.Actions
 {
-    internal class SuccessNode : DecoratorNode
+    internal class SuccessNode : ActionNode
     {
         protected override NodeState OnUpdate()
         {

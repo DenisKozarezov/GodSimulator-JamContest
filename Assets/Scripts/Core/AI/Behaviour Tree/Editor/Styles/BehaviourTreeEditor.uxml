@@ -15,7 +15,7 @@
                     <Core.AI.BehaviourTree.Editor.InspectorView style="flex-grow: 1;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="down-panel" style="flex-grow: 1; min-height: 100px;">
-                    <ui:Label text="Creation Panel" display-tooltip-when-elided="true" name="Label" style="-unity-text-align: upper-center; border-bottom-color: rgb(154, 154, 154); border-bottom-width: 1px;" />
+                    <ui:Label text="Palette" display-tooltip-when-elided="true" name="Label" style="-unity-text-align: upper-center; border-bottom-color: rgb(154, 154, 154); border-bottom-width: 1px;" />
                 </ui:VisualElement>
             </Core.AI.BehaviourTree.Editor.SplitView>
         </ui:VisualElement>

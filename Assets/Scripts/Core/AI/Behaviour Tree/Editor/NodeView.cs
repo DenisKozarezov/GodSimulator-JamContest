@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -8,10 +11,6 @@ using Core.AI.BehaviourTree.Nodes.Composites;
 using Core.AI.BehaviourTree.Nodes.Decorators;
 using Core.AI.BehaviourTree.Nodes;
 using Node = Core.AI.BehaviourTree.Nodes.Node;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
-using UnityEngine.UIElements;
 
 namespace Core.AI.BehaviourTree.Editor
 {
@@ -70,42 +69,42 @@ namespace Core.AI.BehaviourTree.Editor
         {
             if (Node is not RootNode)
             {
-                _inputPort = InstantiatePort(_orientation, Direction.Input, Port.Capacity.Single, typeof(bool));
-                _inputPort.name = "port";
-                _dymamicInputPorts = CreateDynamicInputPorts();             
+                _dymamicInputPorts = CreateDynamicInputPorts();
+                _inputPort = InstantiatePort(_orientation, Direction.Input, Port.Capacity.Single, typeof(Node));
             }
-            
-            if (_inputPort != null)
-            {
-                _inputPort.portName = Constants.InputPort;
-                inputContainer.Add(_inputPort);
-            }
+
+            if (_inputPort == null) return;
+            _inputPort.portName = Constants.InputPort;
+            _inputPort.name = "port";
+            inputContainer.Add(_inputPort);
         }
         private void CreateOutputPorts()
         {
             Port.Capacity capacity = Port.Capacity.Single;
-            if (Node is CompositeNode) 
+            if (Node is CompositeNode)
                 capacity = Port.Capacity.Multi;
 
             // Action Nodes don't have children (output ports)
             if (Node is not ActionNode)
             {
-                _outputPort = InstantiatePort(_orientation, Direction.Output, capacity, typeof(bool));
-                _outputPort.name = "port";
                 _dymamicOutputPorts = CreateDynamicOutputPorts();
+                _outputPort = InstantiatePort(_orientation, Direction.Output, capacity, typeof(Node));
             }
-            if (_outputPort != null)
-            {
-                _outputPort.portName = Constants.OutputPort;
-                outputContainer.Add(_outputPort);
-            }
+
+            if (_outputPort == null) return;
+            _outputPort.portName = Constants.OutputPort;
+            _outputPort.name = "port";
+            outputContainer.Add(_outputPort);
         }
         private LinkedList<Port> CreateDynamicInputPorts()
         {
             var fields = GetBackingFields<InputAttribute>();
+            if (fields.Count() == 0) return null;
             foreach (var field in fields)
             {
-                Port port = InstantiatePort(_orientation, Direction.Input, Port.Capacity.Single, field.FieldType);
+                InputAttribute attr = field.GetCustomAttribute<InputAttribute>();
+                Port.Capacity capacity = attr.ConnectionType == PortConnection.Single ? Port.Capacity.Single : Port.Capacity.Multi;
+                Port port = InstantiatePort(_orientation, Direction.Input, capacity, field.FieldType);
                 port.name = "port";
                 port.portName = field.Name;
                 _dymamicInputPorts.AddLast(port);
@@ -116,9 +115,12 @@ namespace Core.AI.BehaviourTree.Editor
         private LinkedList<Port> CreateDynamicOutputPorts()
         {
             var fields = GetBackingFields<OutputAttribute>();
+            if (fields.Count() == 0) return null;
             foreach (var field in fields)
             {
-                Port port = InstantiatePort(_orientation, Direction.Output, Port.Capacity.Single, field.FieldType);
+                OutputAttribute attr = field.GetCustomAttribute<OutputAttribute>();
+                Port.Capacity capacity = attr.ConnectionType == PortConnection.Single ? Port.Capacity.Single : Port.Capacity.Multi;
+                Port port = InstantiatePort(_orientation, Direction.Output, capacity, field.FieldType);
                 port.name = "port";
                 port.portName = field.Name;
                 _dymamicOutputPorts.AddLast(port);
@@ -128,7 +130,9 @@ namespace Core.AI.BehaviourTree.Editor
         }
         private IEnumerable<FieldInfo> GetBackingFields<T>() where T : Attribute
         {
-            return Node.GetType().GetFields().Where(field => Attribute.IsDefined(field, typeof(T)));
+            return Node.GetType()
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(field => Attribute.IsDefined(field, typeof(T))).Reverse();
         }
         public override void SetPosition(Rect newPos)
         {

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <Style src="project://database/Assets/Scripts/Core/AI/Behaviour%20Tree/Editor/Styles/HorizontalNodeViewStyle.uss?fileID=7433441132597879392&amp;guid=d6e41fa9fa0c6e248ae44e6ac2f6fa88&amp;type=3#NodeViewStyle" />
+    <Style src="project://database/Assets/Scripts/Core/AI/Behaviour%20Tree/Editor/Styles/HorizontalNodeViewStyle.uss?fileID=7433441132597879392&amp;guid=d6e41fa9fa0c6e248ae44e6ac2f6fa88&amp;type=3#HorizontalNodeViewStyle" />
     <ui:VisualElement name="node-border">
         <ui:VisualElement name="contents">
             <ui:VisualElement name="top">
@@ -13,8 +13,8 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="divider" class="vertical" />
                 <ui:VisualElement name="standard-ports" style="flex-direction: row; justify-content: space-between;">
-                    <ui:VisualElement name="input" style="flex-direction: column-reverse;" />
-                    <ui:VisualElement name="output" style="flex-direction: column-reverse;" />
+                    <ui:VisualElement name="input" style="flex-direction: column-reverse; justify-content: center;" />
+                    <ui:VisualElement name="output" style="flex-direction: column-reverse; -unity-text-align: upper-left; align-items: flex-end; justify-content: flex-end;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="divider" class="horizontal" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
             </ui:VisualElement>

@@ -38,18 +38,20 @@ namespace Core.AI.BehaviourTree
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class InputAttribute : Attribute
     {
-        public InputAttribute()
+        public readonly PortConnection ConnectionType;
+        public InputAttribute(PortConnection connectionType = PortConnection.Single)
         {
-
+            ConnectionType = connectionType;
         }
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class OutputAttribute : Attribute
     {
-        public OutputAttribute()
+        public readonly PortConnection ConnectionType;
+        public OutputAttribute(PortConnection connectionType = PortConnection.Single)
         {
-
+            ConnectionType = connectionType;
         }
     }
 }
