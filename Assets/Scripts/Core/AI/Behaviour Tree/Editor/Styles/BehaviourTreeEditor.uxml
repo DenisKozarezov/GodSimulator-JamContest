@@ -1,21 +1,80 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Scripts/Core/AI/Behaviour%20Tree/Editor/Styles/BehaviourTreeEditor.uss?fileID=7433441132597879392&amp;guid=b928ac84d7be45c45b33bf1e4ca137f9&amp;type=3#BehaviourTreeEditor" />
     <uie:Toolbar>
-        <uie:ToolbarMenu display-tooltip-when-elided="true" text="Assets" />
+        <uie:ToolbarMenu text="Assets" />
+        <uie:ToolbarMenu text="Help" />
     </uie:Toolbar>
-    <Core.AI.BehaviourTree.Editor.SplitView fixed-pane-initial-dimension="600">
-        <ui:VisualElement name="left-panel" style="min-width: 20%;">
-            <ui:Label text="Tree View" display-tooltip-when-elided="true" style="-unity-text-align: upper-center;" />
+    <Core.AI.BehaviourTree.Editor.SplitView fixed-pane-initial-dimension="640">
+        <ui:VisualElement name="left-panel" style="min-width: 75%; width: auto;">
+            <ui:Label text="Tree View" style="-unity-text-align: upper-center;" />
             <Core.AI.BehaviourTree.Editor.BehaviourTreeView focusable="true" name="graphView" style="height: 496px; flex-grow: 1;" />
         </ui:VisualElement>
-        <ui:VisualElement name="right-panel" style="display: flex; visibility: visible; min-width: 20%;">
+        <ui:VisualElement name="right-panel" style="display: flex; visibility: visible;">
             <Core.AI.BehaviourTree.Editor.SplitView orientation="Vertical" fixed-pane-initial-dimension="200" style="height: 347px;">
-                <ui:VisualElement name="top-panel" style="min-height: 100px;">
-                    <ui:Label text="Inspector" display-tooltip-when-elided="true" name="Label" style="-unity-text-align: upper-center; flex-direction: column; border-bottom-width: 1px; border-bottom-color: rgb(154, 154, 154);" />
+                <ui:VisualElement name="top-panel" style="min-height: 100px; height: 188px;">
+                    <ui:Label text="Inspector" name="category-label" />
+                    <ui:VisualElement name="divider" class="vertical" />
                     <Core.AI.BehaviourTree.Editor.InspectorView style="flex-grow: 1;" />
+                    <ui:VisualElement name="divider" class="vertical" />
                 </ui:VisualElement>
                 <ui:VisualElement name="down-panel" style="flex-grow: 1; min-height: 100px;">
-                    <ui:Label text="Palette" display-tooltip-when-elided="true" name="Label" style="-unity-text-align: upper-center; border-bottom-color: rgb(154, 154, 154); border-bottom-width: 1px;" />
+                    <ui:Label text="Palette" name="category-label" />
+                    <ui:VisualElement name="divider" class="vertical" />
+                    <uie:ToolbarSearchField focusable="true" name="ToolbarSearchField" style="width: auto;" />
+                    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" style="flex-grow: 1;">
+                        <ui:Foldout text="Standard" value="true" name="standard" style="flex-shrink: 0; flex-wrap: nowrap; flex-direction: column;">
+                            <uie:ToolbarButton text="Actions" class="nodes-category" style="-unity-text-align: middle-center; background-color: rgb(138, 150, 156); color: rgb(255, 255, 255); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 5px; -unity-font-style: bold;">
+                                <ui:Label text="(0)" name="nodes-count" style="-unity-text-align: middle-right; font-size: 12px; flex-grow: 1;" />
+                            </uie:ToolbarButton>
+                            <ui:GroupBox picking-mode="Ignore" style="flex-direction: row; flex-wrap: wrap; flex-grow: 1; flex-shrink: 1; padding-left: 0; margin-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                                <ui:VisualElement name="node" style="margin-bottom: 10px; margin-right: 20px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; flex-grow: 1; flex-shrink: 1;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" class="node-button" style="align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="node" style="margin-bottom: 10px; margin-right: 20px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" class="node-button" style="align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="node" style="margin-bottom: 10px; margin-right: 20px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" class="node-button" style="align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="node" style="margin-bottom: 10px; margin-right: 20px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" class="node-button" style="align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                            </ui:GroupBox>
+                            <uie:ToolbarButton text="Conditions" class="nodes-category" style="-unity-text-align: middle-center; background-color: rgb(57, 140, 105); color: rgb(255, 255, 255); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 5px; -unity-font-style: bold;">
+                                <ui:Label text="(0)" name="nodes-count" style="-unity-text-align: middle-right; font-size: 12px; flex-grow: 1;" />
+                            </uie:ToolbarButton>
+                            <uie:ToolbarButton text="Composites" class="nodes-category" style="-unity-text-align: middle-center; background-color: rgb(145, 106, 166); color: rgb(255, 255, 255); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 5px; -unity-font-style: bold;">
+                                <ui:Label text="(0)" name="nodes-count" style="-unity-text-align: middle-right; font-size: 12px; flex-grow: 1;" />
+                            </uie:ToolbarButton>
+                            <uie:ToolbarButton text="Decorators" class="nodes-category" style="-unity-text-align: middle-center; background-color: rgb(99, 108, 154); color: rgb(255, 255, 255); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 5px; -unity-font-style: bold;">
+                                <ui:Label text="(0)" name="nodes-count" style="-unity-text-align: middle-right; font-size: 12px; flex-grow: 1;" />
+                            </uie:ToolbarButton>
+                        </ui:Foldout>
+                        <ui:Foldout text="Custom" value="false" name="custom">
+                            <ui:GroupBox picking-mode="Ignore" style="flex-direction: row; flex-wrap: wrap; flex-grow: 1; flex-shrink: 1; padding-left: 0; margin-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                                <ui:VisualElement name="node" style="-unity-text-align: middle-center; width: 50px; margin-right: 20px; margin-bottom: 10px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" style="height: 50px; align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="node" style="-unity-text-align: middle-center; width: 50px; margin-bottom: 10px; margin-right: 10px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" style="height: 50px; align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="node" style="-unity-text-align: middle-center; width: 50px; margin-right: 20px; margin-bottom: 10px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" style="height: 50px; align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="node" style="-unity-text-align: middle-center; width: 50px; margin-right: 10px; margin-bottom: 10px;">
+                                    <ui:Label text="Parallel For" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                    <ui:Button display-tooltip-when-elided="true" enable-rich-text="false" style="height: 50px; align-items: center; -unity-text-align: middle-center; white-space: nowrap; justify-content: flex-start; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                                </ui:VisualElement>
+                            </ui:GroupBox>
+                        </ui:Foldout>
+                    </ui:ScrollView>
                 </ui:VisualElement>
             </Core.AI.BehaviourTree.Editor.SplitView>
         </ui:VisualElement>

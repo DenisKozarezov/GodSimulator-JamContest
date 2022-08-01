@@ -5,7 +5,40 @@ GridBackground {
     --spacing: 15;
 }
 
-.panel-header {
-    margin-left: 0;
-    padding-left: 10px;
+#category-label {
+    background-color: rgba(138, 150, 156, 255);
+    color: rgba(255, 255, 255, 255);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.52);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-bottom-width: 1px;
+    font-size: 15px;
+}
+
+#divider {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+}
+
+.nodes-category {
+    font-size: 15px;
+}
+
+.node-button {
+    width: 70px;
+    height: 70px;
+}
+
+#node {
+    width: 70px;
 }

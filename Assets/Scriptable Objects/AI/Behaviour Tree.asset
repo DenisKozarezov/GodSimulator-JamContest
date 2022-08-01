@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: 95edd2344b2459e49b04d34afe2011f3
   Name: Or
-  Position: {x: 244.79999, y: -320.4}
+  Position: {x: 129.796, y: -298.26404}
   Child: {fileID: 8257586026233891419}
 --- !u!114 &-4191245206204618802
 MonoBehaviour:
@@ -78,12 +78,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: 02e688b586211df47b712d3923114b6f
   Name: Sequencer
-  Position: {x: 345.60004, y: 6.799988}
+  Position: {x: 346.4, y: 16.799988}
   Children:
-  - {fileID: -21988422765680415}
   - {fileID: -6402256215023818883}
   - {fileID: 2342195181138968501}
   - {fileID: 6769757746923049259}
+  - {fileID: -21988422765680415}
 --- !u!114 &-21988422765680415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: eb2ada54412ae054689d02cc7dfd6079
   Name: Failure
-  Position: {x: 545.4, y: -172}
+  Position: {x: 548.6, y: 190.896}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: 007923da307394245a127ad716f7f663
   Name: And
-  Position: {x: 23.000008, y: -280.72803}
+  Position: {x: -94, y: -247.20001}
   Child: {fileID: -4588302788860205704}
 --- !u!114 &2342195181138968501
 MonoBehaviour:
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: de65d28fa153a25459834ce2d31883a3
   Name: And
-  Position: {x: 22, y: -379}
+  Position: {x: -92.60401, y: -356.66406}
   Child: {fileID: -4588302788860205704}
 --- !u!114 &8257586026233891419
 MonoBehaviour:
@@ -238,5 +238,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Guid: 6a87664646612884eb8cb3dde047c0eb
   Name: Wait Until
-  Position: {x: 553.6001, y: -311.60004}
+  Position: {x: 342.596, y: -286.26404}
   Child: {fileID: 0}
