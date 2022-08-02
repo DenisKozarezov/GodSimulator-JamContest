@@ -145,6 +145,7 @@ namespace Core
         private void Translate(Vector3 direction)
         {
             transform.position = Vector3.SmoothDamp(transform.position, transform.position + direction, ref _moveVelocity, _moveInertia, _speed);
+            if (_moveVelocity.sqrMagnitude <= 1E-02) _moveVelocity = Vector3.zero;
         }
         private T GetSettings<T>() where T : PostProcessEffectSettings
         {

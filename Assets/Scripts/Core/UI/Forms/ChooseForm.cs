@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Core.Models;
-using System;
 
 namespace Core.UI.Forms
 {

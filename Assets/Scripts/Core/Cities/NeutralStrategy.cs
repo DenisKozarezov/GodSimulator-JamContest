@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Core.UI;
 
 namespace Core.Cities
 {
@@ -12,15 +13,26 @@ namespace Core.Cities
         [SerializeField, Min(0f)]
         private float _growthOfFaith;
 
-        private Dictionary<Player, float> _percentageOfFaithful = new Dictionary<Player, float>();
+        private class LightWeightPair
+        {
+            public Player Owner;
+            public float Faith;
+        }
+
+        private List<LightWeightPair> _competitors = new List<LightWeightPair>();
+        private PranaView _pranaView;
         private CityScript _city;
         private float _timer;
         private bool _rating;
 
         public CityScript City => _city;
         public bool Interactable { get; set; }
-        public float Total => _percentageOfFaithful.Values.Sum(x => x);
+        public float Total => _competitors.Sum(x => x.Faith);
 
+        public void Construct(PranaView pranaView)
+        {
+            _pranaView = pranaView;
+        }
         private void Start()
         {
             _city = GetComponent<CityScript>();
@@ -34,27 +46,26 @@ namespace Core.Cities
             {
                 if (Total >= Constants.FaithfulValueMax) return;
 
-                foreach (var faith in _percentageOfFaithful)
+                for (int i = 0; i < _competitors.Count; i++)
                 {
-                    if (_percentageOfFaithful.TryGetValue(faith.Key, out float value))
-                    {
-                        value += _growthOfFaith;
-                    }
+                    _competitors[i].Faith += _growthOfFaith;
+                    _pranaView.SetFillAmount(_competitors[i].Faith * 0.01f);
                 }
                 _timer = _faithRate;
             }
         }
         void ICityStrategy.Disable()
         {
-          
+            _rating = false;
         }
 
         public void AddNewGodForFaithfull(Player god)
         {
             if (god == null) return;
-            if (!_percentageOfFaithful.ContainsKey(god))
+
+            if (_competitors.FindIndex(x => x.Owner.Equals(god)) == -1)
             {
-                _percentageOfFaithful.Add(god, 0);
+                _competitors.Add(new LightWeightPair { Owner = god, Faith = 0f });
                 _rating = true;
             }
         }

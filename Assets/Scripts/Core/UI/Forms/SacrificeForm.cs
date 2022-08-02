@@ -11,7 +11,7 @@ using DG.Tweening;
 namespace Core.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class SacrificeForm : MonoBehaviour, IConfirmAwaiter<bool>, IClosableForm
+    public class SacrificeForm : MonoBehaviour, IConfirmAwaiter<bool>, IWorldSpaceForm<CityScript>, IClosableForm
     {
         private const string FormPath = "Prefabs/UI/Forms/Sacrifice Form";
 
@@ -27,11 +27,11 @@ namespace Core.UI
         [SerializeField, Min(0f)]
         private float _offsetY = 1f;
 
-        private CityScript _attachedCity;
         private RectTransform _rectTransform;
         private TaskCompletionSource<bool> _taskCompletionSource = new TaskCompletionSource<bool>();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
+        public CityScript AttachedTarget { get; private set; }
         public event Action Elapsed;
 
         private void SetModel(SacrificeModel model)
@@ -46,8 +46,8 @@ namespace Core.UI
         }
         private void Update()
         {
-            if (_attachedCity == null) return;
-            _rectTransform.position = Utils.WorldToScreenPoint(_attachedCity.transform.position + Vector3.up * _offsetY);
+            if (AttachedTarget == null) return;
+            _rectTransform.position = Utils.WorldToScreenPoint(AttachedTarget.transform.position + Vector3.up * _offsetY);
         }
         private void OnDestroy()
         {
@@ -72,7 +72,7 @@ namespace Core.UI
             var obj = Instantiate(Resources.Load(FormPath)) as GameObject;
             var form = obj.GetComponentInChildren<SacrificeForm>();
             form.SetModel(sacrifice);
-            form._attachedCity = target;
+            form.AttachTo(target);
             return form;
         }
         public async Task<bool> AwaitForConfirm()
@@ -105,6 +105,10 @@ namespace Core.UI
                 _cancellationTokenSource?.Cancel();
                 Elapsed?.Invoke();
             });
+        }
+        public void AttachTo(CityScript target)
+        {
+            AttachedTarget = target;
         }
         public void Close()
         {

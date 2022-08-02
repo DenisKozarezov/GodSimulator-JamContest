@@ -172,90 +172,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1910343457149933871}
   m_maskType: 0
---- !u!1 &3478536268987371820
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7778520993343074895}
-  - component: {fileID: 1864228699946613346}
-  m_Layer: 0
-  m_Name: Prana
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7778520993343074895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478536268987371820}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 8727482233820667380}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1864228699946613346
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478536268987371820}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 0bfc478e1d0616d4e832dc97a14a6714, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &4461761164566299823
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +271,7 @@ GameObject:
   - component: {fileID: 7752536641790558558}
   - component: {fileID: 8464830092923366608}
   m_Layer: 6
-  m_Name: City Without Temple
+  m_Name: City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -374,7 +290,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5298050193161874948}
-  - {fileID: 7778520993343074895}
+  - {fileID: 8365444318942421353}
   - {fileID: 3770606428373907144}
   - {fileID: 8153997607484339243}
   m_Father: {fileID: 0}
@@ -484,8 +400,38 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 4477244193726576860}
   _name: {fileID: 7963468925333342325}
   _priestsCount: {fileID: 1262665518991861463}
-  _pranaView: {fileID: 0}
+  _icon: {fileID: 4477244193726576860}
+  _pranaView: {fileID: 2931340095319242307}
   _maxCapacityOfPriests: 10
+  _icons:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 000102
+    _keys: 000102
+    _values:
+    - {fileID: 21300000, guid: 57dc224dccd55554cafb34b254d91083, type: 3}
+    - {fileID: 21300000, guid: f0442966a8b2f044a9abf8cceca6ed3b, type: 3}
+    - {fileID: 21300000, guid: b4495d01c803d8b469e47974ce87a6b2, type: 3}
 --- !u!114 &8464830092923366608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,3 +618,76 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3139921105474556274}
   m_maskType: 0
+--- !u!1001 &8047232231573007105
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8727482233820667380}
+    m_Modifications:
+    - target: {fileID: 318394253937045835, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_Name
+      value: Prana
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+--- !u!114 &2931340095319242307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5117133013509430594, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+  m_PrefabInstance: {fileID: 8047232231573007105}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e3359cceafbf44492a95d886ae0c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8365444318942421353 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1996647545331567208, guid: 6bc35cf8019e70c4b83167e7f106b290, type: 3}
+  m_PrefabInstance: {fileID: 8047232231573007105}
+  m_PrefabAsset: {fileID: 0}

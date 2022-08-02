@@ -10,12 +10,26 @@ namespace Core.Cities
     public abstract class InteractableView : MonoBehaviour, 
         IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
+        public enum SelectType : byte
+        {
+            /// <summary>
+            /// Can be deselected by mouse exit event.
+            /// </summary>
+            Weak = 0x00,
+            /// <summary>
+            /// Cannot be deselected by any UI event.
+            /// </summary>
+            Strong = 0x01
+        }
+
         [SerializeField]
         private SpriteRenderer _spriteRenderer;  
         private Material _material;
 
         private SignalBus _signalBus;
         private float _outlineWidth;
+        private SelectType _selectType;
+        private bool _selected;
         protected SignalBus SignalBus => _signalBus;
         public abstract bool Interactable { get; set; }
 
@@ -43,21 +57,33 @@ namespace Core.Cities
         {
             _material.SetColor("_Color", color);
         }
-        public void Select(bool isSelected) => SetOutlineWidth(isSelected ? _outlineWidth : 0f);
-
+        public void Select(SelectType type = SelectType.Weak)
+        {
+            _selectType = type;
+            _selected = true;
+            SetOutlineWidth(_outlineWidth);
+        }
+        public void Deselect()
+        {
+            _selectType = SelectType.Weak;
+            _selected = false;
+            SetOutlineWidth(0f);
+        }
         public abstract void OnPointerClick(PointerEventData eventData);
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            if (!Interactable) return;
-
-            Select(true);
+            if (Interactable && !_selected)
+            {
+                Select();
+            }
             SignalBus.Fire(new CityPointerEnterSignal { View = this });
         }
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            if (!Interactable) return;
-
-            Select(false);
+            if (Interactable && _selected && _selectType == SelectType.Weak)
+            {
+                Deselect();
+            }
             SignalBus.Fire<CityPointerExitSignal>();
         }
     }
