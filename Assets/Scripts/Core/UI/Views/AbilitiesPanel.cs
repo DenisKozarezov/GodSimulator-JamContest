@@ -87,6 +87,7 @@ namespace Core.UI
             {
                 _signalBus.AbstractFire(new PlayerCastedTargetAbilitySignal 
                 {
+                    Player = Match.GameController.MainPlayer,
                     Ability = _seekingAbility.Model, 
                     Target = signal.View
                 });

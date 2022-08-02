@@ -1,4 +1,5 @@
 using UnityEngine;
+using RotaryHeart.Lib.SerializableDictionary;
 using Core.UI;
 
 namespace Core.Models
@@ -15,6 +16,8 @@ namespace Core.Models
         private CursorSize _cursorSize;
         [SerializeField]
         private CursorMode _cursorMode;
+        [SerializeField]
+        private SerializableDictionaryBase<CursorType, Texture2D> _cursorStates;
 
         [Header("Fade")]
         [SerializeField]
@@ -40,6 +43,7 @@ namespace Core.Models
             }
         }
         public CursorMode CursorMode => _cursorMode;
+        public SerializableDictionaryBase<CursorType, Texture2D> CursorStates => _cursorStates;
         public bool AutoFadeWhenGameStart => _autoFadeWhenGameStart;
         public bool AutoFadeWhenSceneTransition => _autoFadeWhenSceneTransition;
         public float FadeDuration => _fadeDuration;

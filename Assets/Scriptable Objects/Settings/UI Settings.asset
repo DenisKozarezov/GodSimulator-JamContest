@@ -15,6 +15,37 @@ MonoBehaviour:
   _outlineWidth: 8
   _cursorSize: 2
   _cursorMode: 1
+  _cursorStates:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0001020408
+    _keys: 0001020408
+    _values:
+    - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
+    - {fileID: 2800000, guid: 2260b238db6a6d04495c777ef73b2c91, type: 3}
+    - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
+    - {fileID: 2800000, guid: dd226102902802244bbf007bc2c942ab, type: 3}
+    - {fileID: 2800000, guid: dee896b33b850bb4598667842de2fb3a, type: 3}
   _autoFadeWhenGameStart: 1
   _autoFadeWhenSceneTransition: 1
   _fadeDuration: 2

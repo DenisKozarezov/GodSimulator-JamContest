@@ -13,11 +13,11 @@ namespace Core.Cities
         public enum SelectType : byte
         {
             /// <summary>
-            /// Can be deselected by mouse exit event.
+            /// Selects when <b>PointerEnter</b> event. Deselects when <b>PointerExit</b> event.
             /// </summary>
             Weak = 0x00,
             /// <summary>
-            /// Cannot be deselected by any UI event.
+            /// <b>Always</b> selected. Unable to deselect by any UI event.
             /// </summary>
             Strong = 0x01
         }

@@ -9,6 +9,8 @@ namespace Core.Infrastructure
 
         public override void InstallBindings()
         {
+            Container.BindFactory<string, Player, Player.Factory>().AsCached();
+
             Container.DeclareSignal<PlayerVictorySignal>();
             Container.DeclareSignal<PlayerVirtueChangedSignal>();
             Container.DeclareSignal<PlayerMovingPriestsSignal>();

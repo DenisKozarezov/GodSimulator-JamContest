@@ -30,6 +30,7 @@ namespace Core.Infrastructure
             Container.BindSignal<GameApocalypseSignal>().ToMethod(() => Logger.Log("GameApocalypseSignal", LogType.Signal));
 #endif
 
+            Container.Bind<GameController>().AsSingle();
             Container.Bind<MapController>().FromInstance(_mapController).AsSingle();
             Container.BindInterfacesAndSelfTo<MovingBetweenCities>().AsSingle();
             Container.Bind<ITickable>().To<StandaloneInput>().AsCached();

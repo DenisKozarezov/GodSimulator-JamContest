@@ -48,20 +48,21 @@ namespace Core.Cities
             circle.SetRadius(range);
             return circle;
         }
-        private AnimatedDottedLine CreateAnimatedDottedLine(Vector2 startPos, Vector2 endPos, float time)
+        private AnimatedDottedLine CreateAnimatedDottedLine(PlayerMovingPriestsSignal signal)
         {
             var asset = Resources.Load<AnimatedDottedLine>(LinePrefabPath);
             var line = GameObject.Instantiate(asset);
-            line.StartPosition = startPos;
-            line.EndPosition = endPos;
-            GameObject.Destroy(line.gameObject, time);
+            line.StartPosition = signal.Temple.transform.position;
+            line.EndPosition = signal.Target.transform.position;
+            line.Color = signal.Temple.City.Owner.Color;
+            GameObject.Destroy(line.gameObject, signal.Duration);
             return line;
         }
-        private MovingPriestsIcon CreateMovingIcon(Vector2 startPos, Vector2 endPos, float time)
+        private MovingPriestsIcon CreateMovingIcon(PlayerMovingPriestsSignal signal)
         {
             var asset = Resources.Load<MovingPriestsIcon>(IconPrefabPath);
-            var icon = GameObject.Instantiate(asset, startPos, Quaternion.identity);
-            icon.transform.DOMove(endPos, time).SetEase(Ease.Linear)
+            var icon = GameObject.Instantiate(asset, signal.Temple.transform.position, Quaternion.identity);
+            icon.transform.DOMove(signal.Target.transform.position, signal.Duration).SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 GameObject.Destroy(icon.gameObject);
@@ -113,13 +114,10 @@ namespace Core.Cities
         }
         private async void OnPlayerMovingPriests(PlayerMovingPriestsSignal signal)
         {
-            Vector2 startPos = signal.Temple.transform.position;
-            Vector2 endPos = signal.Target.transform.position;
-
             signal.Temple.City.ReducePriests(signal.PriestsAmount);
 
-            CreateAnimatedDottedLine(startPos, endPos, signal.Duration);
-            var icon = CreateMovingIcon(startPos, endPos, signal.Duration);
+            CreateAnimatedDottedLine(signal);
+            var icon = CreateMovingIcon(signal);
             icon.SetAmount(signal.PriestsAmount);
 
             await Task.Delay(TimeSpan.FromSeconds(signal.Duration));

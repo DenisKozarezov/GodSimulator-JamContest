@@ -3,6 +3,7 @@ Shader "Core/Outline2D"
     Properties
     {
         [PerRendererData] _MainTex("Texture", 2D) = "white" {}
+        [HideInInspector] _Color("Color", Color) = (1,1,1,1)
         [Space] _OutlineWidth("Outline Width", Range(0, 15)) = 1
         _OutlineColor("Outline Color", Color) = (1,1,1,1)
     }
@@ -43,6 +44,7 @@ Shader "Core/Outline2D"
             };
 
             half _OutlineWidth;
+            fixed4 _Color;
             fixed4 _OutlineColor;
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
@@ -59,6 +61,7 @@ Shader "Core/Outline2D"
             {
                 fixed4 col = tex2D(_MainTex, IN.texcoord);
                 col.rgb *= col.a;
+                col.rgba *= _Color.rgba;
                 half4 outlineC = _OutlineColor;
                 outlineC.rgb *= outlineC.a;                
 

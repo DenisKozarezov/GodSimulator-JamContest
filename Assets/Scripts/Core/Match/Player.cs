@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Unity.Mathematics;
 using Zenject;
 using Core.Models;
@@ -13,7 +14,7 @@ namespace Core
         public byte Percent;
     }
 
-    public class Player : IInitializable, ILateDisposable, IEquatable<Player>
+    public class Player : IEquatable<Player>
     {
         private int _prana;
         private Dictionary<VirtueModel, VirtueState> _virtuesLevels = new Dictionary<VirtueModel, VirtueState>();
@@ -21,45 +22,30 @@ namespace Core
 
         private SignalBus _signalBus;
 
-        public uint ID;
+        public readonly string GUID;
+        public Color Color;
         public int Prana => _prana;
         public float FaithRate => _faithRate;
 
-        [Inject]
-        public void Construct(SignalBus signalBus, PlayerSettings _playerSettings)
+        public Player(string guid, SignalBus signalBus, PlayerSettings _playerSettings)
         {
+            GUID = guid;
             _signalBus = signalBus;
             foreach (var virtue in _playerSettings.Virtues)
             {
                 _virtuesLevels.Add(virtue, new VirtueState());
             }
+            Init();
         }
 
-        void IInitializable.Initialize()
+        private void Init()
         {
-            _signalBus.Subscribe<IPlayerCastedAbility>(OnAbilityCasted);
-
             ResetVirtues();
             foreach (var virtue in _virtuesLevels.Keys)
             {
                 AddVirtueValue(virtue, (byte)UnityEngine.Random.Range(10, 90));
             }
-        }
-        void ILateDisposable.LateDispose()
-        {
-            _signalBus.Unsubscribe<IPlayerCastedAbility>(OnAbilityCasted);
-        }
-        private void OnAbilityCasted(IPlayerCastedAbility ability)
-        {
-            foreach (var virtue in ability.Ability.VirtuesInfluencer.BuffedVirtues)
-            {
-                AddVirtueValue(virtue.Virtue, virtue.Value);
-            }
-            foreach (var virtue in ability.Ability.VirtuesInfluencer.DebuffedVirtues)
-            {
-                ReduceVirtueValue(virtue.Virtue, virtue.Value);
-            }
-        }
+        }   
 
         public void AddVirtueValue(VirtueModel virtue, byte value)
         {
@@ -95,12 +81,9 @@ namespace Core
         public bool Equals(Player other)
         {
             if (other == null) return false;
-            return ID == other.ID;
+            return GUID.Equals(other.GUID);
         }
 
-        public static implicit operator uint(Player player)
-        {
-            return player.ID;
-        }
+        public class Factory : PlaceholderFactory<string, Player> { }
     }
 }

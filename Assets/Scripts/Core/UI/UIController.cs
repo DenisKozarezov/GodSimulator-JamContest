@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 using TMPro;
-using RotaryHeart.Lib.SerializableDictionary;
 using Core.Infrastructure;
 using Core.Models;
 
@@ -15,20 +15,17 @@ namespace Core.UI
         private GameObject _cityMiniPanel;
         [SerializeField]
         private TextMeshProUGUI _selectStartCityLabel;
-        [SerializeField]
-        private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
         private bool _selectionMode;
   
         private SignalBus _signalBus;
-        private Vector2 _cursorSize;
-        private CursorMode _cursorMode;
+        private UISettings _settings;
+        private Vector2 CursorSize => _settings.CursorSize * 0.5f;
 
         [Inject]
         public void Construct(SignalBus signalBus, UISettings settings)
         {
             _signalBus = signalBus;
-            _cursorSize = settings.CursorSize * 0.5f;
-            _cursorMode = settings.CursorMode;
+            _settings = settings;
         }
         private void Awake()
         {
@@ -42,6 +39,12 @@ namespace Core.UI
             _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
             _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
             _signalBus.Subscribe<PlayerSelectedStartCitySignal>(OnPlayerSelectedStartCity);
+
+#if UNITY_EDITOR
+            Assert.IsNotNull(_playerView);
+            Assert.IsNotNull(_cityMiniPanel);
+            Assert.IsNotNull(_selectStartCityLabel);
+#endif
         }
         private void OnDestroy()
         {
@@ -106,7 +109,7 @@ namespace Core.UI
 
         private void SetCursor(CursorType cursorType)
         {
-            Cursor.SetCursor(_cursors[cursorType], _cursorSize, _cursorMode);
+            Cursor.SetCursor(_settings.CursorStates[cursorType], CursorSize, _settings.CursorMode);
         }
         private void SetSelectionMode(bool isSelected)
         {

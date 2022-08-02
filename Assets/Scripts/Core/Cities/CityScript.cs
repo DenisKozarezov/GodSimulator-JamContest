@@ -124,6 +124,7 @@ namespace Core.Cities
             temple.Construct(SignalBus, _mapController);
             temple.SetVirtue(virtue);
             _icon.sprite = _icons[CityStatus.Temple];
+            _icon.material.SetColor("_Color", Owner.Color);
             _currentStrategy = temple;
         }
         public void DestroyCity()

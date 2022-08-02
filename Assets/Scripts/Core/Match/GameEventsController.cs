@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 using Core.Infrastructure;
 using Core.Cities;
@@ -48,6 +49,10 @@ namespace Core.Match
         private void Awake()
         {
             _sacrifices = Utils.CreateLazyArray<SacrificeModel>("Scriptable Objects/Sacrifices");
+
+#if UNITY_EDITOR
+            Assert.IsNotNull(_chooseForm);
+#endif
         }
         private void Start()
         {
@@ -165,8 +170,8 @@ namespace Core.Match
             if (!_gameSettings.RandomStartCitySelect)
             {
                 var selectedCity = await WaitForStartCitySelection();
+                selectedCity.SetOwner(GameController.MainPlayer);
                 selectedCity.BuildTemple(null);
-                selectedCity.SetOwner(new Player());
             }
 
             await Task.Delay(TimeSpan.FromSeconds(1f));

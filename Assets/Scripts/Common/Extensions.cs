@@ -54,19 +54,19 @@ namespace Core
                     yield return city;
             }
         }
-        public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, uint id)
+        public static IEnumerable<CityScript> ByOwner(this IEnumerable<CityScript> cities, Player owner)
         {
             foreach (var city in cities)
             {
-                if (city.Owner == id) yield return city;
+                if (city.Owner.Equals(owner)) yield return city;
             }
         }
-        public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, uint id)
+        public static IEnumerable<T> ByOwner<T>(this IEnumerable<T> cities, Player owner)
           where T : MonoBehaviour, ICityStrategy
         {
             foreach (var city in cities)
             {
-                if (city.City.Owner == id) yield return city;
+                if (city.City.Owner.Equals(owner)) yield return city;
             }
         }
         public static T Randomly<T>(this IEnumerable<T> cities)
