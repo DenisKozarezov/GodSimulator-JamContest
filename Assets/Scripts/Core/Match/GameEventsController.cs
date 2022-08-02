@@ -172,7 +172,7 @@ namespace Core.Match
             foreach (CityScript city in _cities)
             {
                 city.Interactable = true;
-                city.Select(true);
+                city.Select(InteractableView.SelectType.Strong);
             }
 
             // Wait for selection
@@ -184,7 +184,7 @@ namespace Core.Match
             // Make all others cities interactable
             foreach (CityScript city in _cities)
             {
-                city.Select(false);
+                city.Deselect();
             }
             _mapController.SetAllCitiesInteractable(true);
             return result;
