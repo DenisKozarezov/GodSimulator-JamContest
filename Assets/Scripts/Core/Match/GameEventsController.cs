@@ -24,6 +24,9 @@ namespace Core.Match
         private IEnumerable<CityScript> _cities;
         private Lazy<SacrificeModel[]> _sacrifices;
 
+        [SerializeField]
+        private GameObject _chooseForm;
+
         private TaskCompletionSource<CityScript> _selectStartCitySource;
         private CancellationTokenSource _gameTimerSource = new CancellationTokenSource();
         private CancellationTokenSource _sacrificeSource = new CancellationTokenSource();
@@ -48,6 +51,7 @@ namespace Core.Match
         }
         private void Start()
         {
+            _signalBus.Subscribe<SceneLoadedSignal>(SelectStartVirtueAndCity);
             _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Subscribe<GameStartedSignal>(SetApocalypseTimer);
             _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
@@ -59,6 +63,7 @@ namespace Core.Match
             _gameTimerSource?.Dispose();
             _sacrificeSource?.Cancel();
             _sacrificeSource?.Dispose();
+            _signalBus.Unsubscribe<SceneLoadedSignal>(SelectStartVirtueAndCity);
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<GameStartedSignal>(SetApocalypseTimer);
             _signalBus.Unsubscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
@@ -151,6 +156,22 @@ namespace Core.Match
 #if UNITY_EDITOR
             _logger.Log($"Player <b>{(accepted ? "<color=green>accepted" : "<color=red>denied")}</color></b> the sacrifice from <b><color=yellow>{city.name}</color></b>.", LogType.Game);
 #endif
+        }
+        private async void SelectStartVirtueAndCity()
+        {
+            var form = Instantiate(_chooseForm).GetComponentInChildren<UI.Forms.ChooseForm>();
+            await form.AwaitForConfirm();
+
+            if (!_gameSettings.RandomStartCitySelect)
+            {
+                var selectedCity = await WaitForStartCitySelection();
+                selectedCity.BuildTemple(null);
+                selectedCity.SetOwner(new Player());
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(1f));
+
+            _signalBus.Fire<GameStartedSignal>();
         }
         private IEnumerator SacrificeCoroutine()
         {

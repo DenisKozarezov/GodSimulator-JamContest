@@ -31,7 +31,6 @@ namespace Core.Infrastructure
 #endif
 
             Container.Bind<MapController>().FromInstance(_mapController).AsSingle();
-            Container.Bind<GameEventsController>().FromInstance(_eventsController).AsSingle();
             Container.BindInterfacesAndSelfTo<MovingBetweenCities>().AsSingle();
             Container.Bind<ITickable>().To<StandaloneInput>().AsCached();
         }

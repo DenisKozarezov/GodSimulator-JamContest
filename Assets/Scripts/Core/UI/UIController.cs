@@ -12,6 +12,8 @@ namespace Core.UI
         [SerializeField]
         private Animator _playerView;
         [SerializeField]
+        private GameObject _cityMiniPanel;
+        [SerializeField]
         private TextMeshProUGUI _selectStartCityLabel;
         [SerializeField]
         private SerializableDictionaryBase<CursorType, Texture2D> _cursors;
@@ -37,6 +39,7 @@ namespace Core.UI
             _signalBus.Subscribe<CityPointerEnterSignal>(OnCityPointerEnter);
             _signalBus.Subscribe<CityPointerExitSignal>(OnCityPointerExit);
             _signalBus.Subscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
+            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
             _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
             _signalBus.Subscribe<PlayerSelectedStartCitySignal>(OnPlayerSelectedStartCity);
         }
@@ -48,6 +51,7 @@ namespace Core.UI
             _signalBus.Unsubscribe<CityPointerEnterSignal>(OnCityPointerEnter);
             _signalBus.Unsubscribe<CityPointerExitSignal>(OnCityPointerExit);
             _signalBus.Unsubscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
+            _signalBus.Unsubscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
             _signalBus.Unsubscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
             _signalBus.Unsubscribe<PlayerSelectedStartCitySignal>(OnPlayerSelectedStartCity);
         }
@@ -94,6 +98,10 @@ namespace Core.UI
         {
             SetCursor(CursorType.Default);
             SetSelectionMode(false);
+        }
+        private void OnPlayerClickedOnCity(PlayerClickedOnCitySignal signal)
+        {
+            //var form = Instantiate(_cityMiniPanel, signal.View.transform);
         }
 
         private void SetCursor(CursorType cursorType)

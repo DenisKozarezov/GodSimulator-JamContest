@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1980, y: 1020}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -3282,6 +3282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerView: {fileID: 924201923}
+  _cityMiniPanel: {fileID: 7865603710034444554, guid: b93035fa4883c3945a9c995db1cbb31b, type: 3}
   _selectStartCityLabel: {fileID: 1397466291}
   _cursors:
     reorderableList:
@@ -4473,7 +4474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f5ec9c563e1044084a5226a1766f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chooseForm: {fileID: 2160261927364497098, guid: 9aabaabb863163646b18fd7d5d5770dc, type: 3}
 --- !u!114 &1904033321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4486,6 +4486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728708f0e73cfc74dbd57e8b0557db32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _chooseForm: {fileID: 2160261927364497098, guid: 9aabaabb863163646b18fd7d5d5770dc, type: 3}
 --- !u!1001 &1910163698
 PrefabInstance:
   m_ObjectHideFlags: 0
