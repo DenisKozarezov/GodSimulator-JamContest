@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a1fc30167611f4ca91f01065ddc907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _templeButton: {fileID: 4920619876925441610}
   _offsetY: 1
 --- !u!1 &6445825103783848790
 GameObject:

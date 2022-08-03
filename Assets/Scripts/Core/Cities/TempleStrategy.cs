@@ -15,7 +15,7 @@ namespace Core.Cities
         [SerializeField, Min(0f)]
         private float _minRange = 3f;
         [SerializeField, Min(0f)]
-        private float _priestsRate = 10f;
+        private float _priestsRate = 3f;
         [SerializeField]
         private byte _growthOfPriests = 1;
 
@@ -47,23 +47,16 @@ namespace Core.Cities
                 trigger.triggers.Add(new EventTrigger.Entry { eventID = EventTriggerType.BeginDrag });
                 trigger.triggers.Add(new EventTrigger.Entry { eventID = EventTriggerType.EndDrag });
             }
-            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
+
             _city = GetComponent<CityScript>();
             _rangeDecorator = new TempleRangeVirtueLevelDecorator(this);
-        }
-        private void OnDestroy()
-        {
-            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
+
+            _generatePriests = StartCoroutine(GeneratePriests());
+            IncreasePercentageOfFaithfulInOtherCities();
         }
         void ICityStrategy.Disable()
         {
             if (_generatePriests != null) StopCoroutine(_generatePriests);
-        }
-
-        private void OnGameStarted()
-        {
-            _generatePriests = StartCoroutine(GeneratePriests());
-            IncreasePercentageOfFaithfulInOtherCities();
         }
 
         private void IncreasePercentageOfFaithfulInOtherCities()

@@ -9,21 +9,30 @@ namespace Core.Infrastructure
     }
     public struct PlayerMovingPriestsSignal
     {
+        public Player Player;
         public TempleStrategy Temple;
         public CityScript Target;
         public ushort PriestsAmount;
         public float Duration;
+    }
+    public struct PlayerBuildingTempleSignal
+    {
+        public Player Player;
+        public CityScript City;
     }
     public struct PlayerSelectingStartCitySignal { }
     public struct PlayerSelectedStartCitySignal 
     {
         public CityScript View;
     }
-    public struct PlayerVictorySignal { }
+    public struct PlayerVictorySignal 
+    {
+        public Player Player;
+    }
 
     public interface IPlayerCastedAbility 
-    { 
-        Player Player { get; }
+    {
+        public Player Player { get; }
         AbilityModel Ability { get; } 
     }
     public struct PlayerClickedOnAbilitySignal

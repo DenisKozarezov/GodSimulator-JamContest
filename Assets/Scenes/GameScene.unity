@@ -3284,37 +3284,6 @@ MonoBehaviour:
   _playerView: {fileID: 924201923}
   _cityMiniPanel: {fileID: 7865603710034444554, guid: b93035fa4883c3945a9c995db1cbb31b, type: 3}
   _selectStartCityLabel: {fileID: 1397466291}
-  _cursors:
-    reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
-      isExpanded: 1
-      label:
-        m_Text: Keys
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
-      elementDisplayType: 0
-      elementNameProperty: 
-      elementNameOverride: 
-      elementIcon: {fileID: 0}
-    reqReferences: {fileID: 0}
-    isExpanded: 1
-    _keyValues: 0001020408
-    _keys: 0001020408
-    _values:
-    - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
-    - {fileID: 2800000, guid: 2260b238db6a6d04495c777ef73b2c91, type: 3}
-    - {fileID: 2800000, guid: 8fa3d469a78dd874c9448d810b813427, type: 3}
-    - {fileID: 2800000, guid: dd226102902802244bbf007bc2c942ab, type: 3}
-    - {fileID: 2800000, guid: dee896b33b850bb4598667842de2fb3a, type: 3}
 --- !u!1 &1606235833
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using Zenject;
 using TMPro;
 using Core.Infrastructure;
 using Core.Models;
+using Core.UI.Forms;
 
 namespace Core.UI
 { 
@@ -12,11 +13,10 @@ namespace Core.UI
         [SerializeField]
         private Animator _playerView;
         [SerializeField]
-        private GameObject _cityMiniPanel;
-        [SerializeField]
         private TextMeshProUGUI _selectStartCityLabel;
         private bool _selectionMode;
-  
+
+        private CityMiniPanel _miniPanelForm;
         private SignalBus _signalBus;
         private UISettings _settings;
         private Vector2 CursorSize => _settings.CursorSize * 0.5f;
@@ -30,25 +30,21 @@ namespace Core.UI
         private void Awake()
         {
             SetCursor(CursorType.Default);
-            _signalBus.Subscribe<SceneLoadedSignal>(OnSceneLoaded);
-            _signalBus.Subscribe<TempleDragBeginSignal>(OnTempleDragBegin);
-            _signalBus.Subscribe<TempleDragEndSignal>(OnTempleDragEnd);
+            _signalBus.Subscribe<SceneLoadedSignal>(OnSceneLoaded);       
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Subscribe<CityPointerEnterSignal>(OnCityPointerEnter);
-            _signalBus.Subscribe<CityPointerExitSignal>(OnCityPointerExit);
-            _signalBus.Subscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
-            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
-            _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
+            _signalBus.Subscribe<CityPointerExitSignal>(OnCityPointerExit);          
             _signalBus.Subscribe<PlayerSelectedStartCitySignal>(OnPlayerSelectedStartCity);
 
 #if UNITY_EDITOR
             Assert.IsNotNull(_playerView);
-            Assert.IsNotNull(_cityMiniPanel);
             Assert.IsNotNull(_selectStartCityLabel);
 #endif
         }
         private void OnDestroy()
         {
             _signalBus.Unsubscribe<SceneLoadedSignal>(OnSceneLoaded);
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<TempleDragBeginSignal>(OnTempleDragBegin);
             _signalBus.Unsubscribe<TempleDragEndSignal>(OnTempleDragEnd);
             _signalBus.Unsubscribe<CityPointerEnterSignal>(OnCityPointerEnter);
@@ -62,6 +58,14 @@ namespace Core.UI
         private void OnSceneLoaded()
         {
             Cursor.visible = true;
+        }
+        private void OnGameStarted()
+        {
+            _signalBus.Subscribe<TempleDragBeginSignal>(OnTempleDragBegin);
+            _signalBus.Subscribe<TempleDragEndSignal>(OnTempleDragEnd);
+            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
+            _signalBus.Subscribe<PlayerClickedOnAbilitySignal>(OnPlayerClickedOnAbility);
+            _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerUsedTargetAbility);
         }
         private void OnPlayerSelectedStartCity()
         {
@@ -104,7 +108,20 @@ namespace Core.UI
         }
         private void OnPlayerClickedOnCity(PlayerClickedOnCitySignal signal)
         {
-            //var form = Instantiate(_cityMiniPanel, signal.View.transform);
+            if (_miniPanelForm != null)
+            {
+                _miniPanelForm?.Close();
+                _miniPanelForm = null;
+            }
+
+            if (!signal.View.CanBuildTemple) return;
+
+            _miniPanelForm = (CityMiniPanel)CityMiniPanel.CreateForm(signal.View);
+            _miniPanelForm.BuildTemple += () => _signalBus.Fire(new PlayerBuildingTempleSignal
+            {
+                City = signal.View,
+                Player = Match.GameController.MainPlayer
+            });
         }
 
         private void SetCursor(CursorType cursorType)

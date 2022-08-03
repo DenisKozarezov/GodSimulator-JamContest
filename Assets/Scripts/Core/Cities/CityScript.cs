@@ -44,6 +44,10 @@ namespace Core.Cities
 
         public ushort PriestsAmount => _priestsAmount;
         public Player Owner => _owner;
+        public bool CanBuildTemple
+        {
+            get => _currentStrategy is not TempleStrategy && _priestsAmount >= 10;
+        }
         public override bool Interactable
         {
             get => _interactable;

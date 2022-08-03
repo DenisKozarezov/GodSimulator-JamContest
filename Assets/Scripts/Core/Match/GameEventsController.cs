@@ -59,8 +59,8 @@ namespace Core.Match
             _signalBus.Subscribe<SceneLoadedSignal>(SelectStartVirtueAndCity);
             _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Subscribe<GameStartedSignal>(SetApocalypseTimer);
-            _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
-            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
+            _signalBus.Subscribe<PlayerBuildingTempleSignal>(OnPlayerBuildingTemple);      
+            _signalBus.Subscribe<PlayerClickedOnCitySignal>(OnPlayerSelectedStartCity);
         }
         private void OnDestroy()
         {
@@ -71,12 +71,14 @@ namespace Core.Match
             _signalBus.Unsubscribe<SceneLoadedSignal>(SelectStartVirtueAndCity);
             _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<GameStartedSignal>(SetApocalypseTimer);
+            _signalBus.Unsubscribe<PlayerBuildingTempleSignal>(OnPlayerBuildingTemple);
             _signalBus.Unsubscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
-            _signalBus.Unsubscribe<PlayerClickedOnCitySignal>(OnPlayerClickedOnCity);
+            _signalBus.TryUnsubscribe<PlayerClickedOnCitySignal>(OnPlayerSelectedStartCity);
         }
 
         private void OnGameStarted()
         {
+            _signalBus.Subscribe<PlayerCastedTargetAbilitySignal>(OnPlayerCastedAbility);
             if (_sacrificeSettings.EnableSacrifices)
             {
                 StartCoroutine(SacrificeCoroutine());
@@ -95,7 +97,7 @@ namespace Core.Match
             }
             var effect = GameObject.Instantiate(prefab, signal.Target.transform.position, Quaternion.identity);
         }
-        private void OnPlayerClickedOnCity(PlayerClickedOnCitySignal signal)
+        private void OnPlayerSelectedStartCity(PlayerClickedOnCitySignal signal)
         {
             if (_selectStartCitySource != null && _cities.Contains(signal.View))
             {
@@ -104,7 +106,14 @@ namespace Core.Match
 #endif
                 _selectStartCitySource.SetResult(signal.View);
                 _selectStartCitySource = null;
+                _signalBus?.Unsubscribe<PlayerClickedOnCitySignal>(OnPlayerSelectedStartCity);
             }
+        }
+        private void OnPlayerBuildingTemple(PlayerBuildingTempleSignal signal)
+        {
+            signal.City.SetOwner(signal.Player);
+            signal.City.BuildTemple(null);
+            signal.City.ClearPriests();
         }
         private void OnCityDestroyedWhileSarifice()
         {
@@ -170,8 +179,11 @@ namespace Core.Match
             if (!_gameSettings.RandomStartCitySelect)
             {
                 var selectedCity = await WaitForStartCitySelection();
-                selectedCity.SetOwner(GameController.MainPlayer);
-                selectedCity.BuildTemple(null);
+                _signalBus.Fire(new PlayerBuildingTempleSignal
+                {
+                    City = selectedCity,
+                    Player = GameController.MainPlayer
+                });
             }
 
             await Task.Delay(TimeSpan.FromSeconds(1f));

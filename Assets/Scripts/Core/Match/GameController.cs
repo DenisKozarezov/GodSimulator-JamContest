@@ -28,12 +28,13 @@ namespace Core.Match
         }
         private void Start()
         {
-            _signalBus.Subscribe<IPlayerCastedAbility>(OnAbilityCasted);
+            _signalBus.Subscribe<GameStartedSignal>(OnGameStarted);
             AddPlayer(Color.green);
             MainPlayer = _players.Values.First();
         }
         private void OnDestroy()
         {
+            _signalBus.Unsubscribe<GameStartedSignal>(OnGameStarted);
             _signalBus.Unsubscribe<IPlayerCastedAbility>(OnAbilityCasted);
             _players.Clear();
             SceneController.SceneLoaded -= OnSceneLoaded;        
@@ -42,10 +43,14 @@ namespace Core.Match
         {
             _signalBus.Fire(new SceneLoadedSignal { Scene = scene });
         }
+        private void OnGameStarted()
+        {
+            _signalBus.Subscribe<IPlayerCastedAbility>(OnAbilityCasted);
+        }
         private void OnAbilityCasted(IPlayerCastedAbility ability)
         {
-            string GUID = ability.Player.GUID;
-            if (_players.TryGetValue(GUID, out Player player))
+            string guid = ability.Player.GUID;
+            if (_players.TryGetValue(guid, out Player player))
             {
                 var influencer = ability.Ability.VirtuesInfluencer;
                 foreach (var virtue in influencer.BuffedVirtues)

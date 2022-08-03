@@ -106,6 +106,7 @@ namespace Core.Cities
 
             _signalBus.Fire(new PlayerMovingPriestsSignal
             {
+                Player = Match.GameController.MainPlayer,
                 Temple = signal.Temple,
                 Target = signal.Target,
                 Duration = 10f,
